@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\2017_07\SignLanguage2015\Super4PCS-master\Super4PCS-master\src\super4pcs\utils\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\2017_07\SignLanguage2015\Super4PCS-master\Super4PCS-master\src\super4pcs\utils\timer.h">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="D:\2017_07\SignLanguage2015\Super4PCS-master\Super4PCS-master\src\super4pcs\utils\geometry.h">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="D:\2017_07\SignLanguage2015\Super4PCS-master\Super4PCS-master\src\super4pcs\utils\disablewarnings.h">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="D:\2017_07\SignLanguage2015\Super4PCS-master\Super4PCS-master\src\super4pcs\utils\logger.h">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{FE31265E-72AF-34AA-A8F1-EA8D33ED6E5D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

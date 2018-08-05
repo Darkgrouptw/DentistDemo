@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="原始程式檔">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="標頭檔">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -13,18 +9,155 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="標頭檔\Math">
+      <UniqueIdentifier>{e05f3fcb-ef8e-4826-b87e-22906cc2d2d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="原始程式檔\Math">
+      <UniqueIdentifier>{389ffea6-1d9b-4d6b-9f45-9b81efcf3f79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyForm.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="DevUtils.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="GLManager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="GloveData.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="GLModelNode.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\LoadShaders.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\objloader.hpp">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelList.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="DotNetUtilities.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemManager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="KalmanFilter.h">
+      <Filter>標頭檔\Math</Filter>
+    </ClInclude>
     <ClInclude Include="MyForm.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="TRcuda.cuh">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="GLCamera.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\include\Math\BasicMath.h">
+      <Filter>標頭檔\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\Include\Math\Matrix3.h">
+      <Filter>標頭檔\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\Include\Math\Matrix4.h">
+      <Filter>標頭檔\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\Include\Math\Plane.h">
+      <Filter>標頭檔\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\nclude\Math\Quaternion.h">
+      <Filter>標頭檔\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\Include\Math\Vector2.h">
+      <Filter>標頭檔\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\Include\Math\Vector3.h">
+      <Filter>標頭檔\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\Include\Math\Vector4.h">
+      <Filter>標頭檔\Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="MyForm.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="BleCallbackHandler.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="GLManager.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="GloveData.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="GLModelNode.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="DotNetUtilities.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemManager.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="GLCamera.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\Math\Vector4.cpp">
+      <Filter>原始程式檔\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\Math\Vector3.cpp">
+      <Filter>原始程式檔\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\Math\Vector2.cpp">
+      <Filter>原始程式檔\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\Math\Quaternion.cpp">
+      <Filter>原始程式檔\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\Math\Plane.cpp">
+      <Filter>原始程式檔\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\Math\Matrix4.cpp">
+      <Filter>原始程式檔\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\Math\Matrix3.cpp">
+      <Filter>原始程式檔\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\Math\Math.cpp">
+      <Filter>原始程式檔\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\LoadShaders.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OtherPackages\Include\objloader.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MyForm.resx">
+      <Filter>資源檔</Filter>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="TRcuda.cu">
+      <Filter>原始程式檔</Filter>
+    </CudaCompile>
   </ItemGroup>
 </Project>
