@@ -91,7 +91,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\OtherPackages\Include;..\OtherPackages\Super4PCS\Eigen\Eigen\src;..\OtherPackages\OpenCV\Include;..\OtherPackages\OpenCV\Include\opencv;..\OtherPackages\Super4PCS\include\algorithms;..\OtherPackages\Super4PCS\include\io;..\OtherPackages\Super4PCS\include;..\OtherPackages;$(IncludePath)</IncludePath>
+    <IncludePath>..\OtherPackages\Include;..\OtherPackages\Super4PCS\Eigen\Eigen\src;..\OtherPackages\OpenCV\Include;..\OtherPackages\OpenCV\Include\opencv;..\OtherPackages\Super4PCS\include\super4pcs\algorithms;..\OtherPackages\Super4PCS\include\super4pcs\io;..\OtherPackages\Super4PCS\include;..\OtherPackages;$(IncludePath)</IncludePath>
     <LibraryPath>..\OtherPackages\Lib\x64;..\OtherPackages\Super4PCS\lib;..\OtherPackages\Super4PCS\lib\algorithms\Release;..\OtherPackages\Super4PCS\lib\io\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -139,6 +139,9 @@
     <Link>
       <AdditionalDependencies>glew32.lib;opengl32.lib;glu32.lib;cuda.lib;cudart.lib;cufft.lib;OCT64C.lib;opencv_world330.lib;Super4PCS.lib;super4pcs_algo.lib;super4pcs_io.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CudaCompile>
+      <CodeGeneration>compute_30,sm_30</CodeGeneration>
+    </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2">
@@ -149,6 +152,7 @@
     </Reference>
     <Reference Include="HKOGLPanel">
       <HintPath>..\OtherPackages\DLL\HKOGLPanel.dll</HintPath>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -180,7 +184,7 @@
     <ClCompile Include="SystemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\LoadShaders.h" />
+    <ClInclude Include="..\OtherPackages\Include\LoadShaders.h" />
     <ClInclude Include="..\OtherPackages\include\Math\BasicMath.h" />
     <ClInclude Include="..\OtherPackages\Include\Math\Matrix3.h" />
     <ClInclude Include="..\OtherPackages\Include\Math\Matrix4.h" />
@@ -189,7 +193,7 @@
     <ClInclude Include="..\OtherPackages\Include\Math\Vector2.h" />
     <ClInclude Include="..\OtherPackages\Include\Math\Vector3.h" />
     <ClInclude Include="..\OtherPackages\Include\Math\Vector4.h" />
-    <ClInclude Include="..\include\objloader.hpp" />
+    <ClInclude Include="..\OtherPackages\Include\objloader.hpp" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DevUtils.h" />
     <ClInclude Include="DotNetUtilities.h" />

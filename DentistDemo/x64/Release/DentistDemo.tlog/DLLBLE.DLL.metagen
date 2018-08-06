@@ -1,0 +1,2332 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly dllBLE, Version=1.0.*, Culture=不因語言而異 (不因國別而異): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class CommManager.FP_ReceiveDataInd: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Byte[], UInt32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Byte[], UInt32, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class dllBLE.BLECallbacks: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    BLECallback_DeviceInitDone Callback_DeviceInitDone 'get set' : 
+    BLECallback_DeviceCloseDone Callback_DeviceCloseDone 'get set' : 
+    BLECallback_DeviceDiscovered Callback_DeviceDiscovered 'get set' : 
+    BLECallback_EstablishLinkDone Callback_EstablishLinkDone 'get set' : 
+    BLECallback_TerminateLinkDone Callback_TerminateLinkDone 'get set' : 
+    BLECallback_HandleValueNotification Callback_HandleValueNotification 'get set' : 
+    BLECallback_HandleCheckNotifyStatus Callback_HandleCheckNotifyStatus 'get set' : 
+    BLECallback_HandleChangeNotifyStatus Callback_HandleChangeNotifyStatus 'get set' : 
+  Methods:
+    get_Callback_DeviceInitDone(): PrivateScope, Public, HideBySig, SpecialName
+    set_Callback_DeviceInitDone(BLECallback_DeviceInitDone): PrivateScope, Public, HideBySig, SpecialName
+    RegisterCallback_DeviceInitDone(BLECallback_DeviceInitDone): PrivateScope, Public, HideBySig
+    UnregisterCallback_DeviceInitDone(): PrivateScope, Public, HideBySig
+    get_Callback_DeviceCloseDone(): PrivateScope, Public, HideBySig, SpecialName
+    set_Callback_DeviceCloseDone(BLECallback_DeviceCloseDone): PrivateScope, Public, HideBySig, SpecialName
+    RegisterCallback_DeviceCloseDone(BLECallback_DeviceCloseDone): PrivateScope, Public, HideBySig
+    UnregisterCallback_DeviceCloseDone(): PrivateScope, Public, HideBySig
+    get_Callback_DeviceDiscovered(): PrivateScope, Public, HideBySig, SpecialName
+    set_Callback_DeviceDiscovered(BLECallback_DeviceDiscovered): PrivateScope, Public, HideBySig, SpecialName
+    RegisterCallback_DeviceDiscovered(BLECallback_DeviceDiscovered): PrivateScope, Public, HideBySig
+    UnregisterCallback_DeviceDiscovered(): PrivateScope, Public, HideBySig
+    get_Callback_EstablishLinkDone(): PrivateScope, Public, HideBySig, SpecialName
+    set_Callback_EstablishLinkDone(BLECallback_EstablishLinkDone): PrivateScope, Public, HideBySig, SpecialName
+    RegisterCallback_EstablishLinkDone(BLECallback_EstablishLinkDone): PrivateScope, Public, HideBySig
+    UnregisterCallback_EstablishLinkDone(): PrivateScope, Public, HideBySig
+    get_Callback_TerminateLinkDone(): PrivateScope, Public, HideBySig, SpecialName
+    set_Callback_TerminateLinkDone(BLECallback_TerminateLinkDone): PrivateScope, Public, HideBySig, SpecialName
+    RegisterCallback_TerminateLinkDone(BLECallback_TerminateLinkDone): PrivateScope, Public, HideBySig
+    UnregisterCallback_TerminateLinkDone(): PrivateScope, Public, HideBySig
+    get_Callback_HandleValueNotification(): PrivateScope, Public, HideBySig, SpecialName
+    set_Callback_HandleValueNotification(BLECallback_HandleValueNotification): PrivateScope, Public, HideBySig, SpecialName
+    RegisterCallback_HandleValueNotification(BLECallback_HandleValueNotification): PrivateScope, Public, HideBySig
+    UnregisterCallback_HandleValueNotification(): PrivateScope, Public, HideBySig
+    get_Callback_HandleCheckNotifyStatus(): PrivateScope, Public, HideBySig, SpecialName
+    set_Callback_HandleCheckNotifyStatus(BLECallback_HandleCheckNotifyStatus): PrivateScope, Public, HideBySig, SpecialName
+    RegisterCallback_HandleCheckNotifyStatus(BLECallback_HandleCheckNotifyStatus): PrivateScope, Public, HideBySig
+    UnregisterCallback_HandleCheckNotifyStatus(): PrivateScope, Public, HideBySig
+    get_Callback_HandleChangeNotifyStatus(): PrivateScope, Public, HideBySig, SpecialName
+    set_Callback_HandleChangeNotifyStatus(BLECallback_HandleChangeNotifyStatus): PrivateScope, Public, HideBySig, SpecialName
+    RegisterCallback_HandleChangeNotifyStatus(BLECallback_HandleChangeNotifyStatus): PrivateScope, Public, HideBySig
+    UnregisterCallback_HandleChangeNotifyStatus(): PrivateScope, Public, HideBySig
+Class dllBLE.HCICmds: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String[,] OpCodeLookupTable : Public
+    Byte CmdHdrSize = 4 : Public, Static, Literal, HasDefault
+    UInt16 CmdRspReqOCodeMask = 255 : Public, Static, Literal, HasDefault
+    System.String ZeroXStr = 0x : Public, Static, Literal, HasDefault
+    Byte EvtHdrSize = 3 : Public, Static, Literal, HasDefault
+    System.String EmptyBDAStr = 00:00:00:00:00:00 : Public, Static, Literal, HasDefault
+    System.String Empty16BytesStr = 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00 : Public, Static, Literal, HasDefault
+    System.String Empty8BytesStr = 00:00:00:00:00:00:00:00 : Public, Static, Literal, HasDefault
+    System.String Empty2BytesStr = 00:00 : Public, Static, Literal, HasDefault
+    UInt16 MaxUInt16 = 65535 : Public, Static, Literal, HasDefault
+Class dllBLE.DeviceInfo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String DeviceAddress 'get set' : 
+    System.String DeviceName 'get set' : 
+  Methods:
+    get_DeviceAddress(): PrivateScope, Public, HideBySig, SpecialName
+    set_DeviceAddress(String): PrivateScope, Public, HideBySig, SpecialName
+    get_DeviceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_DeviceName(String): PrivateScope, Public, HideBySig, SpecialName
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+Class dllBLE.BluetoothLeDevice: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :dllBLE.BLECallbacks
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    UInt16 msgConnHandle : Public
+    Int32 hCountMaster : Public
+    Int32 hCountSlave : Public
+    ConnectInfo connectData : Public
+    Byte Notification_Start : Public, Static
+    Byte Notification_Stop : Public, Static
+    Int32 Base16 = 16 : Public, Static, Literal, HasDefault
+  Properties:
+    Boolean IsInitialized 'get ' : 
+    Boolean IsEstablished 'get ' : 
+    Boolean IsNotifying 'get ' : 
+  Methods:
+    get_IsInitialized(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsEstablished(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsNotifying(): PrivateScope, Public, HideBySig, SpecialName
+    Initialize(String): PrivateScope, Public, HideBySig
+    Close(): PrivateScope, Public, HideBySig
+    Scan(): PrivateScope, Public, HideBySig
+    ScanCancel(): PrivateScope, Public, HideBySig
+    Establish(DeviceInfo): PrivateScope, Public, HideBySig
+    Terminate(): PrivateScope, Public, HideBySig
+    CheckNotificationStatus(): PrivateScope, Public, HideBySig
+    StartNotification(): PrivateScope, Public, HideBySig
+    StopNotification(): PrivateScope, Public, HideBySig
+    Reset(CmdCode): PrivateScope, Public, HideBySig
+    GetEstablishedDevice(): PrivateScope, Public, HideBySig
+    SetDisplayMessage(Boolean): PrivateScope, Public, HideBySig
+    handle_ATT_Notification(DeviceInfo, UInt16, Byte[]): PrivateScope, Public, HideBySig
+    handle_ATT_Indication(String, Byte[]): PrivateScope, Public, HideBySig
+    handle_ATT_ReadRsp(DeviceInfo, Byte, Byte[]): PrivateScope, Public, HideBySig
+    handle_ATT_WriteRsp(DeviceInfo, Byte): PrivateScope, Public, HideBySig
+    handle_ATT_ErrorRsp(UInt16): PrivateScope, Public, HideBySig
+    handle_ATT_FindInfoRsp(Int32, Int32, Byte[], UInt16): PrivateScope, Public, HideBySig
+    handle_ATT_FindByTypeValueReq(): PrivateScope, Public, HideBySig
+    handle_ATT_ReadByTypeReq(): PrivateScope, Public, HideBySig
+    handle_GAP_DeviceInitDone(String): PrivateScope, Public, HideBySig
+    handle_GAP_DeviceInformation(Byte[], String): PrivateScope, Public, HideBySig
+    handle_GAP_EstablishLink(DeviceInfo, Byte): PrivateScope, Public, HideBySig
+    handle_GAP_TerminateLink(DeviceInfo, Byte, Boolean): PrivateScope, Public, HideBySig
+    handle_GAP_PasskeyNeeded(): PrivateScope, Public, HideBySig
+    handle_GAP_AuthenticationComplete(): PrivateScope, Public, HideBySig
+    DisplayTxCommand(String, Byte, UInt16, Byte, Byte[]): PrivateScope, Public, HideBySig
+Class dllBLE.BLECallbacks+BLECallback_DeviceInitDone: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(String, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class dllBLE.BLECallbacks+BLECallback_DeviceCloseDone: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(String, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class dllBLE.BLECallbacks+BLECallback_DeviceDiscovered: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(DeviceInfo): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(DeviceInfo, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class dllBLE.BLECallbacks+BLECallback_EstablishLinkDone: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(DeviceInfo, Byte): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(DeviceInfo, Byte, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class dllBLE.BLECallbacks+BLECallback_TerminateLinkDone: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(DeviceInfo, Byte, Boolean): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(DeviceInfo, Byte, Boolean, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class dllBLE.BLECallbacks+BLECallback_HandleValueNotification: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(DeviceInfo, Byte[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(DeviceInfo, Byte[], AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class dllBLE.BLECallbacks+BLECallback_HandleCheckNotifyStatus: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(DeviceInfo, Boolean): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(DeviceInfo, Boolean, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class dllBLE.BLECallbacks+BLECallback_HandleChangeNotifyStatus: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(DeviceInfo, Boolean): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(DeviceInfo, Boolean, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Struct dllBLE.HCICmds+GAP_Profile: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_Profile Broadcaster = 1 : Public, Static, Literal, HasDefault
+    GAP_Profile Observer = 2 : Public, Static, Literal, HasDefault
+    GAP_Profile Peripheral = 4 : Public, Static, Literal, HasDefault
+    GAP_Profile Central = 8 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_EnableDisable: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_EnableDisable Disable = 0 : Public, Static, Literal, HasDefault
+    GAP_EnableDisable Enable = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_TrueFalse: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_TrueFalse False = 0 : Public, Static, Literal, HasDefault
+    GAP_TrueFalse True = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_YesNo: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_YesNo No = 0 : Public, Static, Literal, HasDefault
+    GAP_YesNo Yes = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_ChannelMap: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_ChannelMap Channel_37 = 0 : Public, Static, Literal, HasDefault
+    GAP_ChannelMap Channel_38 = 1 : Public, Static, Literal, HasDefault
+    GAP_ChannelMap Channel_39 = 2 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_FilterPolicy: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_FilterPolicy GAP_FILTER_POLICY_ALL = 0 : Public, Static, Literal, HasDefault
+    GAP_FilterPolicy GAP_FILTER_POLICY_WHITE_SCAN = 1 : Public, Static, Literal, HasDefault
+    GAP_FilterPolicy GAP_FILTER_POLICY_WHITE_CON = 2 : Public, Static, Literal, HasDefault
+    GAP_FilterPolicy GAP_FILTER_POLICY_WHITE = 3 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+PacketType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    PacketType Command = 1 : Public, Static, Literal, HasDefault
+    PacketType AsyncData = 2 : Public, Static, Literal, HasDefault
+    PacketType SyncData = 3 : Public, Static, Literal, HasDefault
+    PacketType Event = 4 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCICmdOpcode: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCICmdOpcode HCIExt_SetRxGain = 64512 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_SetTxPower = 64513 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_OnePktPerEvt = 64514 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_ClkDivideOnHalt = 64515 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_DelayPostProc = 64516 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_Decrypt = 64517 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_SetLocalSupportedFeatures = 64518 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_SetFastTxRespTime = 64519 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_ModemTestTx = 64520 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_ModemHopTestTx = 64521 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_ModemTestRx = 64522 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_EndModemTest = 64523 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIExt_SetBDADDRCmd = 64524 : Public, Static, Literal, HasDefault
+    HCICmdOpcode L2CAP_InfoReq = 64650 : Public, Static, Literal, HasDefault
+    HCICmdOpcode L2CAP_ConnParamUpdateReq = 64658 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ErrorRsp = 64769 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ExchangeMTUReq = 64770 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ExchangeMTURsp = 64771 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_FindInfoReq = 64772 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_FindInfoRsp = 64773 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_FindByTypeValueReq = 64774 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_FindByTypeValueRsp = 64775 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadByTypeReq = 64776 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadByTypeRsp = 64777 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadReq = 64778 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadRsp = 64779 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadBlobReq = 64780 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadBlobRsp = 64781 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadMultiReq = 64782 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadMultiRsp = 64783 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadByGrpTypeReq = 64784 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ReadByGrpTypeRsp = 64785 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_WriteReq = 64786 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_WriteRsp = 64787 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_PrepareWriteReq = 64790 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_PrepareWriteRsp = 64791 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ExecuteWriteReq = 64792 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_ExecuteWriteRsp = 64793 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_HandleValueNotification = 64795 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_HandleValueIndication = 64797 : Public, Static, Literal, HasDefault
+    HCICmdOpcode ATT_HandleValueConfirmation = 64798 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GATT_DiscCharsByUUID = 64904 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GATT_WriteLong = 64918 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GATT_AddService = 65020 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GATT_DelService = 65021 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GATT_AddAttribute = 65022 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_DeviceInit = 65024 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_ConfigDeviceAddr = 65027 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_DeviceDiscoveryRequest = 65028 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_DeviceDiscoveryCancel = 65029 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_MakeDiscoverable = 65030 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_UpdateAdvertisingData = 65031 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_EndDiscoverable = 65032 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_EstablishLinkRequest = 65033 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_TerminateLinkRequest = 65034 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_Authenticate = 65035 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_PasskeyUpdate = 65036 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_SlaveSecurityRequest = 65037 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_Signable = 65038 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_Bond = 65039 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_TerminateAuth = 65040 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_UpdateLinkParamReq = 65041 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_SetParam = 65072 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_GetParam = 65073 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_ResolvePrivateAddr = 65074 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_SetAdvToken = 65075 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_RemoveAdvToken = 65076 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_UpdateAdvTokens = 65077 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_BondSetParam = 65078 : Public, Static, Literal, HasDefault
+    HCICmdOpcode GAP_BondGetParam = 65079 : Public, Static, Literal, HasDefault
+    HCICmdOpcode UTIL_Reset = 65152 : Public, Static, Literal, HasDefault
+    HCICmdOpcode UTIL_NVRead = 65153 : Public, Static, Literal, HasDefault
+    HCICmdOpcode UTIL_NVWrite = 65154 : Public, Static, Literal, HasDefault
+    HCICmdOpcode HCIStatus_ReadRSSI = 5125 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIEvtOpCode: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIEvtOpCode HCIExt_SetRxGainDone = 1024 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_SetTxPowerDone = 1025 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_OnePktPerEvtDone = 1026 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_ClkDivideOnHaltDone = 1027 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_DelayPostProcDone = 1028 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_DecryptDone = 1029 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_SetLocalSupportedFeaturesDone = 1030 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_SetFastTxRespTimeDone = 1031 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_ModemTestTxDone = 1032 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_ModemHopTestTxDone = 1033 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_ModemTestRxDone = 1034 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_EndModemTestDone = 1035 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode HCIExt_SetBDADDRCmdDone = 1036 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode L2CAP_CmdReject = 1153 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode L2CAP_InfoRsp = 1163 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode L2CAP_ConnParamUpdateRsp = 1171 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ErrorRsp = 1281 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ExchangeMTUReq = 1282 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ExchangeMTURsp = 1283 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_FindInfoReq = 1284 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_FindInfoRsp = 1285 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_FindByTypeValueReq = 1286 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_FindByTypeValueRsp = 1287 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadByTypeReq = 1288 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadByTypeRsp = 1289 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadReq = 1290 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadRsp = 1291 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadBlobReq = 1292 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadBlobRsp = 1293 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadMultiReq = 1294 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadMultiRsp = 1295 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadByGrpTypeReq = 1296 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ReadByGrpTypeRsp = 1297 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_WriteReq = 1298 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_WriteRsp = 1299 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_PrepareWriteReq = 1302 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_PrepareWriteRsp = 1303 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ExecuteWriteReq = 1304 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_ExecuteWriteRsp = 1305 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_HandleValueNotification = 1307 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_HandleValueIndication = 1309 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode ATT_HandleValueConfirmation = 1310 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_DeviceInitDone = 1536 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_DeviceDiscoveryDone = 1537 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_AdvertDataUpdate = 1538 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_MakeDiscoverable = 1539 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_EndDiscoverable = 1540 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_EstablishLink = 1541 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_TerminateLink = 1542 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_LinkParamUpdate = 1543 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_RandomAddressChange = 1544 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_SignatureUpdate = 1545 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_AuthenticationComplete = 1546 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_PasskeyNeeded = 1547 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_SlaveRequestedSecurity = 1548 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_DeviceInformation = 1549 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_BondComplete = 1550 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_PairingRequested = 1551 : Public, Static, Literal, HasDefault
+    HCIEvtOpCode GAP_HCI_ExtentionCommandStatus = 1663 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIEvtCode: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIEvtCode HCI_InquiryCompleteEvent = 1 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_InquiryResultEvent = 2 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ConnectionCompleteEvent = 3 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ConnectionRequestEvent = 4 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_DisconnectionCompleteEvent = 5 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_AuthenticationCompleteEvent = 6 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_RemoteNameRequestCompleteEvent = 7 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_EncryptionChangeEvent = 8 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ChangeConnectionLinkKeyCompleteEvent = 9 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_MasterLinkKeyCompleteEvent = 10 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ReadRemoteSupportedFeaturesCompleteEvent = 11 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ReadRemoteVersionInformationCompleteEvent = 12 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_QoSSetupCompleteEvent = 13 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_CommandCompleteEvent = 14 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_CommandStatusEvent = 15 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_HardwareErrorEvent = 16 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_FlushOccurredEvent = 17 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_RoleChangeEvent = 18 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_NumberOfCompletedPacketsEvent = 19 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ModeChangeEvent = 20 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ReturnLinkKeysEvent = 21 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_PINCodeRequestEvent = 22 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_LinkKeyRequestEvent = 23 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_LinkKeyNotificationEvent = 24 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_LoopbackCommandEvent = 25 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_DataBufferOverflowEvent = 26 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_MaxSlotsChangeEvent = 27 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ReadClockOffsetCompleteEvent = 28 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ConnectionPacketTypeChangedEvent = 29 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_QoSViolationEvent = 30 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_PageScanModeChangeEvent = 31 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_PageScanRepetitionModeChangeEvent = 32 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_FlowSpecificationCompleteEvent = 33 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_InquiryResultWithRSSIEvent = 34 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ReadRemoteExtendedFeaturesCompleteEvent = 35 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_SynchronousConnectionCompleteEvent = 44 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_SynchronousConnectionChangedEvent = 45 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_SniffSubratingEvent = 46 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ExtendedInquiryResultEvent = 47 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_EncryptionKeyRefreshCompleteEvent = 48 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_IOCapabilityRequestEvent = 49 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_IOCapabilityResponseEvent = 50 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_UserConfirmationRequestEvent = 51 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_UserPasskeyRequestEvent = 52 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_RemoteOOBDataRequestEvent = 53 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_SimplePairingCompleteEvent = 54 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_RemoteOobResponseEvent = 55 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_LinkSupervisionTimeoutChangedEvent = 56 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_EnhancedFlushCompleteEvent = 57 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_SniffRequestEvent = 58 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_UserPasskeyNotificationEvent = 59 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_KeypressNotificationEvent = 60 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_RemoteHostSupportedFeaturesNotificationEvent = 61 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_PhysicalLinkCompleteEvent = 64 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ChannelSelectedEvent = 65 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_DisconnectionPhysicalLinkCompleteEvent = 66 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_PhysicalLinkLossEarlyWarningEvent = 67 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_PhysicalLinkRecoveryEvent = 68 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_LogicalLinkCompleteEvent = 69 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_DisconnectionLogicalLinkCompleteEvent = 70 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_FlowSpecModifyCompleteEvent = 71 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_NumberOfCompletedDataBlocksEvent = 72 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_ShortRangeModeChangeCompleteEvent = 76 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_AMP_StatusChangeEvent = 77 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_AMP_StartTestEvent = 73 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_AMP_TestEndEvent = 74 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_AMP_ReceiverReportEvent = 75 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_LE_SpecialSubEvent = 62 : Public, Static, Literal, HasDefault
+    HCIEvtCode HCI_LE_ExtEvent = 255 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_DiscoveryMode: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_DiscoveryMode Nondiscoverable = 0 : Public, Static, Literal, HasDefault
+    GAP_DiscoveryMode General = 1 : Public, Static, Literal, HasDefault
+    GAP_DiscoveryMode Limited = 2 : Public, Static, Literal, HasDefault
+    GAP_DiscoveryMode All = 3 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_AddrType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_AddrType Public = 0 : Public, Static, Literal, HasDefault
+    GAP_AddrType Static = 1 : Public, Static, Literal, HasDefault
+    GAP_AddrType PrivateNonResolve = 2 : Public, Static, Literal, HasDefault
+    GAP_AddrType PrivateResolve = 3 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_ConnHandle: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_ConnHandle Default = 0 : Public, Static, Literal, HasDefault
+    GAP_ConnHandle Init = 65534 : Public, Static, Literal, HasDefault
+    GAP_ConnHandle All = 65535 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_IOCaps: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_IOCaps DisplayOnly = 0 : Public, Static, Literal, HasDefault
+    GAP_IOCaps DisplayYesNo = 1 : Public, Static, Literal, HasDefault
+    GAP_IOCaps KeyboardOnly = 2 : Public, Static, Literal, HasDefault
+    GAP_IOCaps NoInputNoOutput = 3 : Public, Static, Literal, HasDefault
+    GAP_IOCaps KeyboardDisplay = 4 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_AuthReq: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_AuthReq Bonding = 1 : Public, Static, Literal, HasDefault
+    GAP_AuthReq Man_In_The_Middle = 4 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_KeyDisk: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_KeyDisk Slave_Encryption_Key = 1 : Public, Static, Literal, HasDefault
+    GAP_KeyDisk Slave_Identification_Key = 2 : Public, Static, Literal, HasDefault
+    GAP_KeyDisk Slave_Signing_Key = 4 : Public, Static, Literal, HasDefault
+    GAP_KeyDisk Master_Encryption_Key = 8 : Public, Static, Literal, HasDefault
+    GAP_KeyDisk Master_Identification_Key = 16 : Public, Static, Literal, HasDefault
+    GAP_KeyDisk Master_Signing_Key = 32 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_ParamId: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_ParamId TGAP_GEN_DISC_ADV_MIN = 0 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_LIM_ADV_TIMEOUT = 1 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_GEN_DISC_SCAN = 2 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_LIM_DISC_SCAN = 3 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_ADV_TIMEOUT = 4 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_PARAM_TIMEOUT = 5 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_LIM_DISC_ADV_INT_MIN = 6 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_LIM_DISC_ADV_INT_MAX = 7 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_GEN_DISC_ADV_INT_MIN = 8 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_GEN_DISC_ADV_INT_MAX = 9 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_ADV_INT_MIN = 10 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_ADV_INT_MAX = 11 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_SCAN_INT = 12 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_SCAN_WIND = 13 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_HIGH_SCAN_INT = 14 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_HIGH_SCAN_WIND = 15 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_GEN_DISC_SCAN_INT = 16 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_GEN_DISC_SCAN_WIND = 17 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_LIM_DISC_SCAN_INT = 18 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_LIM_DISC_SCAN_WIND = 19 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_ADV = 20 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_INT_MIN = 21 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_INT_MAX = 22 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_SCAN_INT = 23 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_SCAN_WIND = 24 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_SUPERV_TIMEOUT = 25 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_LATENCY = 26 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_MIN_CE_LEN = 27 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_CONN_EST_MAX_CE_LEN = 28 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_PRIVATE_ADDR_INT = 29 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_SM_TIMEOUT = 30 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_SM_MIN_KEY_LEN = 31 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_SM_MAX_KEY_LEN = 32 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_GAP_TESTCODE = 33 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_SM_TESTCODE = 34 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_AUTH_TASK_ID = 35 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_PARAMID_MAX = 36 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_GATT_TESTCODE = 100 : Public, Static, Literal, HasDefault
+    GAP_ParamId TGAP_ATT_TESTCODE = 101 : Public, Static, Literal, HasDefault
+    GAP_ParamId SET_RX_DEBUG = 254 : Public, Static, Literal, HasDefault
+    GAP_ParamId GET_MEM_USED = 255 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_TerminationReason: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_TerminationReason GAP_LL_SUPERVISION_TIMEOUT_TERM = 8 : Public, Static, Literal, HasDefault
+    GAP_TerminationReason GAP_LL_PEER_REQUESTED_TERM = 19 : Public, Static, Literal, HasDefault
+    GAP_TerminationReason GAP_LL_HOST_REQUESTED_TERM = 22 : Public, Static, Literal, HasDefault
+    GAP_TerminationReason GAP_LL_CONTROL_PKT_TIMEOUT_TERM = 34 : Public, Static, Literal, HasDefault
+    GAP_TerminationReason GAP_LL_CONTROL_PKT_INSTANT_PASSED_TERM = 40 : Public, Static, Literal, HasDefault
+    GAP_TerminationReason GAP_LL_LSTO_VIOLATION_TERM = 59 : Public, Static, Literal, HasDefault
+    GAP_TerminationReason GAP_LL_MIC_FAILURE_TERM = 61 : Public, Static, Literal, HasDefault
+    GAP_TerminationReason GAP_LL_FAILED_TO_ESTABLISH = 62 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_EventType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_EventType GAP_EVENT_CONN_UNDIRECT_AD = 0 : Public, Static, Literal, HasDefault
+    GAP_EventType GAP_EVENT_CONN_DIRECT_AD = 1 : Public, Static, Literal, HasDefault
+    GAP_EventType GAP_EVENT_DISCN_UNDIRECT_AD = 2 : Public, Static, Literal, HasDefault
+    GAP_EventType GAP_EVENT_NON_CONN_UNDIRECT_AD = 3 : Public, Static, Literal, HasDefault
+    GAP_EventType GAP_EVENT_SCAN_RESPONSE = 4 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_AuthenticatedCsrk: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_AuthenticatedCsrk GAP_CSRK_NOT_AUTHENTICATED = 0 : Public, Static, Literal, HasDefault
+    GAP_AuthenticatedCsrk GAP_CSRK_AUTHENTICATED = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_BondParamId: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_BondParamId GAPBOND_PAIRING_MODE = 1024 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_INITIATE_WAIT = 1025 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_MITM_PROTECTION = 1026 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_IO_CAPABILITIES = 1027 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_OOB_ENABLED = 1028 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_OOB_DATA = 1029 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_BONDING_ENABLED = 1030 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_KEY_DIST_LIST = 1031 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_DEFAULT_PASSCODE = 1032 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_ERASE_ALLBONDS = 1033 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_AUTO_FAIL_PAIRING = 1034 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_AUTO_FAIL_REASON = 1035 : Public, Static, Literal, HasDefault
+    GAP_BondParamId GAPBOND_KEYSIZE = 1036 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_AvertAdType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_AvertAdType GAPADVERT_SCAN_RSP_DATA = 0 : Public, Static, Literal, HasDefault
+    GAP_AvertAdType GAPADVERT_ADVERTISEMENT_DATA = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_AdTypes: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_AdTypes GAP_ADTYPE_FLAGS = 1 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_16BIT_MORE = 2 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_16BIT_COMPLETE = 3 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_32BIT_MORE = 4 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_32BIT_COMPLETE = 5 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_128BIT_MORE = 6 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_128BIT_COMPLETE = 7 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_LOCAL_NAME_SHORT = 8 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_LOCAL_NAME_COMPLETE = 9 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_POWER_LEVEL = 10 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_OOB_CLASS_OF_DEVICE = 13 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_OOB_SIMPLE_PAIRING_HASHC = 14 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_OOB_SIMPLE_PAIRING_RANDR = 15 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_SM_TK = 16 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_SM_OOB_FLAG = 17 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_SLAVE_CONN_INTERVAL_RANGE = 18 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_SIGNED_DATA = 19 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_SERVICES_LIST_16BIT = 20 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_SERVICES_LIST_128BIT = 21 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_SERVICE_DATA = 22 : Public, Static, Literal, HasDefault
+    GAP_AdTypes GAP_ADTYPE_MANUFACTURER_SPECIFIC = 255 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_UiInput: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_UiInput DONT_ASK_TO_INPUT_PASSCODE = 0 : Public, Static, Literal, HasDefault
+    GAP_UiInput ASK_TO_INPUT_PASSCODE = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_UiOutput: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_UiOutput DONT_DISPLAY_PASSCODE = 0 : Public, Static, Literal, HasDefault
+    GAP_UiOutput DISPLAY_PASSCODE = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+ATT_ExecuteWriteFlags: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    ATT_ExecuteWriteFlags Cancel_all_prepared_writes = 0 : Public, Static, Literal, HasDefault
+    ATT_ExecuteWriteFlags Immediately_write_all_pending_prepared_values = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+ATT_FindInfoFormat: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    ATT_FindInfoFormat HANDLE_BT_UUID_TYPE__handles_and_16_bit_Bluetooth_UUIDs = 1 : Public, Static, Literal, HasDefault
+    ATT_FindInfoFormat HANDLE_UUID_TYPE__handles_and_128_bit_UUIDs = 2 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIExt_TxPower: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIExt_TxPower HCI_EXT_TX_POWER_MINUS_23_DBM = 0 : Public, Static, Literal, HasDefault
+    HCIExt_TxPower HCI_EXT_TX_POWER_MINUS_6_DBM = 1 : Public, Static, Literal, HasDefault
+    HCIExt_TxPower HCI_EXT_TX_POWER_0_DBM = 2 : Public, Static, Literal, HasDefault
+    HCIExt_TxPower HCI_EXT_TX_POWER_4_DBM = 3 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIExt_RxGain: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIExt_RxGain HCI_EXT_RX_GAIN_STD = 0 : Public, Static, Literal, HasDefault
+    HCIExt_RxGain HCI_EXT_RX_GAIN_HIGH = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIExt_OnePktPerEvtCtrl: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIExt_OnePktPerEvtCtrl HCI_EXT_DISABLE_ONE_PKT_PER_EVT = 0 : Public, Static, Literal, HasDefault
+    HCIExt_OnePktPerEvtCtrl HCI_EXT_ENABLE_ONE_PKT_PER_EVT = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIExt_ClkDivideOnHaltCtrl: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIExt_ClkDivideOnHaltCtrl HCI_EXT_DISABLE_CLK_DIVIDE_ON_HALT = 0 : Public, Static, Literal, HasDefault
+    HCIExt_ClkDivideOnHaltCtrl HCI_EXT_ENABLE_CLK_DIVIDE_ON_HALT = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIExt_DelayPostProcCtrl: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIExt_DelayPostProcCtrl HCI_EXT_DISABLE_DELAY_POST_PROC = 0 : Public, Static, Literal, HasDefault
+    HCIExt_DelayPostProcCtrl HCI_EXT_ENABLE_DELAY_POST_PROC = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIExt_SetFastTxRespTimeCtrl: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIExt_SetFastTxRespTimeCtrl HCI_EXT_DISABLE_FAST_TX_RESP_TIME = 0 : Public, Static, Literal, HasDefault
+    HCIExt_SetFastTxRespTimeCtrl HCI_EXT_ENABLE_FAST_TX_RESP_TIME = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIExt_CwMode: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIExt_CwMode HCI_EXT_TX_MODULATED_CARRIER = 0 : Public, Static, Literal, HasDefault
+    HCIExt_CwMode HCI_EXT_TX_UNMODULATED_CARRIER = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCIExt_StatusCodes: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCIExt_StatusCodes HCI_SUCCESS = 0 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_UNKNOWN_HCI_CMD = 1 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_UNKNOWN_CONN_ID = 2 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_HW_FAILURE = 3 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_PAGE_TIMEOUT = 4 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_AUTH_FAILURE = 5 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_PIN_KEY_MISSING = 6 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_MEM_CAP_EXCEEDED = 7 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_TIMEOUT = 8 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_LIMIT_EXCEEDED = 9 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_SYNCH_CONN_LIMIT_EXCEEDED = 10 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_ACL_CONN_ALREADY_EXISTS = 11 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CMD_DISALLOWED = 12 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_REJ_LIMITED_RESOURCES = 13 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_REJECTED_SECURITY_REASONS = 14 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_REJECTED_UNACCEPTABLE_BDADDR = 15 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_ACCEPT_TIMEOUT_EXCEEDED = 16 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_UNSUPPORTED_FEATURE_PARAM_VALUE = 17 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_INVALID_HCI_CMD_PARAMS = 18 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_REMOTE_USER_TERM_CONN = 19 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_REMOTE_DEVICE_TERM_CONN_LOW_RESOURCES = 20 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_REMOTE_DEVICE_TERM_CONN_POWER_OFF = 21 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_TERM_BY_LOCAL_HOST = 22 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_REPEATED_ATTEMPTS = 23 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_PAIRING_NOT_ALLOWED = 24 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_UNKNOWN_LMP_PDU = 25 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_UNSUPPORTED_REMOTE_FEATURE = 26 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_SCO_OFFSET_REJ = 27 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_SCO_INTERVAL_REJ = 28 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_SCO_AIR_MODE_REJ = 29 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_INVALID_LMP_PARAMS = 30 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_UNSPECIFIED_ERROR = 31 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_UNSUPPORTED_LMP_PARAM_VAL = 32 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_ROLE_CHANGE_NOT_ALLOWED = 33 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_LMP_LL_RESP_TIMEOUT = 34 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_LMP_ERR_TRANSACTION_COLLISION = 35 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_LMP_PDU_NOT_ALLOWED = 36 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_ENCRYPT_MODE_NOT_ACCEPTABLE = 37 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_LINK_KEY_CAN_NOT_BE_CHANGED = 38 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_REQ_QOS_NOT_SUPPORTED = 39 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_INSTANT_PASSED = 40 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_PAIRING_WITH_UNIT_KEY_NOT_SUPPORTED = 41 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_DIFFERENT_TRANSACTION_COLLISION = 42 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_RESERVED1 = 43 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_QOS_UNACCEPTABLE_PARAM = 44 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_QOS_REJ = 45 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CHAN_ASSESSMENT_NOT_SUPPORTED = 46 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_INSUFFICIENT_SECURITY = 47 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_PARAM_OUT_OF_MANDATORY_RANGE = 48 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_RESERVED2 = 49 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_ROLE_SWITCH_PENDING = 50 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_RESERVED3 = 51 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_RESERVED_SLOT_VIOLATION = 52 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_ROLE_SWITCH_FAILED = 53 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_EXTENDED_INQUIRY_RESP_TOO_LARGE = 54 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_SIMPLE_PAIRING_NOT_SUPPORTED_BY_HOST = 55 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_HOST_BUSY_PAIRING = 56 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_REJ_NO_SUITABLE_CHAN_FOUND = 57 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONTROLLER_BUSY = 58 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_UNACCEPTABLE_CONN_INTERVAL = 59 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_DIRECTED_ADV_TIMEOUT = 60 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_TERM_MIC_FAILURE = 61 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_CONN_FAILED_TO_ESTABLISH = 62 : Public, Static, Literal, HasDefault
+    HCIExt_StatusCodes HCI_ERR_MAC_CONN_FAILED = 63 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCI_StatusCodes: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCI_StatusCodes Success = 0 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes Failure = 1 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes InvalidParameter = 2 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes InvalidTask = 3 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes MsgBufferNotAvailable = 4 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes InvalidMsgPointer = 5 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes InvalidEventId = 6 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes InvalidInteruptId = 7 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes NoTimerAvail = 8 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes NVItemUnInit = 9 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes NVOpFailed = 10 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes InvalidMemSize = 11 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes ErrorCommandDisallowed = 12 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleNotReady = 16 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleAlreadyInRequestedMode = 17 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleIncorrectMode = 18 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleMemAllocError = 19 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleNotConnected = 20 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleNoResources = 21 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes blePending = 22 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleTimeout = 23 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleInvalidRange = 24 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleLinkEncrypted = 25 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleProcedureComplete = 26 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleGAPUserCanceled = 48 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleGAPConnNotAcceptable = 49 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleGAPBondRejected = 50 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleInvalidPDU = 64 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleInsufficientAuthen = 65 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleInsufficientEncrypt = 66 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes bleInsufficientKeySize = 67 : Public, Static, Literal, HasDefault
+    HCI_StatusCodes INVALID_TASK_ID = 255 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+HCI_ErrorRspCodes: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    HCI_ErrorRspCodes INVALID_HANDLE = 1 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes READ_NOT_PERMITTED = 2 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes WRITE_NOT_PERMITTED = 3 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes INVALID_PDU = 4 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes INSUFFICIENT_AUTHEN = 5 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes UNSUPPORTED_REQ = 6 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes INVALID_OFFSET = 7 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes INSUFFICIENT_AUTHOR = 8 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes PREPARE_QUEUE_FULL = 9 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes ATTR_NOT_FOUND = 10 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes ATTR_NOT_LONG = 11 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes INSUFFICIENT_KEY_SIZE = 12 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes INVALID_SIZE = 13 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes UNLIKELY_ERROR = 14 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes INSUFFICIENT_ENCRYPTION = 15 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes UNSUPPORTED_GRP_TYPE = 16 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes INSUFFICIENT_RESOURCES = 17 : Public, Static, Literal, HasDefault
+    HCI_ErrorRspCodes INVALID_VALUE = 128 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+UTIL_ResetType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    UTIL_ResetType Hard_Reset = 0 : Public, Static, Literal, HasDefault
+    UTIL_ResetType Soft_Reset = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+L2CAP_InfoTypes: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    L2CAP_InfoTypes CONNECTIONLESS_MTU = 1 : Public, Static, Literal, HasDefault
+    L2CAP_InfoTypes EXTENDED_FEATURES = 2 : Public, Static, Literal, HasDefault
+    L2CAP_InfoTypes FIXED_CHANNELS = 3 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+L2CAP_RejectReasons: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    L2CAP_RejectReasons L2CAP_REJECT_CMD_NOT_UNDERSTOOD = 0 : Public, Static, Literal, HasDefault
+    L2CAP_RejectReasons L2CAP_REJECT_SIGNAL_MTU_EXCEED = 1 : Public, Static, Literal, HasDefault
+    L2CAP_RejectReasons L2CAP_REJECT_INVALID_CID = 2 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+L2CAP_ConnParamUpdateResult: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    L2CAP_ConnParamUpdateResult CONN_PARAMS_ACCEPTED = 0 : Public, Static, Literal, HasDefault
+    L2CAP_ConnParamUpdateResult CONN_PARAMS_REJECTED = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GATT_ServiceUUID: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GATT_ServiceUUID PrimaryService = 10240 : Public, Static, Literal, HasDefault
+    GATT_ServiceUUID SecondaryService = 10241 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GATT_Permissions: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GATT_Permissions GATT_PERMIT_READ = 1 : Public, Static, Literal, HasDefault
+    GATT_Permissions GATT_PERMIT_WRITE = 2 : Public, Static, Literal, HasDefault
+    GATT_Permissions GATT_PERMIT_AUTHEN_READ = 4 : Public, Static, Literal, HasDefault
+    GATT_Permissions GATT_PERMIT_AUTHEN_WRITE = 8 : Public, Static, Literal, HasDefault
+    GATT_Permissions GATT_PERMIT_AUTHOR_READ = 16 : Public, Static, Literal, HasDefault
+    GATT_Permissions GATT_PERMIT_AUTHOR_WRITE = 32 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_SMPFailureTypes: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_SMPFailureTypes SUCCESS = 0 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes SMP_PAIRING_FAILED_PASSKEY_ENTRY_FAILED = 1 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes SMP_PAIRING_FAILED_OOB_NOT_AVAIL = 2 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes SMP_PAIRING_FAILED_AUTH_REQ = 3 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes SMP_PAIRING_FAILED_CONFIRM_VALUE = 4 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes SMP_PAIRING_FAILED_NOT_SUPPORTED = 5 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes SMP_PAIRING_FAILED_ENC_KEY_SIZE = 6 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes SMP_PAIRING_FAILED_CMD_NOT_SUPPORTED = 7 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes SMP_PAIRING_FAILED_UNSPECIFIED = 8 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes SMP_PAIRING_FAILED_REPEATED_ATTEMPTS = 9 : Public, Static, Literal, HasDefault
+    GAP_SMPFailureTypes bleTimeout = 23 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+GAP_OobDataFlag: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GAP_OobDataFlag Out_Of_Bounds_Data_Not_Available = 0 : Public, Static, Literal, HasDefault
+    GAP_OobDataFlag Out_Of_Bounds_Data_Available = 1 : Public, Static, Literal, HasDefault
+Struct dllBLE.HCICmds+CommandHeader: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct dllBLE.HCICmds+EventHeader: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct dllBLE.HCICmds+GATTReadByTypeData: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte properties : Public
+    UInt16 handle : Public
+    UInt16 uuid : Public
+Class dllBLE.HCICmds+HCIExtCmds: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class dllBLE.HCICmds+L2CAPCmds: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class dllBLE.HCICmds+ATTCmds: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class dllBLE.HCICmds+GATTCmds: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class dllBLE.HCICmds+GAPCmds: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class dllBLE.HCICmds+UTILCmds: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class dllBLE.HCICmds+HCIStatusCmds: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class dllBLE.HCICmds+MISCCmds: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class dllBLE.HCICmds+GAPEvts: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Struct dllBLE.BluetoothLeDevice+DeviceHandle: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    DeviceHandle Notification_RW = 37 : Public, Static, Literal, HasDefault
+    DeviceHandle Notification_Rcv = 46 : Public, Static, Literal, HasDefault
+    DeviceHandle CMD_Reset = 43 : Public, Static, Literal, HasDefault
+Struct dllBLE.BluetoothLeDevice+OpCode: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    OpCode Op_Stop = 0 : Public, Static, Literal, HasDefault
+    OpCode Op_Start = 1 : Public, Static, Literal, HasDefault
+    OpCode OP_RESET = 2 : Public, Static, Literal, HasDefault
+Struct dllBLE.BluetoothLeDevice+CmdCode: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    CmdCode CMD_NONE = 0 : Public, Static, Literal, HasDefault
+    CmdCode CMD_RESET_AHRS = 1 : Public, Static, Literal, HasDefault
+    CmdCode CMD_RESET_CALIBRATION = 2 : Public, Static, Literal, HasDefault
+Struct dllBLE.BluetoothLeDevice+ConnectInfo: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    System.String connectBDA : Public
+    UInt16 connectHandle : Public
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_SetRxGain: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    HCIExt_RxGain rxGain 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_rxGain(): PrivateScope, Public, HideBySig, SpecialName
+    set_rxGain(HCIExt_RxGain): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_SetTxPower: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    HCIExt_TxPower txPower 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_txPower(): PrivateScope, Public, HideBySig, SpecialName
+    set_txPower(HCIExt_TxPower): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_OnePktPerEvt: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    HCIExt_OnePktPerEvtCtrl control 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_control(): PrivateScope, Public, HideBySig, SpecialName
+    set_control(HCIExt_OnePktPerEvtCtrl): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_ClkDivideOnHalt: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    HCIExt_ClkDivideOnHaltCtrl control 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_control(): PrivateScope, Public, HideBySig, SpecialName
+    set_control(HCIExt_ClkDivideOnHaltCtrl): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_DelayPostProc: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    HCIExt_DelayPostProcCtrl control 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_control(): PrivateScope, Public, HideBySig, SpecialName
+    set_control(HCIExt_DelayPostProcCtrl): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_Decrypt: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Byte keySize = 16 : Public, Static, Literal, HasDefault
+    Byte dataSize = 16 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    System.String key 'get set' : 
+    System.String data 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_key(): PrivateScope, Public, HideBySig, SpecialName
+    set_key(String): PrivateScope, Public, HideBySig, SpecialName
+    get_data(): PrivateScope, Public, HideBySig, SpecialName
+    set_data(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_SetLocalSupportedFeatures: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Byte localFeaturesSize = 8 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    System.String localFeatures 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_localFeatures(): PrivateScope, Public, HideBySig, SpecialName
+    set_localFeatures(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_SetFastTxRespTime: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    HCIExt_SetFastTxRespTimeCtrl control 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_control(): PrivateScope, Public, HideBySig, SpecialName
+    set_control(HCIExt_SetFastTxRespTimeCtrl): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_ModemTestTx: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    HCIExt_CwMode cwMode 'get set' : 
+    Byte txRfChannel 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_cwMode(): PrivateScope, Public, HideBySig, SpecialName
+    set_cwMode(HCIExt_CwMode): PrivateScope, Public, HideBySig, SpecialName
+    get_txRfChannel(): PrivateScope, Public, HideBySig, SpecialName
+    set_txRfChannel(Byte): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_ModemHopTestTx: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_ModemTestRx: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    Byte rxRfChannel 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_rxRfChannel(): PrivateScope, Public, HideBySig, SpecialName
+    set_rxRfChannel(Byte): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_EndModemTest: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIExtCmds+HCIExt_SetBDADDR: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    System.String bleDevAddr 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_bleDevAddr(): PrivateScope, Public, HideBySig, SpecialName
+    set_bleDevAddr(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+L2CAPCmds+L2CAP_InfoReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    L2CAP_InfoTypes infoType 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_infoType(): PrivateScope, Public, HideBySig, SpecialName
+    set_infoType(L2CAP_InfoTypes): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+L2CAPCmds+L2CAP_ConnParamUpdateReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 intervalMin 'get set' : 
+    UInt16 intervalMax 'get set' : 
+    UInt16 slaveLatency 'get set' : 
+    UInt16 timeoutMultiplier 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_intervalMin(): PrivateScope, Public, HideBySig, SpecialName
+    set_intervalMin(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_intervalMax(): PrivateScope, Public, HideBySig, SpecialName
+    set_intervalMax(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_slaveLatency(): PrivateScope, Public, HideBySig, SpecialName
+    set_slaveLatency(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_timeoutMultiplier(): PrivateScope, Public, HideBySig, SpecialName
+    set_timeoutMultiplier(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ErrorRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    Byte reqOpcode 'get set' : 
+    UInt16 handle 'get set' : 
+    HCI_ErrorRspCodes errorCode 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_reqOpcode(): PrivateScope, Public, HideBySig, SpecialName
+    set_reqOpcode(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_errorCode(): PrivateScope, Public, HideBySig, SpecialName
+    set_errorCode(HCI_ErrorRspCodes): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ExchangeMTUReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 clientRxMTU 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_clientRxMTU(): PrivateScope, Public, HideBySig, SpecialName
+    set_clientRxMTU(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ExchangeMTURsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 serverRxMTU 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_serverRxMTU(): PrivateScope, Public, HideBySig, SpecialName
+    set_serverRxMTU(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_FindInfoReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 startHandle 'get set' : 
+    UInt16 endHandle 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_startHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_startHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_endHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_endHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_FindInfoRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    ATT_FindInfoFormat format 'get set' : 
+    System.String info 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_format(): PrivateScope, Public, HideBySig, SpecialName
+    set_format(ATT_FindInfoFormat): PrivateScope, Public, HideBySig, SpecialName
+    get_info(): PrivateScope, Public, HideBySig, SpecialName
+    set_info(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_FindByTypeValueReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 startHandle 'get set' : 
+    UInt16 endHandle 'get set' : 
+    System.String type 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_startHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_startHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_endHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_endHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_type(): PrivateScope, Public, HideBySig, SpecialName
+    set_type(String): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_FindByTypeValueRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    System.String handlesInfo 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_handlesInfo(): PrivateScope, Public, HideBySig, SpecialName
+    set_handlesInfo(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadByTypeReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 startHandle 'get set' : 
+    UInt16 endHandle 'get set' : 
+    System.String type 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_startHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_startHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_endHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_endHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_type(): PrivateScope, Public, HideBySig, SpecialName
+    set_type(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadByTypeRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    Byte length 'get set' : 
+    System.String dataList 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_length(): PrivateScope, Public, HideBySig, SpecialName
+    set_length(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_dataList(): PrivateScope, Public, HideBySig, SpecialName
+    set_dataList(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 handle 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadBlobReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 handle 'get set' : 
+    UInt16 offset 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_offset(): PrivateScope, Public, HideBySig, SpecialName
+    set_offset(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadBlobRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadMultiReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    System.String handles 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_handles(): PrivateScope, Public, HideBySig, SpecialName
+    set_handles(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadMultiRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    System.String values 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_values(): PrivateScope, Public, HideBySig, SpecialName
+    set_values(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadByGrpTypeReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 startHandle 'get set' : 
+    UInt16 endHandle 'get set' : 
+    System.String groupType 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_startHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_startHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_endHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_endHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_groupType(): PrivateScope, Public, HideBySig, SpecialName
+    set_groupType(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ReadByGrpTypeRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    Byte length 'get set' : 
+    System.String dataList 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_length(): PrivateScope, Public, HideBySig, SpecialName
+    set_length(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_dataList(): PrivateScope, Public, HideBySig, SpecialName
+    set_dataList(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_WriteReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    GAP_YesNo signature 'get set' : 
+    GAP_YesNo command 'get set' : 
+    UInt16 handle 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_signature(): PrivateScope, Public, HideBySig, SpecialName
+    set_signature(GAP_YesNo): PrivateScope, Public, HideBySig, SpecialName
+    get_command(): PrivateScope, Public, HideBySig, SpecialName
+    set_command(GAP_YesNo): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_WriteRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_PrepareWriteReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 handle 'get set' : 
+    UInt16 offset 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_offset(): PrivateScope, Public, HideBySig, SpecialName
+    set_offset(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_PrepareWriteRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 handle 'get set' : 
+    UInt16 offset 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_offset(): PrivateScope, Public, HideBySig, SpecialName
+    set_offset(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ExecuteWriteReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    ATT_ExecuteWriteFlags flags 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_flags(): PrivateScope, Public, HideBySig, SpecialName
+    set_flags(ATT_ExecuteWriteFlags): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_ExecuteWriteRsp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_HandleValueNotification: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    GAP_YesNo authenticated 'get set' : 
+    UInt16 handle 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_authenticated(): PrivateScope, Public, HideBySig, SpecialName
+    set_authenticated(GAP_YesNo): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_HandleValueIndication: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    GAP_YesNo authenticated 'get set' : 
+    UInt16 handle 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_authenticated(): PrivateScope, Public, HideBySig, SpecialName
+    set_authenticated(GAP_YesNo): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+ATTCmds+ATT_HandleValueConfirmation: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GATTCmds+GATT_DiscCharsByUUID: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 startHandle 'get set' : 
+    UInt16 endHandle 'get set' : 
+    System.String type 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_startHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_startHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_endHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_endHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_type(): PrivateScope, Public, HideBySig, SpecialName
+    set_type(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GATTCmds+GATT_WriteLong: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 handle 'get set' : 
+    UInt16 offset 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_offset(): PrivateScope, Public, HideBySig, SpecialName
+    set_offset(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GATTCmds+GATT_AddService: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GATT_ServiceUUID uuid 'get set' : 
+    UInt16 numAttrs 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_uuid(): PrivateScope, Public, HideBySig, SpecialName
+    set_uuid(GATT_ServiceUUID): PrivateScope, Public, HideBySig, SpecialName
+    get_numAttrs(): PrivateScope, Public, HideBySig, SpecialName
+    set_numAttrs(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GATTCmds+GATT_DelService: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 handle 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GATTCmds+GATT_AddAttribute: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    System.String uuid 'get set' : 
+    Byte permissions 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_uuid(): PrivateScope, Public, HideBySig, SpecialName
+    set_uuid(String): PrivateScope, Public, HideBySig, SpecialName
+    get_permissions(): PrivateScope, Public, HideBySig, SpecialName
+    set_permissions(Byte): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_DeviceInit: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Byte irkSize = 16 : Public, Static, Literal, HasDefault
+    Byte csrkSize = 16 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_Profile profileRole 'get set' : 
+    Byte maxScanResponses 'get set' : 
+    System.String irk 'get set' : 
+    System.String csrk 'get set' : 
+    UInt32 signCounter 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_profileRole(): PrivateScope, Public, HideBySig, SpecialName
+    set_profileRole(GAP_Profile): PrivateScope, Public, HideBySig, SpecialName
+    get_maxScanResponses(): PrivateScope, Public, HideBySig, SpecialName
+    set_maxScanResponses(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_irk(): PrivateScope, Public, HideBySig, SpecialName
+    set_irk(String): PrivateScope, Public, HideBySig, SpecialName
+    get_csrk(): PrivateScope, Public, HideBySig, SpecialName
+    set_csrk(String): PrivateScope, Public, HideBySig, SpecialName
+    get_signCounter(): PrivateScope, Public, HideBySig, SpecialName
+    set_signCounter(UInt32): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_ConfigDeviceAddr: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_AddrType addrType 'get set' : 
+    System.String addr 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_addrType(): PrivateScope, Public, HideBySig, SpecialName
+    set_addrType(GAP_AddrType): PrivateScope, Public, HideBySig, SpecialName
+    get_addr(): PrivateScope, Public, HideBySig, SpecialName
+    set_addr(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_DeviceDiscoveryRequest: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_DiscoveryMode mode 'get set' : 
+    GAP_EnableDisable nameMode 'get set' : 
+    GAP_EnableDisable whiteList 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_mode(): PrivateScope, Public, HideBySig, SpecialName
+    set_mode(GAP_DiscoveryMode): PrivateScope, Public, HideBySig, SpecialName
+    get_nameMode(): PrivateScope, Public, HideBySig, SpecialName
+    set_nameMode(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+    get_whiteList(): PrivateScope, Public, HideBySig, SpecialName
+    set_whiteList(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_DeviceDiscoveryCancel: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_MakeDiscoverable: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Byte initiatorAddrSize = 6 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_EventType eventType 'get set' : 
+    GAP_AddrType initiatorAddrType 'get set' : 
+    System.String initiatorAddr 'get set' : 
+    Byte channelMap 'get set' : 
+    GAP_FilterPolicy filterPolicy 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_eventType(): PrivateScope, Public, HideBySig, SpecialName
+    set_eventType(GAP_EventType): PrivateScope, Public, HideBySig, SpecialName
+    get_initiatorAddrType(): PrivateScope, Public, HideBySig, SpecialName
+    set_initiatorAddrType(GAP_AddrType): PrivateScope, Public, HideBySig, SpecialName
+    get_initiatorAddr(): PrivateScope, Public, HideBySig, SpecialName
+    set_initiatorAddr(String): PrivateScope, Public, HideBySig, SpecialName
+    get_channelMap(): PrivateScope, Public, HideBySig, SpecialName
+    set_channelMap(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_filterPolicy(): PrivateScope, Public, HideBySig, SpecialName
+    set_filterPolicy(GAP_FilterPolicy): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_UpdateAdvertisingData: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_AvertAdType adType 'get set' : 
+    Byte dataLen 'get set' : 
+    System.String advertData 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_adType(): PrivateScope, Public, HideBySig, SpecialName
+    set_adType(GAP_AvertAdType): PrivateScope, Public, HideBySig, SpecialName
+    get_dataLen(): PrivateScope, Public, HideBySig, SpecialName
+    set_dataLen(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_advertData(): PrivateScope, Public, HideBySig, SpecialName
+    set_advertData(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_EndDiscoverable: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_EstablishLinkRequest: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_EnableDisable highDutyCycle 'get set' : 
+    GAP_EnableDisable whiteList 'get set' : 
+    GAP_AddrType addrTypePeer 'get set' : 
+    System.String peerAddr 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_highDutyCycle(): PrivateScope, Public, HideBySig, SpecialName
+    set_highDutyCycle(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+    get_whiteList(): PrivateScope, Public, HideBySig, SpecialName
+    set_whiteList(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+    get_addrTypePeer(): PrivateScope, Public, HideBySig, SpecialName
+    set_addrTypePeer(GAP_AddrType): PrivateScope, Public, HideBySig, SpecialName
+    get_peerAddr(): PrivateScope, Public, HideBySig, SpecialName
+    set_peerAddr(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_TerminateLinkRequest: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_Authenticate: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Byte secReq_oobSize = 16 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    GAP_IOCaps secReq_ioCaps 'get set' : 
+    GAP_TrueFalse secReq_oobAvailable 'get set' : 
+    System.String secReq_oob 'get set' : 
+    Byte secReq_authReq 'get set' : 
+    Byte secReq_maxEncKeySize 'get set' : 
+    Byte secReq_keyDist 'get set' : 
+    GAP_EnableDisable pairReq_Enable 'get set' : 
+    GAP_IOCaps pairReq_ioCaps 'get set' : 
+    GAP_EnableDisable pairReq_oobDataFlag 'get set' : 
+    Byte pairReq_authReq 'get set' : 
+    Byte pairReq_maxEncKeySize 'get set' : 
+    Byte pairReq_keyDist 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_secReq_ioCaps(): PrivateScope, Public, HideBySig, SpecialName
+    set_secReq_ioCaps(GAP_IOCaps): PrivateScope, Public, HideBySig, SpecialName
+    get_secReq_oobAvailable(): PrivateScope, Public, HideBySig, SpecialName
+    set_secReq_oobAvailable(GAP_TrueFalse): PrivateScope, Public, HideBySig, SpecialName
+    get_secReq_oob(): PrivateScope, Public, HideBySig, SpecialName
+    set_secReq_oob(String): PrivateScope, Public, HideBySig, SpecialName
+    get_secReq_authReq(): PrivateScope, Public, HideBySig, SpecialName
+    set_secReq_authReq(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_secReq_maxEncKeySize(): PrivateScope, Public, HideBySig, SpecialName
+    set_secReq_maxEncKeySize(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_secReq_keyDist(): PrivateScope, Public, HideBySig, SpecialName
+    set_secReq_keyDist(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_pairReq_Enable(): PrivateScope, Public, HideBySig, SpecialName
+    set_pairReq_Enable(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+    get_pairReq_ioCaps(): PrivateScope, Public, HideBySig, SpecialName
+    set_pairReq_ioCaps(GAP_IOCaps): PrivateScope, Public, HideBySig, SpecialName
+    get_pairReq_oobDataFlag(): PrivateScope, Public, HideBySig, SpecialName
+    set_pairReq_oobDataFlag(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+    get_pairReq_authReq(): PrivateScope, Public, HideBySig, SpecialName
+    set_pairReq_authReq(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_pairReq_maxEncKeySize(): PrivateScope, Public, HideBySig, SpecialName
+    set_pairReq_maxEncKeySize(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_pairReq_keyDist(): PrivateScope, Public, HideBySig, SpecialName
+    set_pairReq_keyDist(Byte): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_PasskeyUpdate: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Byte passKeySize = 6 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    System.String passKey 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_passKey(): PrivateScope, Public, HideBySig, SpecialName
+    set_passKey(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_SlaveSecurityRequest: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    Byte authReq 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_authReq(): PrivateScope, Public, HideBySig, SpecialName
+    set_authReq(Byte): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_Signable: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Byte csrkSize = 16 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    GAP_AuthenticatedCsrk authenticated 'get set' : 
+    System.String csrk 'get set' : 
+    UInt32 signCounter 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_authenticated(): PrivateScope, Public, HideBySig, SpecialName
+    set_authenticated(GAP_AuthenticatedCsrk): PrivateScope, Public, HideBySig, SpecialName
+    get_csrk(): PrivateScope, Public, HideBySig, SpecialName
+    set_csrk(String): PrivateScope, Public, HideBySig, SpecialName
+    get_signCounter(): PrivateScope, Public, HideBySig, SpecialName
+    set_signCounter(UInt32): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_Bond: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Byte secInfo_LTKLength = 16 : Public, Static, Literal, HasDefault
+    Byte secInfo_RANDSize = 8 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    GAP_YesNo authenticated 'get set' : 
+    System.String secInfo_LTK 'get set' : 
+    UInt16 secInfo_DIV 'get set' : 
+    System.String secInfo_RAND 'get set' : 
+    Byte secInfo_LTKSize 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_authenticated(): PrivateScope, Public, HideBySig, SpecialName
+    set_authenticated(GAP_YesNo): PrivateScope, Public, HideBySig, SpecialName
+    get_secInfo_LTK(): PrivateScope, Public, HideBySig, SpecialName
+    set_secInfo_LTK(String): PrivateScope, Public, HideBySig, SpecialName
+    get_secInfo_DIV(): PrivateScope, Public, HideBySig, SpecialName
+    set_secInfo_DIV(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_secInfo_RAND(): PrivateScope, Public, HideBySig, SpecialName
+    set_secInfo_RAND(String): PrivateScope, Public, HideBySig, SpecialName
+    get_secInfo_LTKSize(): PrivateScope, Public, HideBySig, SpecialName
+    set_secInfo_LTKSize(Byte): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_TerminateAuth: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    GAP_SMPFailureTypes reason 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_reason(): PrivateScope, Public, HideBySig, SpecialName
+    set_reason(GAP_SMPFailureTypes): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_UpdateLinkParamReq: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    UInt16 intervalMin 'get set' : 
+    UInt16 intervalMax 'get set' : 
+    UInt16 connLatency 'get set' : 
+    UInt16 connTimeout 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_intervalMin(): PrivateScope, Public, HideBySig, SpecialName
+    set_intervalMin(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_intervalMax(): PrivateScope, Public, HideBySig, SpecialName
+    set_intervalMax(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_connLatency(): PrivateScope, Public, HideBySig, SpecialName
+    set_connLatency(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_connTimeout(): PrivateScope, Public, HideBySig, SpecialName
+    set_connTimeout(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_SetParam: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_ParamId paramId 'get set' : 
+    UInt16 value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_paramId(): PrivateScope, Public, HideBySig, SpecialName
+    set_paramId(GAP_ParamId): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_GetParam: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_ParamId paramId 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_paramId(): PrivateScope, Public, HideBySig, SpecialName
+    set_paramId(GAP_ParamId): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_ResolvePrivateAddr: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Byte irkSize = 16 : Public, Static, Literal, HasDefault
+    Byte addrSize = 6 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    System.String irk 'get set' : 
+    System.String addr 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_irk(): PrivateScope, Public, HideBySig, SpecialName
+    set_irk(String): PrivateScope, Public, HideBySig, SpecialName
+    get_addr(): PrivateScope, Public, HideBySig, SpecialName
+    set_addr(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_SetAdvToken: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_AdTypes adType 'get set' : 
+    Byte advDataLen 'get set' : 
+    System.String advData 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_adType(): PrivateScope, Public, HideBySig, SpecialName
+    set_adType(GAP_AdTypes): PrivateScope, Public, HideBySig, SpecialName
+    get_advDataLen(): PrivateScope, Public, HideBySig, SpecialName
+    set_advDataLen(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_advData(): PrivateScope, Public, HideBySig, SpecialName
+    set_advData(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_RemoveAdvToken: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_AdTypes adType 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_adType(): PrivateScope, Public, HideBySig, SpecialName
+    set_adType(GAP_AdTypes): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_UpdateAdvTokens: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_BondSetParam: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_BondParamId paramId 'get set' : 
+    Byte length 'get set' : 
+    System.String value 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_paramId(): PrivateScope, Public, HideBySig, SpecialName
+    set_paramId(GAP_BondParamId): PrivateScope, Public, HideBySig, SpecialName
+    get_length(): PrivateScope, Public, HideBySig, SpecialName
+    set_length(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_value(): PrivateScope, Public, HideBySig, SpecialName
+    set_value(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPCmds+GAP_BondGetParam: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    GAP_BondParamId paramId 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_paramId(): PrivateScope, Public, HideBySig, SpecialName
+    set_paramId(GAP_BondParamId): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+UTILCmds+UTIL_Reset: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UTIL_ResetType resetType 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_resetType(): PrivateScope, Public, HideBySig, SpecialName
+    set_resetType(UTIL_ResetType): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+UTILCmds+UTIL_NVRead: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    Byte nvId  'get set' : 
+    Byte nvDataLen 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_nvId(): PrivateScope, Public, HideBySig, SpecialName
+    set_nvId(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_nvDataLen(): PrivateScope, Public, HideBySig, SpecialName
+    set_nvDataLen(Byte): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+UTILCmds+UTIL_NVWrite: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    Byte nvId  'get set' : 
+    Byte nvDataLen 'get set' : 
+    System.String nvData 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_nvId(): PrivateScope, Public, HideBySig, SpecialName
+    set_nvId(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_nvDataLen(): PrivateScope, Public, HideBySig, SpecialName
+    set_nvDataLen(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_nvData(): PrivateScope, Public, HideBySig, SpecialName
+    set_nvData(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+HCIStatusCmds+HCIStatus_ReadRSSI: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 handle 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_handle(): PrivateScope, Public, HideBySig, SpecialName
+    set_handle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+MISCCmds+MISC_GenericCommand: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+  Properties:
+    PacketType packetType 'get ' : 
+    System.String opCode 'get set' : 
+    Byte dataLength 'get ' : 
+    System.String data 'get set' : 
+  Methods:
+    get_packetType(): PrivateScope, Public, HideBySig, SpecialName
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    set_opCode(String): PrivateScope, Public, HideBySig, SpecialName
+    get_dataLength(): PrivateScope, Public, HideBySig, SpecialName
+    get_data(): PrivateScope, Public, HideBySig, SpecialName
+    set_data(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+MISCCmds+MISC_RawTxMessage: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    Byte minMsgSize = 4 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String message 'get set' : 
+  Methods:
+    get_message(): PrivateScope, Public, HideBySig, SpecialName
+    set_message(String): PrivateScope, Public, HideBySig, SpecialName
+Class dllBLE.HCICmds+GAPEvts+GAP_AuthenticationComplete: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String cmdName : Public
+    Byte dataLength : Public
+    UInt16 opCodeValue : Public
+    Int32 secInfo_LTKSize = 16 : Public, Static, Literal, HasDefault
+    Int32 secInfo_RANDSize = 8 : Public, Static, Literal, HasDefault
+    Int32 devSecInfo_LTKSize = 16 : Public, Static, Literal, HasDefault
+    Int32 devSecInfo_RANDSize = 8 : Public, Static, Literal, HasDefault
+    Int32 idInfo_IRKSize = 16 : Public, Static, Literal, HasDefault
+    Int32 idInfo_BdAddrSize = 6 : Public, Static, Literal, HasDefault
+    Int32 signInfo_CSRKSize = 16 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String opCode 'get ' : 
+    UInt16 connHandle 'get set' : 
+    Byte authState 'get set' : 
+    GAP_EnableDisable secInfo_enable 'get set' : 
+    Byte secInfo_LTKsize 'get set' : 
+    System.String secInfo_LTK 'get set' : 
+    UInt16 secInfo_DIV 'get set' : 
+    System.String secInfo_RAND 'get set' : 
+    GAP_EnableDisable devSecInfo_enable 'get set' : 
+    Byte devSecInfo_LTKsize 'get set' : 
+    System.String devSecInfo_LTK 'get set' : 
+    UInt16 devSecInfo_DIV 'get set' : 
+    System.String devSecInfo_RAND 'get set' : 
+    GAP_EnableDisable idInfo_enable 'get set' : 
+    System.String idInfo_IRK 'get set' : 
+    System.String idInfo_BdAddr 'get set' : 
+    GAP_EnableDisable signInfo_enable 'get set' : 
+    System.String signInfo_CSRK 'get set' : 
+    UInt32 signCounter 'get set' : 
+  Methods:
+    get_opCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_connHandle(): PrivateScope, Public, HideBySig, SpecialName
+    set_connHandle(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_authState(): PrivateScope, Public, HideBySig, SpecialName
+    set_authState(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_secInfo_enable(): PrivateScope, Public, HideBySig, SpecialName
+    set_secInfo_enable(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+    get_secInfo_LTKsize(): PrivateScope, Public, HideBySig, SpecialName
+    set_secInfo_LTKsize(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_secInfo_LTK(): PrivateScope, Public, HideBySig, SpecialName
+    set_secInfo_LTK(String): PrivateScope, Public, HideBySig, SpecialName
+    get_secInfo_DIV(): PrivateScope, Public, HideBySig, SpecialName
+    set_secInfo_DIV(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_secInfo_RAND(): PrivateScope, Public, HideBySig, SpecialName
+    set_secInfo_RAND(String): PrivateScope, Public, HideBySig, SpecialName
+    get_devSecInfo_enable(): PrivateScope, Public, HideBySig, SpecialName
+    set_devSecInfo_enable(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+    get_devSecInfo_LTKsize(): PrivateScope, Public, HideBySig, SpecialName
+    set_devSecInfo_LTKsize(Byte): PrivateScope, Public, HideBySig, SpecialName
+    get_devSecInfo_LTK(): PrivateScope, Public, HideBySig, SpecialName
+    set_devSecInfo_LTK(String): PrivateScope, Public, HideBySig, SpecialName
+    get_devSecInfo_DIV(): PrivateScope, Public, HideBySig, SpecialName
+    set_devSecInfo_DIV(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_devSecInfo_RAND(): PrivateScope, Public, HideBySig, SpecialName
+    set_devSecInfo_RAND(String): PrivateScope, Public, HideBySig, SpecialName
+    get_idInfo_enable(): PrivateScope, Public, HideBySig, SpecialName
+    set_idInfo_enable(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+    get_idInfo_IRK(): PrivateScope, Public, HideBySig, SpecialName
+    set_idInfo_IRK(String): PrivateScope, Public, HideBySig, SpecialName
+    get_idInfo_BdAddr(): PrivateScope, Public, HideBySig, SpecialName
+    set_idInfo_BdAddr(String): PrivateScope, Public, HideBySig, SpecialName
+    get_signInfo_enable(): PrivateScope, Public, HideBySig, SpecialName
+    set_signInfo_enable(GAP_EnableDisable): PrivateScope, Public, HideBySig, SpecialName
+    get_signInfo_CSRK(): PrivateScope, Public, HideBySig, SpecialName
+    set_signInfo_CSRK(String): PrivateScope, Public, HideBySig, SpecialName
+    get_signCounter(): PrivateScope, Public, HideBySig, SpecialName
+    set_signCounter(UInt32): PrivateScope, Public, HideBySig, SpecialName

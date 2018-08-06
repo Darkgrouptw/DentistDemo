@@ -8,7 +8,7 @@
 #include "SystemManager.h"
 #include "OCT64C.h"
 
-#include "super4pcs/algorithms/4pcs.h"
+#include "4pcs.h"
 #include "super4pcs/shared4pcs.h"
 
 #include "Eigen/Dense"
@@ -18,7 +18,7 @@
 #include <iostream>
 #include <fstream>
 #include "super4pcs/utils/geometry.h"
-#include "super4pcs/algorithms/super4pcs.h"
+#include "super4pcs.h"
 #include <bitset>
 #include <string.h>
 //#include <msclr/marshal.h>
@@ -126,7 +126,6 @@ namespace DentistDemo {
 
 
 
-	private: System::ComponentModel::BackgroundWorker^  backgroundWorker1;
 	private: System::Windows::Forms::Button^  btnBleEstablish;
 	private: System::Windows::Forms::Button^  Get_Quat;
 	private: System::Windows::Forms::Button^  Initial_scan;
@@ -172,9 +171,7 @@ namespace DentistDemo {
 	private: System::Windows::Forms::TrackBar^  overlap_constant2;
 	private: System::Windows::Forms::Button^  Read_point_v2;
 	private: System::Windows::Forms::Button^  Rot_test;
-	private: System::Windows::Forms::Button^  Reset_quat;
 	private: System::Windows::Forms::Button^  Aligned_rot;
-	private: System::Windows::Forms::Button^  Save_Points2;
 	private: System::Windows::Forms::Button^  First_cloud;
 	private: System::Windows::Forms::Button^  Second_cloud;
 	private: System::Windows::Forms::Button^  Aligned12;
@@ -252,7 +249,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->cbBleDeviceL = (gcnew System::Windows::Forms::ComboBox());
 			this->btnBleScan = (gcnew System::Windows::Forms::Button());
 			this->btnComOpen = (gcnew System::Windows::Forms::Button());
-			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->btnBleEstablish = (gcnew System::Windows::Forms::Button());
 			this->Get_Quat = (gcnew System::Windows::Forms::Button());
 			this->Initial_scan = (gcnew System::Windows::Forms::Button());
@@ -297,9 +293,7 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->overlap_constant2 = (gcnew System::Windows::Forms::TrackBar());
 			this->Read_point_v2 = (gcnew System::Windows::Forms::Button());
 			this->Rot_test = (gcnew System::Windows::Forms::Button());
-			this->Reset_quat = (gcnew System::Windows::Forms::Button());
 			this->Aligned_rot = (gcnew System::Windows::Forms::Button());
-			this->Save_Points2 = (gcnew System::Windows::Forms::Button());
 			this->First_cloud = (gcnew System::Windows::Forms::Button());
 			this->Second_cloud = (gcnew System::Windows::Forms::Button());
 			this->Aligned12 = (gcnew System::Windows::Forms::Button());
@@ -360,7 +354,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->cbComPortL->Name = L"cbComPortL";
 			this->cbComPortL->Size = System::Drawing::Size(121, 20);
 			this->cbComPortL->TabIndex = 0;
-			this->cbComPortL->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::comboBox1_SelectedIndexChanged);
 			// 
 			// btnComUpdate
 			// 
@@ -400,10 +393,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->btnComOpen->Text = L"Open COM";
 			this->btnComOpen->UseVisualStyleBackColor = true;
 			this->btnComOpen->Click += gcnew System::EventHandler(this, &MyForm::btnComOpen_Click);
-			// 
-			// backgroundWorker1
-			// 
-			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &MyForm::backgroundWorker1_DoWork);
 			// 
 			// btnBleEstablish
 			// 
@@ -830,16 +819,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->Rot_test->UseVisualStyleBackColor = true;
 			this->Rot_test->Click += gcnew System::EventHandler(this, &MyForm::Rot_test_Click);
 			// 
-			// Reset_quat
-			// 
-			this->Reset_quat->Location = System::Drawing::Point(674, 548);
-			this->Reset_quat->Name = L"Reset_quat";
-			this->Reset_quat->Size = System::Drawing::Size(75, 23);
-			this->Reset_quat->TabIndex = 48;
-			this->Reset_quat->Text = L"Reset quat";
-			this->Reset_quat->UseVisualStyleBackColor = true;
-			this->Reset_quat->Click += gcnew System::EventHandler(this, &MyForm::Reset_quat_Click);
-			// 
 			// Aligned_rot
 			// 
 			this->Aligned_rot->Location = System::Drawing::Point(881, 577);
@@ -849,16 +828,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->Aligned_rot->Text = L"Aligned rot";
 			this->Aligned_rot->UseVisualStyleBackColor = true;
 			this->Aligned_rot->Click += gcnew System::EventHandler(this, &MyForm::Aligned_rot_Click);
-			// 
-			// Save_Points2
-			// 
-			this->Save_Points2->Location = System::Drawing::Point(582, 548);
-			this->Save_Points2->Name = L"Save_Points2";
-			this->Save_Points2->Size = System::Drawing::Size(75, 23);
-			this->Save_Points2->TabIndex = 50;
-			this->Save_Points2->Text = L"Save Points2";
-			this->Save_Points2->UseVisualStyleBackColor = true;
-			this->Save_Points2->Click += gcnew System::EventHandler(this, &MyForm::Save_Points2_Click);
 			// 
 			// First_cloud
 			// 
@@ -1278,9 +1247,7 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->Controls->Add(this->Aligned12);
 			this->Controls->Add(this->Second_cloud);
 			this->Controls->Add(this->First_cloud);
-			this->Controls->Add(this->Save_Points2);
 			this->Controls->Add(this->Aligned_rot);
-			this->Controls->Add(this->Reset_quat);
 			this->Controls->Add(this->Rot_test);
 			this->Controls->Add(this->Read_point_v2);
 			this->Controls->Add(this->overlap_constant2);
@@ -1607,100 +1574,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 		private:
 
 		//Quaternion *preQuaternL, *preQuaternR;
-
-
-private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-	}
-
-private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e) {
-}
-private: System::Void Reset_quat_Click(System::Object^  sender, System::EventArgs^  e) {
-	//(*test_diff) = Quaternion(0.7f, 0.7f, 0.0f, 0.0f);
-	sysManager->GetGloveDataL().Zero();
-}
-
-private: System::Void Save_Points2_Click(System::Object^  sender, System::EventArgs^  e) {
-	//clock_t tmp_file_name;
-	//std::string filename;
-	//std::string fileidx;
-	//tmp_file_name = clock();
-	//int tnp_idx = PointCloud_idx_show;
-	//
-	//Quaternion test_quat;
-	//Radian *test_diff, *quat1_diff;
-	//Vector3 *test_rotation, *quat1_rotation;
-	//test_diff = new Radian((*pointCloud_radian)[PointCloud_idx_show]);
-	//test_rotation = new Vector3((*pointCloud_quat_vector)[PointCloud_idx_show].x,
-	//	(*pointCloud_quat_vector)[PointCloud_idx_show].y,
-	//	(*pointCloud_quat_vector)[PointCloud_idx_show].z);
-	//quat1_diff = new Radian;
-	//quat1_rotation = new Vector3;
-	////test_quat = sysManager->GetGloveDataL().GetQuaternion();
-	////test_quat = test_quat * (*quat1);
-	////test_quat = test_quat.Inverse();
-	//
-	////test_quat.ToAngleAxis(*test_diff, *test_rotation);
-	//(*quat1).ToAngleAxis(*quat1_diff, *quat1_rotation);
-	//
-	//
-	//
-	//std::vector<GlobalRegistration::Point3D> tmpPC;
-	//for (int j = 0; j < (*PointCloudArr)[tnp_idx].mPC.size(); j++) {
-	//	GlobalRegistration::Point3D tmp;
-	//
-	//	tmp.x() = (*PointCloudArr)[tnp_idx][j].x();
-	//	tmp.y() = (*PointCloudArr)[tnp_idx][j].y();
-	//	tmp.z() = (*PointCloudArr)[tnp_idx][j].z();
-	//	tmpPC.push_back(tmp);
-	//}
-	//
-	////std::cout << "test_diff" << (*test_diff).valueDegrees() << std::endl;
-	////std::cout << "test_rotation:(" << test_rotation->x << "," << test_rotation->y << "," << test_rotation->z << ")" << std::endl;
-	////std::cout << "(*Point_cloud_center)[0]:(" << (*Point_cloud_center)[0].x << "," << (*Point_cloud_center)[0].y << "," << (*Point_cloud_center)[0].z << ")" << std::endl;
-	////glTranslatef(-(*Point_cloud_center)[0].x,-(*Point_cloud_center)[0].y, -(*Point_cloud_center)[0].z);
-	//std::cout << "(*test_diff).valueDegrees():(" << (*output_diff).valueDegrees() << std::endl;
-	//std::cout << "(*test_rotation):(" << (*output_rotVec).x << "," << (*output_rotVec).y << "," << (*output_rotVec).z << ")" << std::endl;
-	//
-	//std::cout << "tmp_file_name: " << tmp_file_name << ", PointCloud_idx_show:" << tnp_idx << std::endl;
-	//MarshalString(tmp_file_name.ToString(), filename);
-	//MarshalString(tnp_idx.ToString(), fileidx);
-	//
-	//std::ofstream  output_file;
-	//output_file.open(filename + "__" + fileidx + ".txt");
-	////output_file << "1234" << std::endl;
-	//
-	//output_file << (*quat1_diff).valueDegrees() << " ";
-	//output_file << (*quat1_rotation).x << " ";
-	//output_file << (*quat1_rotation).y << " ";
-	//output_file << (*quat1_rotation).z << " ";
-	//output_file << "\n";
-	//
-	//output_file << (*output_diff).valueDegrees() << " ";
-	//output_file << (*output_rotVec).x << " ";
-	//output_file << (*output_rotVec).y << " ";
-	//output_file << (*output_rotVec).z << " ";
-	//output_file << "\n";
-	//
-	///*output_file << (*quat3).x << " ";
-	//output_file << (*quat3).y << " ";
-	//output_file << (*quat3).z << " ";
-	//output_file << (*quat3).w << " ";
-	//output_file << "\n";*/
-	//
-	//for (int i = 0; i < (*PointCloudArr)[tnp_idx].size(); i++)
-	//{
-	//	//swap x and y
-	//	output_file << tmpPC[i].x() << " ";
-	//	output_file << tmpPC[i].y() << " ";
-	//	output_file << tmpPC[i].z() << " ";
-	//	output_file << "0 0";
-	//	output_file << "\n";
-	//}
-	//output_file.close();
-	////saveFileDialog1->ShowDialog();
-	//std::cout << "Save_OK" << std::endl;
-}
-
 private: System::Void reset_rot_Click(System::Object^  sender, System::EventArgs^  e) {
 
 	is_reset = true;

@@ -33,12 +33,6 @@
     <ClInclude Include="GLModelNode.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\LoadShaders.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\objloader.hpp">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="ModelList.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
@@ -86,6 +80,12 @@
     </ClInclude>
     <ClInclude Include="..\OtherPackages\Include\Math\Vector4.h">
       <Filter>標頭檔\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\Include\objloader.hpp">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\OtherPackages\Include\LoadShaders.h">
+      <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
