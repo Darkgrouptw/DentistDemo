@@ -39,5 +39,6 @@ namespace DentistDemo
         //
         GLModelNode **modelHandL;
         GLModelNode **modelHandR;
+		GLModelNode *tooth1;
     };
 }

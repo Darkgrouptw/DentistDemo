@@ -121,6 +121,11 @@ System::Void DentistDemo::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	//near_idx2 = new std::vector<int>;
 	PointCloudArr = new std::vector<PointCloudArray>;
 	//show_third_point = false;
+	obj1 = new objData;
+	obj2 = new objData;
+	obj3 = new objData;
+	obj4 = new objData;
+	obj5 = new objData;
 
 	tmp_fileName = new std::string;
 	out_fileName = new std::string;
@@ -474,7 +479,7 @@ void DentistDemo::MyForm::hkoglPanelControl1_Load(System::Object^  sender, Syste
 	showPointCloud = false;
 	can_rotate = false;
 	//timer1->Start();
-
+	load_obj();
 	DManager->ReadCalibrationData();
 
 	std::cout << "GL initial OK " << std::endl;
@@ -1053,7 +1058,7 @@ void DentistDemo::MyForm::hkoglPanelControl1_KeyDown(System::Object^  sender, Sy
 		//std::cout << "F5" << std::endl;
 
 
-		showoverlap1 = !showoverlap1;
+		//showoverlap1 = !showoverlap1;
 		//if (showoverlap1)
 		//	std::cout << "show_second_point = true" << std::endl;
 		//else
@@ -1063,7 +1068,7 @@ void DentistDemo::MyForm::hkoglPanelControl1_KeyDown(System::Object^  sender, Sy
 		//std::cout << "F6" << std::endl;
 
 
-		showoverlap2 = !showoverlap2;
+		//showoverlap2 = !showoverlap2;
 		//if (showoverlap2)
 		//	std::cout << "show_second_point = true" << std::endl;
 		//else
@@ -1402,20 +1407,9 @@ void DentistDemo::MyForm::Clear_cloud_Click(System::Object^  sender, System::Eve
 
 	std::cout << "pointCloudSet.size: " << PointCloudArr->size() << std::endl;
 }
-void DentistDemo::MyForm::Alignment_Click(System::Object^  sender, System::EventArgs^  e) {
-	//if (pointCloudSet->size() > 1) {
-	//	int try_count = 0;
-	//	//while (final_score < 0.51f&&try_count<30) {
-	//		super4PCS_Align(*finalPC, &(*pointCloudSet)[PointCloud_idx_show],5);
-	//		//std::cout << "final_score:" << final_score << std::endl;
-	//		//try_count++;
-	//	//}
-	//	final_score = 0;
-	//	try_count = 0;
-	//	//CombinePC(PointCloud_idx_show);
-	//}
-
-}
+//void DentistDemo::MyForm::Alignment_Click(System::Object^  sender, System::EventArgs^  e) {
+//
+//}
 void DentistDemo::MyForm::Save_PointCloud_Click(System::Object^  sender, System::EventArgs^  e) {
 	//saveFileDialog1->Filter = "All files (*.*)|*.*";
 	clock_t tmp_file_name;
@@ -1466,7 +1460,7 @@ void DentistDemo::MyForm::Save_PointCloud_Click(System::Object^  sender, System:
 						 output_file << DManager->MappingMatrix[Mapidx * 2] * ratio << " ";
 						 output_file << DManager->MappingMatrix[Mapidx * 2 + 1] * ratio << " ";
 						 output_file << theTRcuda->PointType[PCidx + 1] * zRatio / theTRcuda->VolumeSize_Z * ratio << " ";
-						 output_file << "0 0 ";
+						 //output_file << "0 0 ";
 						//tmp_VolumeData.push_back(theTRcuda->VolumeData[PCidx]);
 						 //output_file << "\n";
 						 //output_file << x+1 << ",";
@@ -1618,7 +1612,7 @@ void DentistDemo::MyForm::Save_point_s_Click(System::Object^  sender, System::Ev
 		output_file << (*PointCloudArr)[tnp_idx].mPC[i].Position.x() << " ";
 		output_file << (*PointCloudArr)[tnp_idx].mPC[i].Position.y() << " ";
 		output_file << (*PointCloudArr)[tnp_idx].mPC[i].Position.z() << " ";
-		output_file << "0 0";
+		//output_file << "0 0";
 		output_file << "\n";
 	}
 	output_file.close();
@@ -1645,156 +1639,25 @@ void DentistDemo::MyForm::Save_point_s_Click(System::Object^  sender, System::Ev
 	//saveFileDialog1->ShowDialog();
 	std::cout << "Save_OK2" << std::endl;
 }
-void DentistDemo::MyForm::label1_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-void DentistDemo::MyForm::textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = textBox1->Text;
-	if (test_in->Length>0)
-		tmp_peak_gap = (float)(Convert::ToDouble(test_in));
-	//std::cout << "tmp_float:" << tmp_float << std::endl;
-}
-void DentistDemo::MyForm::textBox1_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		theTRcuda->peakGap = tmp_peak_gap;
+//void DentistDemo::MyForm::label1_Click(System::Object^  sender, System::EventArgs^  e) {
+//}
 
-		std::cout << "tmp_float:" << tmp_peak_gap << std::endl;
-		std::cout << "theTRcuda->peakGap:" << theTRcuda->peakGap << std::endl;
-	}
-}
-void DentistDemo::MyForm::textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = textBox2->Text;
-	if (test_in->Length>0)
-		tmp_energy_gap = (float)(Convert::ToDouble(test_in));
-}
-void DentistDemo::MyForm::textBox2_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		theTRcuda->energyGap = tmp_energy_gap;
+void DentistDemo::MyForm::load_obj() {
+	std::vector<glm::vec3> tmp_out_vertices;
+	std::vector<glm::vec3> tmp_out_normals;
+	std::vector<unsigned int> tmp_out_materialIndices;
+	std::vector<std::string> tmp_out_mtls;
 
-		std::cout << "tmp_float:" << tmp_energy_gap << std::endl;
-		std::cout << "theTRcuda->energyGap:" << theTRcuda->energyGap << std::endl;
-	}
-}
-void DentistDemo::MyForm::Theshold_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Theshold_in->Text;
-	if(test_in->Length>0)
-		tmp_theshold = (float)(Convert::ToDouble(test_in));
+	//loadOBJ("test.obj", *obj1->out_vertices, *obj1->out_normals, *obj1->out_materialIndices, *obj1->out_mtls);
+	
 
-}
-void DentistDemo::MyForm::Theshold_in_KeyDown_1(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_theshold = tmp_theshold;
+	//obj1->out_vertices = std::vector<glm::vec3>(tmp_out_vertices.begin(), tmp_out_vertices.end());
 
-		std::cout << "tmp_float:" << tmp_theshold << std::endl;
-		std::cout << "super_theshold:" << super_theshold << std::endl;
-	}
+	//obj1->out_materialIndices = tmp_out_materialIndices;
+	//obj1->out_mtls = tmp_out_mtls;
+}
 
-}
-void DentistDemo::MyForm::Max_time_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Max_time_in->Text;
-	if (test_in->Length>0)
-		tmp_max_time = (float)(Convert::ToDouble(test_in));
-}
-void DentistDemo::MyForm::Max_time_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_max_time = tmp_max_time;
 
-		std::cout << "tmp_max_time:" << tmp_max_time << std::endl;
-		std::cout << "super_max_time:" << super_max_time << std::endl;
-	}
-}
-void DentistDemo::MyForm::Max_angle_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Max_angle_in->Text;
-	if (test_in->Length>0)
-		tmp_max_angle = (float)(Convert::ToDouble(test_in));
-}
-void DentistDemo::MyForm::Max_angle_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_max_angle = tmp_max_angle;
-
-		std::cout << "tmp_max_angle:" << tmp_max_angle << std::endl;
-		std::cout << "super_max_angle:" << super_max_angle << std::endl;
-	}
-}
-void DentistDemo::MyForm::Sample_points_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Sample_points_in->Text;
-	if (test_in->Length>0)
-		tmp_sample_point = (float)(Convert::ToDouble(test_in));
-
-}
-void DentistDemo::MyForm::Sample_points_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_sample_point = tmp_sample_point;
-
-		std::cout << "tmp_sample_point:" << tmp_sample_point << std::endl;
-		std::cout << "super_sample_point:" << super_sample_point << std::endl;
-	}
-}
-void DentistDemo::MyForm::Overlap_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Overlap_in->Text;
-	if (test_in->Length>0)
-		tmp_overlap = (float)(Convert::ToDouble(test_in));
-}
-void DentistDemo::MyForm::Overlap_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_overlap = tmp_overlap;
-
-		std::cout << "tmp_overlap:" << tmp_overlap << std::endl;
-		std::cout << "super_overlap:" << super_overlap << std::endl;
-	}
-}
-void DentistDemo::MyForm::Delta_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Delta_in->Text;
-	if (test_in->Length>0)
-		tmp_delta = (float)(Convert::ToDouble(test_in));
-}
-void DentistDemo::MyForm::Delta_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_delta = tmp_delta;
-
-		std::cout << "tmp_delta:" << tmp_delta << std::endl;
-		std::cout << "super_delta:" << super_delta << std::endl;
-	}
-}
-void DentistDemo::MyForm::Transform_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Transform_in->Text;
-	if (test_in->Length>0)
-		tmp_transform = (float)(Convert::ToDouble(test_in));
-
-}
-void DentistDemo::MyForm::Transform_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_transform = tmp_transform;
-
-		std::cout << "tmp_transform:" << tmp_transform << std::endl;
-		std::cout << "super_transform:" << super_transform << std::endl;
-	}
-}
-void DentistDemo::MyForm::Constant1_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Constant1_in->Text;
-	if (test_in->Length>0)
-		tmp_constant1 = (float)(Convert::ToDouble(test_in));
-}
-void DentistDemo::MyForm::Constant1_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_constant1 = tmp_constant1;
-		change_constant1 = true;
-		std::cout << "tmp_constant1:" << tmp_constant1 << std::endl;
-		std::cout << "super_constant1:" << super_constant1 << std::endl;
-	}
-}
-void DentistDemo::MyForm::Constant2_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Constant2_in->Text;
-	if (test_in->Length>0)
-		tmp_constant2 = (float)(Convert::ToDouble(test_in));
-}
-void DentistDemo::MyForm::Constant2_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_constant2 = tmp_constant2;
-		change_constant2 = true;
-		std::cout << "tmp_constant2:" << tmp_constant2 << std::endl;
-		std::cout << "super_constant2:" << super_constant2 << std::endl;
-	}
-}
 void DentistDemo::MyForm::name_output_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 	String^ test_in = name_output->Text;
 	if (test_in->Length > 0) {
@@ -1809,8 +1672,7 @@ void DentistDemo::MyForm::name_output_KeyDown(System::Object^  sender, System::W
 		std::cout << "out_fileName:" << (*out_fileName) << std::endl;
 	}
 }
-void DentistDemo::MyForm::label3_Click(System::Object^  sender, System::EventArgs^  e) {
-}
+
 void DentistDemo::MyForm::read_point_Click(System::Object^  sender, System::EventArgs^  e) {
 	char file_name1[14] = "122305__1.txt";
 	char file_name2[14] = "1C15_01.txt";
@@ -2381,48 +2243,8 @@ void DentistDemo::MyForm::Add2Combine_Click(System::Object^  sender, System::Eve
 		(*PointCloudArr)[PointCloud_idx_show].choose_PC = (*PointCloudArr)[PointCloud_idx_show].mPC_noGyro;
 
 }
-void DentistDemo::MyForm::Combine_Click(System::Object^  sender, System::EventArgs^  e) {
-
-
-	//if (pointCloudSet->size() > 1) {
-	//
-	//	for (int i = 0; i < (*pointCloudSet)[PointCloud_idx_show].size(); i++)
-	//	{
-	//		GlobalRegistration::Point3D tmp = (*pointCloudSet)[PointCloud_idx_show][i];
-	//		//std::cout << "[" << i << "]:" << tmp << std::endl;
-	//		//(*finalPC).push_back(tmp);
-	//		(*aligned).push_back(tmp);
-	//		//finalPCid->push_back(PointCloud_idx_show);
-	//	}
-	//	std::cout << "finalPC size : " << (*finalPC).size();
-	//
-	//	CombinePC(PointCloud_idx_show);
-	//
-	//	clock_t tmp_file_name;
-	//	std::string filename;
-	//	tmp_file_name = clock();
-	//
-	//	std::cout << "tmp_file_name: " << tmp_file_name << std::endl;
-	//	MarshalString(tmp_file_name.ToString(), filename);
-	//
-	//	std::ofstream  output_file;
-	//	output_file.open(filename + ".txt");
-	//	//output_file << "1234" << std::endl;
-	//
-	//	for (int i = 0; i < (*aligned).size(); i++)
-	//	{
-	//		//swap x and y
-	//		output_file << (*aligned)[i].y() << " ";
-	//		output_file << (*aligned)[i].x() << " ";
-	//		output_file << (*aligned)[i].z() << " ";
-	//		output_file << "0 " << (*finalPCid)[i];
-	//		output_file << "\n";
-	//	}
-	//	output_file.close();
-	//	//saveFileDialog1->ShowDialog();
-	//	std::cout << "Save_OK" << std::endl;
-	//}
-}
+//void DentistDemo::MyForm::Combine_Click(System::Object^  sender, System::EventArgs^  e) {
+//}
 void DentistDemo::MyForm::Save_combine_Click(System::Object^  sender, System::EventArgs^  e) {
 	clock_t tmp_file_name;
 	std::string filename;
@@ -2526,85 +2348,18 @@ void DentistDemo::MyForm::Save_combine_Click(System::Object^  sender, System::Ev
 	std::cout << "Save_OK" << std::endl;
 
 }
-void DentistDemo::MyForm::Part_Align_Click(System::Object^  sender, System::EventArgs^  e) {
+//void DentistDemo::MyForm::Part_Align_Click(System::Object^  sender, System::EventArgs^  e) {
 //
-//	if ((*pointCloudSet).size() > 0) {
-//		std::vector<GlobalRegistration::Point3D> *tmp_PC1, *tmp_PC2;
-//		tmp_PC1 = new std::vector<GlobalRegistration::Point3D>;
-//		tmp_PC2 = new std::vector<GlobalRegistration::Point3D>;
-//		for (int j = 0; j < (*pointCloudSet)[0].size(); j++) {
-//			GlobalRegistration::Point3D tmp;
-//			tmp.x() = (*pointCloudSet)[0][j].x();
-//			tmp.y() = (*pointCloudSet)[0][j].y();
-//			tmp.z() = (*pointCloudSet)[0][j].z();
+//}
+//void DentistDemo::MyForm::Chose_Align_Click(System::Object^  sender, System::EventArgs^  e) {
 //
-//			if ((*Plane_vector)[0].x*tmp.x() + (*Plane_vector)[0].y*tmp.y() + (*Plane_vector)[0].z*tmp.z() + super_constant1>0) {
-//				tmp_PC1->push_back(tmp);
-//			}
-//		}
-//		for (int j = 0; j < (*pointCloudSet)[1].size(); j++) {
-//			GlobalRegistration::Point3D tmp;
-//			tmp.x() = (*pointCloudSet)[1][j].x();
-//			tmp.y() = (*pointCloudSet)[1][j].y();
-//			tmp.z() = (*pointCloudSet)[1][j].z();
+//}
+//void DentistDemo::MyForm::overlap_constant1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 //
-//			if ((*Plane_vector)[0].x*tmp.x() + (*Plane_vector)[0].y*tmp.y() + (*Plane_vector)[0].z*tmp.z() + super_constant2>0) {
-//				tmp_PC2->push_back(tmp);
-//			}
-//		}
+//}
+//void DentistDemo::MyForm::overlap_constant2_Scroll(System::Object^  sender, System::EventArgs^  e) {
 //
-//		if (tmp_PC1->size() > 0 && tmp_PC2->size() > 0) {
-//			int try_count = 0;
-//
-//			super4PCS_Align(*tmp_PC1, &(*tmp_PC2),5);
-//			final_score = 0;
-//			try_count = 0;
-//			//CombinePC(PointCloud_idx_show);
-//		}
-//	}
-}
-void DentistDemo::MyForm::Chose_Align_Click(System::Object^  sender, System::EventArgs^  e) {
-//
-//	if ((*pointCloudSet).size()>1) {
-//		for (int j = 0; j < (*pointCloudSet)[PointCloud_idx_show].size(); j++)
-//		{
-//			GlobalRegistration::Point3D tmp;
-//			//std::cout << "PointCloud_idx_show : " << PointCloud_idx_show << std::endl;
-//			tmp.x() = (*pointCloudSet)[PointCloud_idx_show][j].x();
-//			tmp.y() = (*pointCloudSet)[PointCloud_idx_show][j].y();
-//			tmp.z() = (*pointCloudSet)[PointCloud_idx_show][j].z();
-//
-//			(*tmp_alignedPC1).push_back(tmp);
-//		}
-//		for (int j = 0; j < (*pointCloudSet)[Point_cloud_idx_sec].size(); j++)
-//		{
-//			GlobalRegistration::Point3D tmp;
-//			//std::cout << "PointCloud_idx_show : " << PointCloud_idx_show << std::endl;
-//			tmp.x() = (*pointCloudSet)[Point_cloud_idx_sec][j].x();
-//			tmp.y() = (*pointCloudSet)[Point_cloud_idx_sec][j].y();
-//			tmp.z() = (*pointCloudSet)[Point_cloud_idx_sec][j].z();
-//
-//			(*tmp_alignedPC2).push_back(tmp);
-//		}
-//		tmp_aligned1_max = (*Point_cloud_Max)[PointCloud_idx_show].z;
-//		tmp_aligned1_min = (*Point_cloud_Min)[PointCloud_idx_show].z;
-//		tmp_aligned2_max = (*Point_cloud_Max)[Point_cloud_idx_sec].z;
-//		tmp_aligned2_min = (*Point_cloud_Min)[Point_cloud_idx_sec].z;
-//
-//
-//
-//		super4PCS_Align(*tmp_alignedPC1, tmp_alignedPC2,5);
-//	}
-}
-void DentistDemo::MyForm::overlap_constant1_Scroll(System::Object^  sender, System::EventArgs^  e) {
-	super_constant1 = (double)overlap_constant1->Value/10;
-	std::cout << "super_constant1:" << super_constant1 << std::endl;
-}
-void DentistDemo::MyForm::overlap_constant2_Scroll(System::Object^  sender, System::EventArgs^  e) {
-	super_constant2 = (double)overlap_constant2->Value / 10;
-	std::cout << "super_constant2:" << super_constant2 << std::endl;
-
-}
+//}
 void DentistDemo::MyForm::Read_point_v2_Click(System::Object^  sender, System::EventArgs^  e) {
 	std::cout << "filename_array->size():" << filename_array->size() << std::endl;
 	for (int i = 0; i < filename_array->size(); i++) {
@@ -2613,116 +2368,11 @@ void DentistDemo::MyForm::Read_point_v2_Click(System::Object^  sender, System::E
 
 }
 void DentistDemo::MyForm::Rot_test_Click(System::Object^  sender, System::EventArgs^  e) {
-	//can_rotate = true;
-	//float idt, tmpx, tmpy, tmpz;
-	//Matrix3 *tmp_M;
-	//Vector3 *tmp_center, *tmp_outside, *tmp_plane;
-	//tmp_M = new Matrix3;
-	//
-	//Quaternion *tmp_quat;
-	////int tttttttt;
-	//tmp_quat = new Quaternion(-0.113275, -0.0772697, 0.00439623, 0.990545);
-	//*tmp_quat = tmp_quat->Inverse();
-	//tmp_quat->ToAngleAxis(*theta_diff, *rotationAxix_diff);
-	//tmp_quat->ToRotationMatrix(*tmp_M);
-	//std::cout << "quat3:" << *tmp_quat << std::endl;
-	//
-	//Rotate_quat(theta_diff->valueDegrees(), -rotationAxix_diff->x, -rotationAxix_diff->z, rotationAxix_diff->y);
-	//
-	//int idx = (*pointCloudSet).size() - 1;
-	//
-	//for (int j = 0; j < (*pointCloudSet)[idx].size(); j++)
-	//{
-	//	idt = ((*pointCloudSet)[idx][j].z() - 1) / 2;
-	//	(*pointCloudSet)[idx][j].x() = (*pointCloudSet)[idx][j].x() - (*Point_cloud_center)[0].x;
-	//	(*pointCloudSet)[idx][j].y() = (*pointCloudSet)[idx][j].y() - (*Point_cloud_center)[0].y;
-	//	(*pointCloudSet)[idx][j].z() = (*pointCloudSet)[idx][j].z() - (*Point_cloud_center)[0].z;
-	//
-	//	//Vector3 *tmp_v;
-	//	//tmp_v = new Vector3((*pointCloudSet)[idx][j].x(), (*pointCloudSet)[idx][j].y(), (*pointCloudSet)[idx][j].z());
-	//	//*tmp_v = (*tmp_M)* (*tmp_v);
-	//
-	//	glm::vec4 *tmp_vv;
-	//	tmp_vv = new glm::vec4((*pointCloudSet)[idx][j].x(), (*pointCloudSet)[idx][j].y(), (*pointCloudSet)[idx][j].z(), 1);
-	//	*tmp_vv = (*tmp_MM)*(*tmp_vv);
-	//
-	//	tmpx = (*tmp_vv).x + (*Point_cloud_center)[0].x;
-	//	tmpy = (*tmp_vv).y + (*Point_cloud_center)[0].y;
-	//	tmpz = (*tmp_vv).z + (*Point_cloud_center)[0].z;
-	//
-	//	(*pointCloudSet)[idx][j].x() = tmpx;
-	//	(*pointCloudSet)[idx][j].y() = tmpy;
-	//	(*pointCloudSet)[idx][j].z() = tmpz;
-	//}
-	//
-	//
-	//std::cout << "Get_Sec_quat_Click OK" << std::endl;
-	//std::cout << "theta_diff:" << theta_diff->valueDegrees() << std::endl;
-	//std::cout << "rotationAxix_diff:(" << rotationAxix_diff->x << "," << rotationAxix_diff->y << "," << rotationAxix_diff->z << ")" << std::endl;
+
 
 }
 void DentistDemo::MyForm::Aligned_rot_Click(System::Object^  sender, System::EventArgs^  e) {
-	//int tnp_idx = PointCloud_idx_show;
-	//std::vector<GlobalRegistration::Point3D> tmpPC;
-	//for (int j = 0; j < (*pointCloudSet)[tnp_idx].size(); j++) {
-	//	GlobalRegistration::Point3D tmp;
-	//
-	//	tmp.x() = (*pointCloudSet)[tnp_idx][j].x();
-	//	tmp.y() = (*pointCloudSet)[tnp_idx][j].y();
-	//	tmp.z() = (*pointCloudSet)[tnp_idx][j].z();
-	//	tmpPC.push_back(tmp);
-	//}
-	//
-	//for (int j = 0; j < tmpPC.size(); j++) {
-	//
-	//	tmpPC[j].x() = tmpPC[j].x() - (*Point_cloud_center)[0].x;
-	//	tmpPC[j].y() = tmpPC[j].y() - (*Point_cloud_center)[0].y;
-	//	tmpPC[j].z() = tmpPC[j].z() - (*Point_cloud_center)[0].z;
-	//
-	//	glm::vec4 *tmp_vv;
-	//	tmp_vv = new glm::vec4(tmpPC[j].x(), tmpPC[j].y(), tmpPC[j].z(), 1);
-	//	//*tmp_v = (*tmp_M)* (*tmp_v);
-	//	*tmp_vv = (*tmp_MM)*(*tmp_vv);
-	//
-	//	tmpPC[j].x() = (*tmp_vv).x + (*Point_cloud_center)[0].x;
-	//	tmpPC[j].y() = (*tmp_vv).y + (*Point_cloud_center)[0].y;
-	//	tmpPC[j].z() = (*tmp_vv).z + (*Point_cloud_center)[0].z;
-	//}
-	//
-	//if ((*pointCloudSet).size() == 2) {
-	//	int try_count = 0;
-	//	while (final_score < 0.51f&&try_count<20) {
-	//		super4PCS_Align(*finalPC, &tmpPC,5);
-	//		std::cout << "final_score:" << final_score << std::endl;
-	//		try_count++;
-	//	}
-	//	if (final_score < 0.51) {
-	//		std::cout << "Try another point cloud\n";
-	//	}
-	//	else {
-	//		std::cout << " Stitch success\n";
-	//		(*pointCloud_aligned).push_back(tmpPC);
-	//	}
-	//	final_score = 0;
-	//	try_count = 0;
-	//}
-	//else {
-	//	int try_count = 0;
-	//	while (final_score < 0.51f&&try_count<20) {
-	//		super4PCS_Align((*pointCloud_aligned)[(*nearest_idx)[tnp_idx]], &tmpPC, 5);
-	//		std::cout << "final_score:" << final_score << std::endl;
-	//		try_count++;
-	//	}
-	//	if (final_score < 0.51) {
-	//		std::cout << "Try another point cloud\n";
-	//	}
-	//	else {
-	//		std::cout << " Stitch success\n";
-	//		(*pointCloud_aligned).push_back(tmpPC);
-	//	}
-	//	final_score = 0;
-	//	try_count = 0;
-	//}
+	
 }
 void DentistDemo::MyForm::Aligned12_Click(System::Object^  sender, System::EventArgs^  e) {
 	if ((*PointCloudArr).size() > 1) {
@@ -2930,130 +2580,10 @@ void DentistDemo::MyForm::Aligned_target_Click(System::Object^  sender, System::
 		std::cout << "all_time:" << all_time << "s" << std::endl;
 	}
 }
-void DentistDemo::MyForm::numericUpDown4_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
-	Aligned_target_id = (int)numericUpDown4->Value;
-}
-void DentistDemo::MyForm::Iter_thresh_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Iter_thresh->Text;
-	if (test_in->Length>0)
-		tmp_iterThre = (float)(Convert::ToDouble(test_in));
-
-}
-void DentistDemo::MyForm::Iter_thresh_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_iterTre = tmp_iterThre;
-
-		std::cout << "tmp_iterThre:" << tmp_iterThre << std::endl;
-		std::cout << "super_iterTre:" << super_iterTre << std::endl;
-	}
-
-}
-void DentistDemo::MyForm::numericUpDown1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
-	//float  numericUpDown1->Value
-	tmp_rotate_x = (float)numericUpDown1->Value;
-}
-void DentistDemo::MyForm::numericUpDown2_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
-	tmp_rotate_y = (float)numericUpDown2->Value;
-}
-void DentistDemo::MyForm::numericUpDown3_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
-	tmp_rotate_z = (float)numericUpDown3->Value;
-}
-void DentistDemo::MyForm::Iter_count_in_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = Iter_count_in->Text;
-	if (test_in->Length>0)
-		tmp_iterCount = (float)(Convert::ToDouble(test_in));
 
 
-}
-void DentistDemo::MyForm::Iter_count_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
-	if (e->KeyCode == System::Windows::Forms::Keys::Enter) {
-		super_iterCount = tmp_iterCount;
-
-		std::cout << "tmp_iterCount:" << tmp_iterCount << std::endl;
-		std::cout << "super_iterCount:" << super_iterCount << std::endl;
-	}
-}
-void DentistDemo::MyForm::Apply_rot_Click(System::Object^  sender, System::EventArgs^  e) {
-	mani_rotate(tmp_rotate_x, 1, 0, 0);
-	mani_rotate_cloud(PointCloud_idx_show);
-	mani_rotate(tmp_rotate_y, 0, 1, 0);
-	mani_rotate_cloud(PointCloud_idx_show);
-	mani_rotate(tmp_rotate_z, 0, 0, 1);
-	mani_rotate_cloud(PointCloud_idx_show);
-}
 void DentistDemo::MyForm::RotatePC() {
-	//can_rotate = true;
-	//float idt, tmpx, tmpy, tmpz;
-	//Matrix3 *tmp_M;
-	//Vector3 *tmp_center, *tmp_outside, *tmp_plane;
-	//tmp_M = new Matrix3;
-	//
-	//
-	////int tttttttt;
-	//*quat2 = sysManager->GetGloveDataLPtr()->GetQuaternion();
-	//*quat3 = (*quat2) * (*quat1);
-	////*quat3 = quat3->Inverse();
-	//quat3->ToAngleAxis(*theta_diff, *rotationAxix_diff);
-	//
-	///////////////////////////////////////
-	//Rotate_quat((*theta_diff).valueDegrees(), -(*rotationAxix_diff).x, -(*rotationAxix_diff).z, (*rotationAxix_diff).y);
-	//
-	///////////////////////////////////////
-	//
-	//
-	//quat3->ToRotationMatrix(*tmp_M);
-	//std::cout << "quat3:" << *quat3 << std::endl;
-	//
-	//int idx = (*pointCloudSet).size() - 1;
-	//tmp_center = new Vector3((*Point_cloud_center)[idx].x, (*Point_cloud_center)[idx].y, (*Point_cloud_center)[idx].z);
-	//tmp_outside = new Vector3((*outside_center)[idx].x, (*outside_center)[idx].y, (*outside_center)[idx].z);
-	//(*tmp_center) = (*tmp_center) - (*Point_cloud_center)[0];
-	//(*tmp_outside) = (*tmp_outside) - (*Point_cloud_center)[0];
-	//
-	//*tmp_center = (*tmp_M)*(*tmp_center);
-	//*tmp_outside = (*tmp_M)*(*tmp_outside);
-	//
-	//(*Point_cloud_center)[idx] = (*tmp_center) + (*Point_cloud_center)[0];
-	//(*outside_center)[idx] = (*tmp_outside) + (*Point_cloud_center)[0];
-	//
-	//tmp_plane = new Vector3((*outside_center)[idx] - (*outside_center)[0]);
-	//
-	//(*Plane_vector).push_back(*tmp_plane);
-	//
-	//for (int j = 0; j < (*pointCloudSet)[idx].size(); j++)
-	//{
-	//	idt = ((*pointCloudSet)[idx][j].z() - 1) / 2;
-	//	(*pointCloudSet)[idx][j].x() = (*pointCloudSet)[idx][j].x() - (*Point_cloud_center)[0].x;
-	//	(*pointCloudSet)[idx][j].y() = (*pointCloudSet)[idx][j].y() - (*Point_cloud_center)[0].y;
-	//	(*pointCloudSet)[idx][j].z() = (*pointCloudSet)[idx][j].z() - (*Point_cloud_center)[0].z;
-	//
-	//	Vector3 *tmp_v;
-	//	tmp_v = new Vector3((*pointCloudSet)[idx][j].x(), (*pointCloudSet)[idx][j].y(), (*pointCloudSet)[idx][j].z());
-	//
-	//	glm::vec4 *tmp_vv;
-	//	tmp_vv = new glm::vec4((*pointCloudSet)[idx][j].x(), (*pointCloudSet)[idx][j].y(), (*pointCloudSet)[idx][j].z(), 1);
-	//	//*tmp_v = (*tmp_M)* (*tmp_v);
-	//	*tmp_vv = (*tmp_MM)*(*tmp_vv);
-	//
-	//	tmpx = (*tmp_vv).x + (*Point_cloud_center)[0].x;
-	//	tmpy = (*tmp_vv).y + (*Point_cloud_center)[0].y;
-	//	tmpz = (*tmp_vv).z + (*Point_cloud_center)[0].z;
-	//
-	//	(*pointCloudSet)[idx][j].x() = tmpx;
-	//	(*pointCloudSet)[idx][j].y() = tmpy;
-	//	(*pointCloudSet)[idx][j].z() = tmpz;
-	//}
-	//
-	////if ((*pointCloudSet).size() == 2) {
-	//	//*quat1 = *quat2;
-	//	//*quat1 = quat1->Inverse();
-	////}
-	//
-	//std::cout << "Get_Sec_quat_Click OK" << std::endl;
-	//std::cout << "theta_diff:" << theta_diff->valueDegrees() << std::endl;
-	//std::cout << "rotationAxix_diff:(" << rotationAxix_diff->x << "," << rotationAxix_diff->y << "," << rotationAxix_diff->z << ")" << std::endl;
-	//delete tmp_MM;
-	//tmp_MM = new glm::mat4;
+	
 }
 void DentistDemo::MyForm::unsigned_short_to_char(unsigned short *input, int inputlen, char *output) {
 
@@ -3434,464 +2964,12 @@ void DentistDemo::MyForm::draw_before_mapping() {
 		}
 	}
 }
-void DentistDemo::MyForm::drawPCSet() {
-	//if ((*pointCloudSet).size() < 1)
-	//{
-	//	return;
-	//}
-	//glPointSize(thePointSize);
-	//
-	////glTranslatef((*result_movement).x, (*result_movement).y, (*result_movement).z);
-	//double idt, tmpx, tmpy, tmpz;
-	//
-	//if (show_first_point) {
-	//	//glBegin(GL_LINES);
-	//	//glColor3f(1, 1, 1);
-	//	//glVertex3f((*Point_cloud_center)[0].x, (*Point_cloud_center)[0].y, (*Point_cloud_center)[0].z);
-	//	//glVertex3f((*outside_center)[0].x, (*outside_center)[0].y, (*outside_center)[0].z);
-	//	//glEnd();
-	//
-	//	glPushMatrix();
-	//	
-	//	glBegin(GL_POINTS);
-	//	for (int j = 0; j < (*finalPC).size(); j++)
-	//	{
-	//		idt = ((*finalPC)[j].z() - 1) / 2;//-8
-	//		tmpx = (*finalPC)[j].x();
-	//		tmpy = (*finalPC)[j].y();
-	//		tmpz = (*finalPC)[j].z();
-	//		glColor3f(0.2f, 0.2f,1- (float)((*finalPC)[j].z() - (*Point_cloud_Min)[0].z) / ((*Point_cloud_Max)[0].z - (*Point_cloud_Min)[0].z));
-	//
-	//		
-	//
-	//			//if ((*movement_vector).length() > 0.002) {
-	//		//	//std::cout << "length : " << (*movement_vector).length() << std::endl;
-	//		//	std::cout << "result_movement : " << (*result_movement).x << "," << (*result_movement).y << "," << (*result_movement).z << std::endl;
-	//		//}
-	//		//glTranslatef(-10.0f,-10.0f ,-10.0f );
-	//		glVertex3f(tmpx, tmpy, tmpz);
-	//		
-	//	}
-	//	glEnd();
-	//	glPopMatrix();
-	//}
-	//
-	//if ((*pointCloudSet).size() > 1)
-	//{
-	//	glPushMatrix();
-	//
-	//	int idx = (*pointCloudSet).size() - 1;
-	//	if (show_second_point) {
-	//		//glBegin(GL_LINES);
-	//		//glColor3f(1, 1, 1);
-	//		//glVertex3f((*outside_center)[0].x, (*outside_center)[0].y, (*outside_center)[0].z);
-	//		//glVertex3f((*outside_center)[PointCloud_idx_show].x, (*outside_center)[PointCloud_idx_show].y, (*outside_center)[PointCloud_idx_show].z);
-	//		//glEnd();
-	//		//
-	//		//glBegin(GL_TRIANGLES);
-	//		//glColor3f(0.5, 1, 1);
-	//		//glVertex3f((*draw_plane1).x, (*draw_plane1).y, (*draw_plane1).z);
-	//		//glVertex3f((*draw_plane2).x, (*draw_plane2).y, (*draw_plane2).z);
-	//		//glVertex3f((*Point_cloud_center)[idx].x, (*Point_cloud_center)[idx].y, (*Point_cloud_center)[idx].z);
-	//		//glEnd();
-	//		//glBegin(GL_TRIANGLES);
-	//		//glColor3f(0.5, 1, 1);
-	//		//glVertex3f((*Point_cloud_center)[idx].x, (*Point_cloud_center)[idx].y, (*Point_cloud_center)[idx].z);
-	//		//glVertex3f((*draw_plane2).x, (*draw_plane2).y, (*draw_plane2).z);
-	//		//glVertex3f((*draw_plane1).x, (*draw_plane1).y, (*draw_plane1).z);
-	//		//glEnd();
-	//		glPushMatrix();
-	//
-	//		//*quat_tmp = sysManager->GetGloveDataLPtr()->GetQuaternion();
-	//		//(*quat_tmp) = (*quat_tmp) * (*quat1);
-	//
-	//		Radian *tmp_diff;
-	//		Vector3 *tmp_rotation;
-	//		tmp_diff = new Radian((*pointCloud_radian)[PointCloud_idx_show]);
-	//		tmp_rotation = new Vector3((*pointCloud_quat_vector)[PointCloud_idx_show].x,
-	//								   (*pointCloud_quat_vector)[PointCloud_idx_show].y,
-	//								   (*pointCloud_quat_vector)[PointCloud_idx_show].z);
-	//
-	//		//tmp_diff = new Radian;
-	//		//tmp_rotation = new Vector3;
-	//
-	//		//	test_quat2.ToAngleAxis(*test_diff, *test_rotation);
-	//		//	(*quat1).ToAngleAxis(*q1_diff, *q1_rotation);
-	//		//	//(*all_quat).ToAngleAxis(*all_diff, *all_rotation);
-	//		//	//std::cout << "all_diff" << (*all_diff).valueDegrees() << std::endl;
-	//		//	//std::cout << "all_rotation:(" << all_rotation->x << "," << all_rotation->y << "," << all_rotation->z << ")" << std::endl;
-	//		//	//std::cout << "(*Point_cloud_center)[0]:(" << (*Point_cloud_center)[0].x << "," << (*Point_cloud_center)[0].y << "," << (*Point_cloud_center)[0].z << ")" << std::endl;
-	//		//	//glTranslatef(-(*Point_cloud_center)[0].x,-(*Point_cloud_center)[0].y, -(*Point_cloud_center)[0].z);
-	//		//	//std::cout << "(*q1_diff).valueDegrees():" << (*q1_diff).valueDegrees() <<"\n";
-	//		//	//std::cout << "(*q1_rotation):(" << (*q1_rotation).x << "," << (*q1_rotation).y << "," << (*q1_rotation).z << ")\n";
-	//		//	std::cout << "\r(*test_diff).valueDegrees():" << (*test_diff).valueDegrees() << "---";
-	//		//	std::cout << "(*test_rotation):(" << (*test_rotation).x << "," << (*test_rotation).y << "," << (*test_rotation).z << ")---" ;
-	//		//	//glRotated((*test_diff).valueDegrees(), -(*test_rotation).x, -(*test_rotation).z, (*test_rotation).y);
-	//
-	//		//	(*output_diff) = (*test_diff);
-	//		//	(*output_rotVec) = (*test_rotation);
-	//		//	glTranslatef((*Point_cloud_center)[0].x, (*Point_cloud_center)[0].y, (*Point_cloud_center)[0].z);
-	//		//	glRotated((*test_diff).valueDegrees(), (*test_rotation).x, (*test_rotation).z, (*test_rotation).y);
-	//		//	glTranslatef(-(*Point_cloud_center)[0].x, -(*Point_cloud_center)[0].y, -(*Point_cloud_center)[0].z);
-	//		//	/////////////////////////////////////////
-	//		//	//Rotate_quat((*test_diff).valueDegrees(), (*test_rotation).x, (*test_rotation).z, -(*test_rotation).y);
-	//		//	//
-	//		//	//for (int j = 0; j < (*pointCloudSet)[idx].size(); j++)
-	//		//	//{
-	//		//	//	//idt = ((*pointCloudSet)[idx][j].z() - 1) / 2;
-	//		//	//	(*pointCloudSet)[idx][j].x() = (*pointCloudSet)[idx][j].x() - (*Point_cloud_center)[0].x;
-	//		//	//	(*pointCloudSet)[idx][j].y() = (*pointCloudSet)[idx][j].y() - (*Point_cloud_center)[0].y;
-	//		//	//	(*pointCloudSet)[idx][j].z() = (*pointCloudSet)[idx][j].z() - (*Point_cloud_center)[0].z;
-	//		//	//
-	//		//	//	Vector3 *tmp_v;
-	//		//	//	tmp_v = new Vector3((*pointCloudSet)[idx][j].x(), (*pointCloudSet)[idx][j].y(), (*pointCloudSet)[idx][j].z());
-	//		//	//
-	//		//	//	glm::vec4 *tmp_vv;
-	//		//	//	tmp_vv = new glm::vec4((*pointCloudSet)[idx][j].x(), (*pointCloudSet)[idx][j].y(), (*pointCloudSet)[idx][j].z(), 1);
-	//		//	//	//*tmp_v = (*tmp_M)* (*tmp_v);
-	//		//	//	*tmp_vv = (*tmp_MM)*(*tmp_vv);
-	//		//	//
-	//		//	//	tmpx = (*tmp_vv).x + (*Point_cloud_center)[0].x;
-	//		//	//	tmpy = (*tmp_vv).y + (*Point_cloud_center)[0].y;
-	//		//	//	tmpz = (*tmp_vv).z + (*Point_cloud_center)[0].z;
-	//		//	//
-	//		//	//	(*pointCloudSet)[idx][j].x() = tmpx;
-	//		//	//	(*pointCloudSet)[idx][j].y() = tmpy;
-	//		//	//	(*pointCloudSet)[idx][j].z() = tmpz;
-	//		//	//	delete tmp_vv;
-	//		//	//}
-	//		//	//delete tmp_MM;
-	//		//	//delete test_diff;
-	//		//	//delete test_rotation;
-	//		//	//delete q1_diff;
-	//		//	//delete q1_rotation;
-	//		//	//tmp_MM = new glm::mat4;
-	//		//	//*quat1 = test_quat;
-	//		//	//*quat1 = (*quat1).Inverse();
-	//		//	///////////////////////////////////////////
-	//		//}
-	//
-	//
-	//
-	//		(*quat_tmp).ToAngleAxis(*tmp_diff, *tmp_rotation);
-	//		(*output_diff) = (*tmp_diff);
-	//		(*output_rotVec) = (*tmp_rotation);
-	//		glTranslatef((*Point_cloud_center)[0].x, (*Point_cloud_center)[0].y, (*Point_cloud_center)[0].z);
-	//		glRotated((*tmp_diff).valueDegrees(), (*tmp_rotation).x, (*tmp_rotation).z, (*tmp_rotation).y);
-	//		glTranslatef(-(*Point_cloud_center)[0].x, -(*Point_cloud_center)[0].y, -(*Point_cloud_center)[0].z);
-	//
-	//		glBegin(GL_POINTS);
-	//		
-	//		for (int j = 0; j < (*pointCloudSet)[PointCloud_idx_show].size(); j++)
-	//		{
-	//			//std::cout << "PointCloud_idx_show : " << PointCloud_idx_show << std::endl;
-	//			idt = ((*pointCloudSet)[PointCloud_idx_show][j].z() - 1) / 2;
-	//			tmpx = (*pointCloudSet)[PointCloud_idx_show][j].x();
-	//			tmpy = (*pointCloudSet)[PointCloud_idx_show][j].y();
-	//			tmpz = (*pointCloudSet)[PointCloud_idx_show][j].z();
-	//		
-	//			glColor3f(0.2f, 1 - (float)(tmpz - (*Point_cloud_Min)[PointCloud_idx_show].z) / ((*Point_cloud_Max)[PointCloud_idx_show].z - (*Point_cloud_Min)[PointCloud_idx_show].z), 0.2f);
-	//			//glTranslatef((*result_movement).x, (*result_movement).y, (*result_movement).z);
-	//			glVertex3f(tmpx, tmpy, tmpz);
-	//			
-	//		}
-	//		glEnd();
-	//		glPopMatrix();
-	//	}
-	//	//if ((*pointCloudSet).size() > 2&& (*nearest_idx)[PointCloud_idx_show]<(*pointCloudSet).size()) {
-	//	//	if (show_third_point) {
-	//	//		glPushMatrix();
-	//	//		Radian *tmp_diff;
-	//	//		Vector3 *tmp_rotation;
-	//	//		tmp_diff = new Radian((*pointCloud_radian)[(*nearest_idx)[PointCloud_idx_show]]);
-	//	//		tmp_rotation = new Vector3((*pointCloud_quat_vector)[(*nearest_idx)[PointCloud_idx_show]].x,
-	//	//								   (*pointCloud_quat_vector)[(*nearest_idx)[PointCloud_idx_show]].y,
-	//	//								   (*pointCloud_quat_vector)[(*nearest_idx)[PointCloud_idx_show]].z);
-	//	//
-	//	//
-	//	//		glTranslatef((*Point_cloud_center)[0].x, (*Point_cloud_center)[0].y, (*Point_cloud_center)[0].z);
-	//	//		glRotated((*tmp_diff).valueDegrees(), (*tmp_rotation).y, (*tmp_rotation).z, (*tmp_rotation).x);
-	//	//		glTranslatef(-(*Point_cloud_center)[0].x, -(*Point_cloud_center)[0].y, -(*Point_cloud_center)[0].z);
-	//	//
-	//	//		glBegin(GL_POINTS);
-	//	//
-	//	//		for (int j = 0; j < (*pointCloudSet)[(*nearest_idx)[PointCloud_idx_show]].size(); j++)
-	//	//		{
-	//	//			std::cout << "PointCloud_idx_show : " << PointCloud_idx_show << std::endl;
-	//	//			idt = ((*pointCloudSet)[PointCloud_idx_show][j].z() - 1) / 2;
-	//	//			tmpx = (*pointCloudSet)[(*nearest_idx)[PointCloud_idx_show]][j].x();
-	//	//			tmpy = (*pointCloudSet)[(*nearest_idx)[PointCloud_idx_show]][j].y();
-	//	//			tmpz = (*pointCloudSet)[(*nearest_idx)[PointCloud_idx_show]][j].z();
-	//	//
-	//	//			glColor3f(0.4f, 1 - (float)(tmpz - (*Point_cloud_Min)[(*nearest_idx)[PointCloud_idx_show]].z) / ((*Point_cloud_Max)[(*nearest_idx)[PointCloud_idx_show]].z - (*Point_cloud_Min)[(*nearest_idx)[PointCloud_idx_show]].z), 0.2f);
-	//	//			glTranslatef((*result_movement).x, (*result_movement).y, (*result_movement).z);
-	//	//			glVertex3f(tmpx, tmpy, tmpz);
-	//	//
-	//	//		}
-	//	//		glEnd();
-	//	//
-	//	//		glPopMatrix();
-	//	//	}
-	//	//
-	//	//}
-	//	//if ((*pointCloud_aligned).size() > 1) {
-	//	//	if (show_aligned_cloud) {
-	//	//		glPushMatrix();
-	//
-	//	//		glBegin(GL_POINTS);
-	//	//		for (int j = 0; j < (*pointCloud_aligned)[PointCloud_idx_show].size(); j++)
-	//	//		{
-	//	//			idt = ((*pointCloud_aligned) [PointCloud_idx_show][j].z() - 1) / 2;//-8
-	//	//			tmpx = (*pointCloud_aligned)[PointCloud_idx_show][j].x();
-	//	//			tmpy = (*pointCloud_aligned)[PointCloud_idx_show][j].y();
-	//	//			tmpz = (*pointCloud_aligned)[PointCloud_idx_show][j].z();
-	//	//			glColor3f(0.2f, 0.2f, (float)(tmpz - (*Point_cloud_Min)[PointCloud_idx_show].z) / ((*Point_cloud_Max)[PointCloud_idx_show].z - (*Point_cloud_Min)[PointCloud_idx_show].z));
-	//
-	//	//			glVertex3f(tmpx, tmpy, tmpz);
-	//
-	//	//		}
-	//	//		glEnd();
-	//	//		glPopMatrix();
-	//	//	}
-	//	//}
-	//
-	//	/*if ((*Plane_vector).size() > 0) {
-	//		if (!showoverlap1) {
-	//			int idx;
-	//			if (PointCloud_idx_show > 1) {
-	//				idx = PointCloud_idx_show - 2;
-	//			}
-	//			else
-	//				idx = 0;
-	//			glBegin(GL_POINTS);
-	//			for (int j = 0; j < (*pointCloudSet)[0].size(); j++) {
-	//				tmpx = (*pointCloudSet)[0][j].x();
-	//				tmpy = (*pointCloudSet)[0][j].y();
-	//				tmpz = (*pointCloudSet)[0][j].z();
-	//				
-	//				if ((*Plane_vector)[0].x*tmpx + (*Plane_vector)[0].y*tmpy + (*Plane_vector)[0].z*tmpz + super_constant1>0) {
-	//					glColor3f(0.2f, 0.2f, 1 - (float)(tmpz - (*Point_cloud_Min)[0].z) / ((*Point_cloud_Max)[0].z - (*Point_cloud_Min)[0].z));
-	//					glVertex3f(tmpx, tmpy, tmpz);
-	//				}
-	//			}
-	//			glEnd();
-	//		}
-	//	}
-	//	if ((*Plane_vector).size() > 0) {
-	//		if (!showoverlap2) {
-	//			if (PointCloud_idx_show > 1) {
-	//				idx = Point_cloud_idx_sec - 2;
-	//			}
-	//			else
-	//				idx = 0;
-	//			glBegin(GL_POINTS);
-	//			for (int j = 0; j < (*pointCloudSet)[1].size(); j++) {
-	//				tmpx = (*pointCloudSet)[1][j].x();
-	//				tmpy = (*pointCloudSet)[1][j].y();
-	//				tmpz = (*pointCloudSet)[1][j].z();
-	//	
-	//				if ((*Plane_vector)[0].x*tmpx + (*Plane_vector)[0].y*tmpy + (*Plane_vector)[0].z*tmpz + super_constant2>0) {
-	//					glColor3f(0.2f, 1 - (float)(tmpz - (*Point_cloud_Min)[1].z) / ((*Point_cloud_Max)[1].z - (*Point_cloud_Min)[1].z), 0.2f);
-	//					glVertex3f(tmpx, tmpy, tmpz);
-	//				}
-	//			}
-	//			glEnd();
-	//		}
-	//	}*/
-	//
-	//	//if ((*pointCloudSet).size() > 2) {
-	//	//	if (show_third_point) {
-	//	//		glPushMatrix();
-	//	//		glBegin(GL_POINTS);
-	//	//		for (int j = 0; j < (*pointCloudSet)[Point_cloud_idx_sec].size(); j++)
-	//	//		{
-	//	//			//std::cout << "PointCloud_idx_show : " << PointCloud_idx_show << std::endl;
-	//	//			idt = ((*pointCloudSet)[Point_cloud_idx_sec][j].z() - 1) / 2;
-	//	//			tmpx = (*pointCloudSet)[Point_cloud_idx_sec][j].x();
-	//	//			tmpy = (*pointCloudSet)[Point_cloud_idx_sec][j].y();
-	//	//			tmpz = (*pointCloudSet)[Point_cloud_idx_sec][j].z();
-	//	//			glColor3f(1 - (float)(tmpz - (*Point_cloud_Min)[Point_cloud_idx_sec].z) / ((*Point_cloud_Max)[Point_cloud_idx_sec].z - (*Point_cloud_Min)[Point_cloud_idx_sec].z), 0.2f, 0.2f);
-	//	//			//glTranslatef((*result_movement).x, (*result_movement).y, (*result_movement).z);
-	//	//			glVertex3f(tmpx, tmpy, tmpz);
-	//	//		}
-	//	//		glEnd();
-	//	//		glPopMatrix();
-	//	//	}
-	//	//	if ((*tmp_alignedPC1).size() > 0) {
-	//	//		if (show_tmp_align1) {
-	//	//			glPushMatrix();
-	//	//			glBegin(GL_POINTS);
-	//	//			for (int j = 0; j < (*tmp_alignedPC1).size(); j++)
-	//	//			{
-	//	//				//std::cout << "PointCloud_idx_show : " << PointCloud_idx_show << std::endl;
-	//	//				
-	//	//				tmpx = (*tmp_alignedPC1)[j].x();
-	//	//				tmpy = (*tmp_alignedPC1)[j].y();
-	//	//				tmpz = (*tmp_alignedPC1)[j].z();
-	//	//				glColor3f(0.2f, 0.2f, 1 - (float)(tmpz - tmp_aligned1_min) / (tmp_aligned1_max - tmp_aligned1_min));
-	//	//				//glTranslatef((*result_movement).x, (*result_movement).y, (*result_movement).z);
-	//	//				glVertex3f(tmpx, tmpy, tmpz);
-	//	//			}
-	//	//			glEnd();
-	//	//			glPopMatrix();
-	//	//		}
-	//	//	}
-	//	//	if ((*tmp_alignedPC2).size() > 0) {
-	//	//		if (show_tmp_align2) {
-	//	//			glPushMatrix();
-	//	//			glBegin(GL_POINTS);
-	//	//			for (int j = 0; j < (*tmp_alignedPC2).size(); j++)
-	//	//			{
-	//	//				tmpx = (*tmp_alignedPC2)[j].x();
-	//	//				tmpy = (*tmp_alignedPC2)[j].y();
-	//	//				tmpz = (*tmp_alignedPC2)[j].z();
-	//	//				glColor3f(0.2f, 1 - (float)(tmpz - tmp_aligned2_min) / (tmp_aligned2_max - tmp_aligned2_min), 0.2f);
-	//	//				glVertex3f(tmpx, tmpy, tmpz);
-	//	//			}
-	//	//			glEnd();
-	//	//			glPopMatrix();
-	//	//		}
-	//	//	}
-	//	//}
-	//	//glPopMatrix();
-	//}
-	//
-	//
-	//if (is_camera_move) {
-	//	Radian *camera_diff;
-	//	Vector3 *camera_rotation;
-	//	
-	//	camera_diff = new Radian;
-	//	camera_rotation = new Vector3;
-	//	(*camera_quat) = sysManager->GetGloveDataLPtr()->GetQuaternion();
-	//	(*camera_quat) = (*camera_quat) * (*quat1);
-	//
-	//	//camera_quat2 = new Quaternion(-(*camera_quat).x, -(*camera_quat).y, (*camera_quat).z, (*camera_quat).w);
-	//	(*camera_quat).ToAngleAxis(*camera_diff, *camera_rotation);
-	//
-	//	std::cout << "\rvalueDegrees():" << (*camera_diff).valueDegrees() << "--- rotation:(" << (*camera_rotation).x << "---," << (*camera_rotation).y << "---," << (*camera_rotation).z << "---)";
-	//	//std::cout << "rotation:(" << (*camera_rotation).x << "," << (*camera_rotation).y << "," << (*camera_rotation).z << ")---";
-	//
-	//	glPushMatrix();
-	//	glRotated((*camera_diff).valueDegrees(), (*camera_rotation).x, (*camera_rotation).z, (*camera_rotation).y);
-	//	glBegin(GL_POINTS);
-	//	glPointSize(2);
-	//	glColor3f(1,1,1);
-	//	glVertex3f(0,0,-10);
-	//	glEnd();
-	//	glTranslatef(0,0,-10);
-	//	//glTranslatef((*Point_cloud_center)[0].x, (*Point_cloud_center)[0].y, (*Point_cloud_center)[0].z);
-	//	camera_cube(1.0f,1.0f,2.0f);
-	//	glPopMatrix();
-	//	glPushMatrix();
-	//	glRotated((*camera_diff).valueDegrees(), (*camera_rotation).x, (*camera_rotation).z, (*camera_rotation).y);
-	//	glBegin(GL_LINES);
-	//	glColor3f(1, 1, 1);
-	//	glVertex3f(0, 0, 0);
-	//	glVertex3f(0, 0, -10);
-	//	glEnd();
-	//	glPopMatrix();
-	//
-	//	
-	//}
-	//
-	//*acc_vector2 = sysManager->GetGloveDataLPtr()->GetAcceleration();
-	//
-	//*acc_vector1 = 0.9*(*acc_vector1) + 0.1 * (*acc_vector2);
-	//
-	//*acc_vector3 = (*acc_vector2) - (*acc_vector1);
-	//if (!velocity_offset_enable) {
-	//	*velocity_offset = *acc_vector3;
-	//	velocity_offset_enable = true;
-	//}
-	//*acc_vector3 = (*acc_vector3) - (*velocity_offset);
-	//
-	//*now_acc = *acc_vector3;
-	////std::cout << "now_acc : " << (*now_acc).x << "," << (*now_acc).y << "," << (*now_acc).z << std::endl;
-	//
-	//frame_rate = 0.01;
-	//
-	//if (((float)frame_rate * ((*now_acc) + (*pre_acc)) / 2).length() > 0.001) {
-	//
-	//	//std::cout << "now_acc : " << (*now_acc).x << "," << (*now_acc).y << "," << (*now_acc).z << std::endl;
-	//	//std::cout << "now_velocity_length:" << ((float)frame_rate * ((*now_acc) + (*pre_acc)) / 2).length() << std::endl;
-	//	//std::cout << "now_velocity : " << (*now_velocity).x << "," << (*now_velocity).y << "," << (*now_velocity).z << std::endl;
-	//
-	//	*now_velocity = (float)frame_rate * ((*now_acc) + (*pre_acc)) / 2;
-	//
-	//
-	//
-	//	*movement_vector = (float)frame_rate * ((*now_velocity) + (*pre_velocity)) / 2;
-	//
-	//	//std::cout << "frame rate:" << frame_rate << "s" << std::endl;
-	//	//std::cout << "movement_vector_length : " << (*movement_vector).length() << std::endl;
-	//	//std::cout << "movement_vector : " << (*movement_vector).x << "," << (*movement_vector).y << "," << (*movement_vector).z << std::endl;
-	//	*result_movement += (*movement_vector) * 5000;
-	//	//std::cout << "result_movement : " << (*result_movement).x << "," << (*result_movement).y << "," << (*result_movement).z << std::endl;
-	//}
-	////std::cout << "acc_vector3 : " <<(*acc_vector3).x<<","<< (*acc_vector3).y<<","<< (*acc_vector3).z << std::endl;
-	//second_t = clock();
-	//
-	////*now_velocity = *pre_velocity + (*acc_vector3) * frame_rate;
-	//
-	////*acc_vector3 = *acc_vector3 * frame_rate;
-	//
-	//
-	//
-	////std::cout << "movement_vector : " << (*movement_vector).x << "," << (*movement_vector).y << "," << (*movement_vector).z << std::endl;
-	////if ((*movement_vector).length() > 0.005) {
-	////std::cout << "movement_vector_length : " << (*movement_vector).length() << std::endl;
-	////*result_movement += (*movement_vector) * 50;
-	////std::cout << "result_movement : " << (*result_movement).x << "," << (*result_movement).y << "," << (*result_movement).z << std::endl;
-	////}
-	////std::cout << "frame rate:" << frame_rate << "s" << std::endl;
-	//*pre_velocity = *now_velocity;
-	//*pre_acc = *now_acc;
-	//first_t = second_t;
-
-}
-void DentistDemo::MyForm::drawPCSet2() {
-	//if ((*pointCloudSet).size() < 1)
-	//{
-	//	return;
-	//}
-	//glPointSize(thePointSize);
-	//
-	//if (show_first_point) {
-	//	glPushMatrix();
-	//	double idt, tmpx, tmpy, tmpz;
-	//	glBegin(GL_POINTS);
-	//	for (int j = 0; j < (*pointCloudSet)[0].size(); j++)
-	//	{
-	//		tmpx = (*pointCloudSet)[0][j].x();
-	//		tmpy = (*pointCloudSet)[0][j].y();
-	//		tmpz = (*pointCloudSet)[0][j].z();
-	//		glColor3f(0.2f, 0.2f, 1 - (float)((*pointCloudSet)[0][j].z() - (*Point_cloud_Min)[0].z) / ((*Point_cloud_Max)[0].z - (*Point_cloud_Min)[0].z));
-	//		glVertex3f(tmpx, tmpy, tmpz);
-	//	}
-	//	glEnd();
-	//	glPopMatrix();
-	//}
-	//if ((*pointCloudSet).size() > 1) {
-	//	double idt, tmpx, tmpy, tmpz;
-	//	int idx = PointCloud_idx_show;
-	//	if (show_second_point) {
-	//		glPushMatrix();
-	//		glBegin(GL_POINTS);
-	//		for (int j = 0; j < (*pointCloudSet)[idx].size(); j++)
-	//		{
-	//			tmpx = (*pointCloudSet)[idx][j].x();
-	//			tmpy = (*pointCloudSet)[idx][j].y();
-	//			tmpz = (*pointCloudSet)[idx][j].z();
-	//			glColor3f(0.2f, 1 - (float)((*pointCloudSet)[idx][j].z() - (*Point_cloud_Min)[idx].z) / ((*Point_cloud_Max)[idx].z - (*Point_cloud_Min)[idx].z), 0.2f);
-	//			glVertex3f(tmpx, tmpy, tmpz);
-	//		}
-	//		glEnd();
-	//		glPopMatrix();
-	//	}
-	//
-	//}
-}
+//void DentistDemo::MyForm::drawPCSet() {
+//
+//}
+//void DentistDemo::MyForm::drawPCSet2() {
+//
+//}
 void DentistDemo::MyForm::drawPCSet3() {
 	if (is_camera_move) {
 		Radian *camera_diff;
@@ -4085,32 +3163,8 @@ void DentistDemo::MyForm::Find_combine_maxmin() {
 		}
 	}
 }
-void DentistDemo::MyForm::MovePC() {
-	//float idt, tmpx, tmpy, tmpz;
-	//int idx = (*pointCloudSet).size() - 1;
-	//for (int j = 0; j < (*pointCloudSet)[idx].size(); j++)
-	//{
-	//
-	//	idt = ((*pointCloudSet)[idx][j].z() - 1) / 2;
-	//	(*pointCloudSet)[idx][j].x() = (*pointCloudSet)[idx][j].x() + (*result_movement).x;
-	//	(*pointCloudSet)[idx][j].y() = (*pointCloudSet)[idx][j].y() + (*result_movement).y;
-	//	(*pointCloudSet)[idx][j].z() = (*pointCloudSet)[idx][j].z() + (*result_movement).z;
-	//
-	//
-	//
-	//
-	//}
-	//std::cout << "(*acc_vector1).length() : " << (*acc_vector1).length() << std::endl;
-	//std::cout << "(*acc_vector2).length() : " << (*acc_vector2).length() << std::endl;
-	//std::cout << "(*acc_vector3).length() : " << (*acc_vector3).length() << std::endl;
-	//std::cout << "(*movement_vector).length() : " << (*movement_vector).length() << std::endl;
-	//std::cout << "frame_rate : " << frame_rate << std::endl;
-	//std::cout << "result_movement : " << (*result_movement).x << "," << (*result_movement).y << "," << (*result_movement).z << std::endl;
-	////(*result_movement) = (*result_movement).ZERO;
-	//(*result_movement) = Vector3(0, 0, 0);
-
-
-}
+//void DentistDemo::MyForm::MovePC() {
+//}
 void DentistDemo::MyForm::super4PCS_Align(std::vector<GlobalRegistration::Point3D> PC1, std::vector<GlobalRegistration::Point3D> *PC2, int max_time_seconds) {
 	if (PointCloudArr->size() > 1) {
 		clock_t t1, t2;
@@ -4238,20 +3292,9 @@ void DentistDemo::MyForm::super4PCS_Align(std::vector<GlobalRegistration::Point3
 		//cerr << score << endl;
 	}
 }
-void DentistDemo::MyForm::CombinePC(int idx) {
-	//if (idx >= 0 && idx < (*pointCloudSet).size())
-	//{
-	//	for (int i = 0; i < (*pointCloudSet)[idx].size(); i++)
-	//	{
-	//		GlobalRegistration::Point3D tmp = (*pointCloudSet)[idx][i];
-	//		//std::cout << "[" << i << "]:" << tmp << std::endl;
-	//		(*finalPC).push_back(tmp);
-	//		//(*aligned).push_back(tmp);
-	//		finalPCid->push_back(idx);
-	//	}
-	//	std::cout << "finalPC size : " << (*finalPC).size();
-	//}
-}
+//void DentistDemo::MyForm::CombinePC(int idx) {
+//
+//}
 void DentistDemo::MyForm::Find_max_min() {
 	//Vector3 *tmp_max, *tmp_min, *tmp_out;
 	//tmp_out = new Vector3(0, 0, -10);
@@ -4403,153 +3446,12 @@ void DentistDemo::MyForm::Find_max_min() {
 	//delete tmp_min;
 	//delete tmp_out;
 }
-void DentistDemo::MyForm::Find_Plane() {
-	//Vector3 *tmp_vector, *tmp_point1, *tmp_point2;
-	//std::vector<int> *tmp_idx_vec2, *tmp_idx_vec1;
-	//double tmp_x1 = 10;
-	//double tmp_y1 = 10;
-	//double tmp_x2 = -10;
-	//double tmp_y2 = -10;
-	//
-	//int idx = (*PointCloudArr).size() - 1;
-	//tmp_vector = new Vector3((*Plane_vector)[idx-1]);
-	//tmp_point1 = new Vector3((*Point_cloud_center)[idx - 1]);
-	//tmp_point2 = new Vector3((*Point_cloud_center)[idx]);
-	//tmp_idx_vec2 = new std::vector<int>;
-	//tmp_idx_vec1 = new std::vector<int>;
-	//
-	////std::cout << "idx" << idx << std::endl;
-	////std::cout << "tmp_point : " << (*tmp_point).x << "," << (*tmp_point).y << "," << (*tmp_point).z << std::endl;
-	////std::cout << "tmp_vector : " << (*tmp_vector).x << "," << (*tmp_vector).y << "," << (*tmp_vector).z << std::endl;
-	//
-	//double constant_num1 = -(tmp_vector->x * tmp_point1->x + tmp_vector->y * tmp_point1->y + tmp_vector->z * tmp_point1->z);
-	//double constant_num2 = -(tmp_vector->x * tmp_point2->x + tmp_vector->y * tmp_point2->y + tmp_vector->z * tmp_point2->z);
-	//
-	//
-	//
-	//std::cout << "constant_num1: " << constant_num1 << std::endl;
-	//std::cout << "constant_num2: " << constant_num2 << std::endl;
-	//super_constant1 = constant_num1;
-	//super_constant2 = constant_num2;
-	//
-	//overlap_constant1->Maximum = super_constant1 * 10 + 20;
-	//overlap_constant1->Minimum = super_constant1 * 10 - 20;
-	//overlap_constant1->TickFrequency = 5;
-	//overlap_constant1->Value = super_constant1*10;
-	//
-	//overlap_constant2->Maximum = super_constant2 * 10 + 20;
-	//overlap_constant2->Minimum = super_constant2 * 10 - 20;
-	//overlap_constant2->TickFrequency = 5;
-	//overlap_constant2->Value = super_constant2 * 10;
-	////if (change_constant1) {
-	////	constant_num1 = super_constant1;
-	////}
-	////if (change_constant2) {
-	////	constant_num2 = super_constant2;
-	////}
-	//
-	//
-	//double tmp_z1 = (double)(-(tmp_vector->x* tmp_x1 + tmp_vector->y*tmp_y1 + constant_num2)) / (double)tmp_vector->z;
-	//double tmp_z2 = (double)(-(tmp_vector->x* tmp_x2 + tmp_vector->y*tmp_y2 + constant_num2)) / (double)tmp_vector->z;
-	//double tmp_z3 = (double)(-(tmp_vector->x* tmp_x1 + tmp_vector->y*tmp_y1 + constant_num1)) / (double)tmp_vector->z;
-	//double tmp_z4 = (double)(-(tmp_vector->x* tmp_x2 + tmp_vector->y*tmp_y2 + constant_num1)) / (double)tmp_vector->z;
-	//
-	//(*draw_plane1) = Vector3(tmp_x1, tmp_y1, tmp_z1);
-	//(*draw_plane2) = Vector3(tmp_x2, tmp_y2, tmp_z2);
-	//(*draw_plane3) = Vector3(tmp_x1, tmp_y1, tmp_z3);
-	//(*draw_plane4) = Vector3(tmp_x2, tmp_y2, tmp_z4);
-	//
-	//
-	////std::cout << "draw_plane1 : " << (*draw_plane1).x << "," << (*draw_plane1).y << "," << (*draw_plane1).z << std::endl;
-	////std::cout << "draw_plane2 : " << (*draw_plane2).x << "," << (*draw_plane2).y << "," << (*draw_plane2).z << std::endl;
-	////std::cout << "constant_num" << constant_num << std::endl;
-	////std::cout << "tmp_vector->z" << tmp_vector->z << std::endl;
-	////std::cout << "tmp_z" << tmp_z << std::endl;
-	//
-	//std::vector<GlobalRegistration::Point3D> tmpPC1;
-	//std::vector<GlobalRegistration::Point3D> tmpPC2;
-	//
-	////if ((*pointCloudSet).size() > 1) {
-	////	//for (int j = 0; j < (*pointCloudSet)[idx-1].size(); j++)
-	////	//{
-	////	//	GlobalRegistration::Point3D tmp;
-	////	//	if ((tmp_vector->x*(*pointCloudSet)[idx-1][j].x() + tmp_vector->y*(*pointCloudSet)[idx-1][j].y() + tmp_vector->z*(*pointCloudSet)[idx-1][j].z() + constant_num1) > 0) {
-	////	//		tmp.x() = (*pointCloudSet)[idx - 1][j].x();
-	////	//		tmp.y() = (*pointCloudSet)[idx - 1][j].y();
-	////	//		tmp.z() = (*pointCloudSet)[idx - 1][j].z();
-	////	//		(*tmp_idx_vec1).push_back(j);
-	////	//		tmpPC1.push_back(tmp);
-	////	//	}
-	////	//}
-	////	for (int j = 0; j < (*finalPC).size(); j++)
-	////	{
-	////		GlobalRegistration::Point3D tmp;
-	////		if ((tmp_vector->x*(*finalPC)[j].x() + tmp_vector->y*(*finalPC)[j].y() + tmp_vector->z*(*finalPC)[j].z() + constant_num1) > 0) {
-	////			tmp.x() = (*finalPC)[j].x();
-	////			tmp.y() = (*finalPC)[j].y();
-	////			tmp.z() = (*finalPC)[j].z();
-	////			(*tmp_idx_vec1).push_back(j);
-	////			tmpPC1.push_back(tmp);
-	////		}
-	////	}
-	////	for (int j = 0; j < (*pointCloudSet)[idx].size(); j++)
-	////	{
-	////		GlobalRegistration::Point3D tmp;
-	////		if ((tmp_vector->x*(*pointCloudSet)[idx][j].x() + tmp_vector->y*(*pointCloudSet)[idx][j].y() + tmp_vector->z*(*pointCloudSet)[idx][j].z() + constant_num2) < 0) {
-	////			tmp.x() = (*pointCloudSet)[idx][j].x();
-	////			tmp.y() = (*pointCloudSet)[idx][j].y();
-	////			tmp.z() = (*pointCloudSet)[idx][j].z();
-	////			(*tmp_idx_vec2).push_back(j);
-	////			tmpPC2.push_back(tmp);
-	////		}
-	////	}
-	////	if ((*tmp_idx_vec1).size() > 0) {
-	////		(*overlap_cloud1).push_back(tmpPC1);
-	////		(*overlap_idx1).push_back(*tmp_idx_vec1);
-	////	}
-	////	if ((*tmp_idx_vec2).size() > 0) {
-	////		(*overlap_cloud2).push_back(tmpPC2);
-	////		(*overlap_idx2).push_back(*tmp_idx_vec2);
-	////	}
-	////}
-	//delete tmp_vector;
-	//delete tmp_point1;
-	//delete tmp_point2;
-	//delete tmp_idx_vec2;
-	//delete tmp_idx_vec1;
-
-}
-void DentistDemo::MyForm::Find_over_maxmin() {
-
-
-}
-void DentistDemo::MyForm::Rotate2() {
-	//*quat_tmp = sysManager->GetGloveDataLPtr()->GetQuaternion();
-	//(*quat_tmp) = (*quat_tmp) * (*quat1);
-	//
-	//
-	//
-	//Radian *tmp_diff;
-	//Vector3 *tmp_rotation;
-	//tmp_diff = new Radian;
-	//tmp_rotation = new Vector3;
-	//
-	//(*quat_tmp).ToAngleAxis(*tmp_diff, *tmp_rotation);
-	////(*pointCloud_radian).push_back(*tmp_diff);
-	////(*pointCloud_quat_vector).push_back(*tmp_rotation);
-	//
-	//Rotate_quat((*tmp_diff).valueDegrees(), (*tmp_rotation).x, (*tmp_rotation).z, -(*tmp_rotation).y);
-	//
-	//for (int i = 0; i < (*pointCloud_radian).size(); i++) {
-	//	std::cout << "idx:" << i << " ,Degree:" << (*pointCloud_radian)[i].valueDegrees() << "\n";
-	//	std::cout << "idx:" << i << " ,Rotation vector:(" << (*pointCloud_quat_vector)[i].x << "," << (*pointCloud_quat_vector)[i].y << "," << (*pointCloud_quat_vector)[i].z << ")\n";
-	//}
-	//
-	//*all_quat = test_quat*(*all_quat);
-	//test_quat = test_quat.Inverse();
-
-	//(*quat_tmp).ToAngleAxis(*test_diff, *test_rotation);
-}
+//void DentistDemo::MyForm::Find_Plane() {
+//}
+//void DentistDemo::MyForm::Find_over_maxmin() {
+//}
+//void DentistDemo::MyForm::Rotate2() {
+//}
 void DentistDemo::MyForm::Push_back_file() {
 	file_name tmp1;
 	strcpy(tmp1.name, "C_01.txt");
@@ -4835,28 +3737,8 @@ void DentistDemo::MyForm::camera_cube(float width, float height, float length) {
 
 	glEnd();
 }
-void DentistDemo::MyForm::Find_min_quat() {
-	//int tmp_min_idx;
-	//
-	//for (int i = 1; i < (*pointCloud_quat_vector).size() - 1; i++) {
-	//	Vector3 tmp_vector1 = (*pointCloud_quat_vector)[i];
-	//	Vector3 tmp_vector2 = (*pointCloud_quat_vector)[(*pointCloud_quat_vector).size() - 1];
-	//
-	//	Radian tmp_diff = tmp_vector1.angleBetween(tmp_vector2);
-	//	std::cout << "Compare with idx:" << i << " ,the degree is:" << tmp_diff.valueDegrees() << "\n";
-	//	double tmp_diff_degree = 999999;
-	//	if (tmp_diff.valueDegrees() < tmp_diff_degree) {
-	//		tmp_diff_degree = tmp_diff.valueDegrees();
-	//		//std::cout << "now min idx:" << i << "\n";
-	//		tmp_min_idx = i;
-	//	}
-	//}
-	////std::cout << "min degree idx is:" << tmp_min_idx << "\n";
-	//nearest_idx->push_back(tmp_min_idx);
-	///*for (int i = 0; i < (*nearest_idx).size(); i++) {
-	//	std::cout << "nearest:" << i << " ," << (*nearest_idx)[i] << "\n";
-	//}*/
-}
+//void DentistDemo::MyForm::Find_min_quat() {
+//}
 void DentistDemo::MyForm::Find_min_quat2() {
 	//int tmp_min_idx;
 	//for (int i = 1; i < (*input_rotVec).size() - 1; i++) {

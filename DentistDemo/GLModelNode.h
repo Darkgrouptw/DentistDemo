@@ -36,19 +36,54 @@ public:
         glUseProgram(0);
 
         // Initialize hierarchy structure
-        ParentNode = NULL;
-        if (maxChildren > 0)
-        {
-            ChildNodes = new GLModelNode *[maxChildren];
-            for (unsigned int i = 0; i < maxChildren; i++)
-                ChildNodes[i] = NULL;
-        }
-        else
-        {
-            ChildNodes = NULL;
-        }
-        CurChildrenCount = 0;
+        //ParentNode = NULL;
+        //if (maxChildren > 0)
+        //{
+        //    ChildNodes = new GLModelNode *[maxChildren];
+        //    for (unsigned int i = 0; i < maxChildren; i++)
+        //        ChildNodes[i] = NULL;
+        //}
+        //else
+        //{
+        //    ChildNodes = NULL;
+        //}
+        //CurChildrenCount = 0;
     };
+	GLModelNode() :
+		LocalTransform(glm::mat4(1.0)), WorldTransform(glm::mat4(1.0))
+	{
+		// Load shader
+		ShaderInfo shaders[] =
+		{
+			{ GL_VERTEX_SHADER,		"./Shader/Base.vert" },
+			{ GL_FRAGMENT_SHADER,	"./Shader/Base.frag" },
+			{ GL_NONE, NULL }
+		};
+		Program = LoadShaders(shaders);
+
+		// Use shader program to get uniform parameters
+		glUseProgram(Program);
+		ViewMatID = glGetUniformLocation(Program, "View");
+		ProjectMatID = glGetUniformLocation(Program, "Projection");
+		ModelMatID = glGetUniformLocation(Program, "Model");
+
+		// Clear shader program
+		glUseProgram(0);
+
+		// Initialize hierarchy structure
+		//ParentNode = NULL;
+		//if (maxChildren > 0)
+		//{
+		//    ChildNodes = new GLModelNode *[maxChildren];
+		//    for (unsigned int i = 0; i < maxChildren; i++)
+		//        ChildNodes[i] = NULL;
+		//}
+		//else
+		//{
+		//    ChildNodes = NULL;
+		//}
+		//CurChildrenCount = 0;
+	};
 
     //
     // Main Functions

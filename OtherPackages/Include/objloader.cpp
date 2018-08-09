@@ -155,7 +155,7 @@ bool loadOBJ(
             break; // EOF = End Of File. Quit the loop.
 
                     // else : parse lineHeader
-
+		
         if (strcmp(lineHeader, "v") == 0) {//'v':°OÂI
             vec3 vertex;
             fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
@@ -184,6 +184,7 @@ bool loadOBJ(
             normalIndices.push_back(normalIndex[0]);
             normalIndices.push_back(normalIndex[1]);
             normalIndices.push_back(normalIndex[2]);
+			//printf("%d\n", fcount);
         }
         else if (strcmp(lineHeader, "usemtl") == 0) {
             out_materialIndices.push_back(fcount);//last material used face counts	
@@ -194,12 +195,15 @@ bool loadOBJ(
         }
         else {
             // Probably a comment, eat up the rest of the line
-            char stupidBuffer[1000];
-            fgets(stupidBuffer, 1000, file);
+            char stupidBuffer[10000];
+            fgets(stupidBuffer, 10000, file);
+			//printf("after face\n");
         }
     }
+	//printf("after face:%d\n", fcount);
     out_materialIndices.push_back(fcount);//at the end , push the last faces
                                             // For each vertex of each triangle
+	
     for (unsigned int i = 0; i < vertexIndices.size(); i++) {
         // Get the indices of its attributes
         unsigned int vertexIndex = vertexIndices[i];
@@ -209,6 +213,7 @@ bool loadOBJ(
         vec3 vertex = temp_vertices[vertexIndex - 1];
         vec3 normal = temp_normals[normalIndex - 1];
 
+		//printf("\n");
         // Put the attributes in buffers
         out_vertices.push_back(vertex);
         out_normals.push_back(normal);
