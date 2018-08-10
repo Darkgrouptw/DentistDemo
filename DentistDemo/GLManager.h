@@ -13,6 +13,7 @@ namespace DentistDemo
 
         void Draw();
         void MotionUpdate(GloveData &left, GloveData &right);
+		bool teeth1_draw, teeth2_draw, teeth3_draw;
 
         GLCamera *GetCamera();
 		glm::vec4 rotateAxis_R;
@@ -40,5 +41,7 @@ namespace DentistDemo
         GLModelNode **modelHandL;
         GLModelNode **modelHandR;
 		GLModelNode *tooth1;
+		GLModelNode *tooth2;
+		GLModelNode *tooth3;
     };
 }
