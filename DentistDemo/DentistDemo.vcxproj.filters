@@ -19,8 +19,8 @@
     <Filter Include="原始程式檔\Math">
       <UniqueIdentifier>{389ffea6-1d9b-4d6b-9f45-9b81efcf3f79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="標頭檔\SegnetModel">
-      <UniqueIdentifier>{fe2336bc-5606-4c7a-98ec-4024a27e71f9}</UniqueIdentifier>
+    <Filter Include="SegnetModel">
+      <UniqueIdentifier>{88010dea-3567-4fc1-8177-7259030f25e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +90,9 @@
     <ClInclude Include="..\OtherPackages\Include\LoadShaders.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="SegnetModel.h">
+      <Filter>SegnetModel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -151,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="..\OtherPackages\Include\objloader.cpp">
       <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="SegnetModel.cpp">
+      <Filter>SegnetModel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
