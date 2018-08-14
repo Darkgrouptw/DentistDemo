@@ -2,7 +2,7 @@
 
 namespace DentistDemo
 {
-    void MyForm::Callback_DeviceInitDone(String ^address)
+    void MyForm::Callback_DeviceInitDone(System::String ^address)
     {
         Console::WriteLine("Device Init Done: " + address);
 
@@ -10,7 +10,7 @@ namespace DentistDemo
         UpdateConnectionStatus(State_Connection::ComOpened);
     }
 
-    void MyForm::Callback_DeviceCloseDone(String ^comport)
+    void MyForm::Callback_DeviceCloseDone(System::String ^comport)
     {
         Console::WriteLine("Device Close Done: " + comport);
 
@@ -45,7 +45,7 @@ namespace DentistDemo
         {
             Console::WriteLine("Device Established: " + deviceInfo->DeviceAddress);
 
-            if (String::Equals(deviceInfo->DeviceAddress, bleDeviceL->GetEstablishedDevice()->DeviceAddress))
+            if (System::String::Equals(deviceInfo->DeviceAddress, bleDeviceL->GetEstablishedDevice()->DeviceAddress))
             {
                 // Send notify request
                 Console::WriteLine("Notify: " + bleDeviceL->GetEstablishedDevice()->ToString());
@@ -82,7 +82,7 @@ namespace DentistDemo
     void MyForm::Callback_HandleValueNotification(DeviceInfo ^deviceInfo, array<unsigned char> ^payload)
     {
         unsigned char type = DevUtils::GetPacketType(payload);
-        if (bleDeviceL->GetEstablishedDevice() != nullptr && String::Equals(deviceInfo->DeviceAddress, bleDeviceL->GetEstablishedDevice()->DeviceAddress))
+        if (bleDeviceL->GetEstablishedDevice() != nullptr && System::String::Equals(deviceInfo->DeviceAddress, bleDeviceL->GetEstablishedDevice()->DeviceAddress))
         {
             // From left hand
             if (type == 0x00)
@@ -147,7 +147,7 @@ namespace DentistDemo
             // Terminate connection
             if (mState_Connection == State_Connection::BleEstablished)
             {
-                if (bleDeviceL->GetEstablishedDevice() != nullptr && String::Equals(deviceInfo->DeviceAddress, bleDeviceL->GetEstablishedDevice()->DeviceAddress))
+                if (bleDeviceL->GetEstablishedDevice() != nullptr && System::String::Equals(deviceInfo->DeviceAddress, bleDeviceL->GetEstablishedDevice()->DeviceAddress))
                 {
                     Console::WriteLine("Terminate: " + bleDeviceL->GetEstablishedDevice()->ToString());
                     bleDeviceL->Terminate();
@@ -167,7 +167,7 @@ namespace DentistDemo
 
         if (isSuccess)
         {
-            if (bleDeviceL->GetEstablishedDevice() != nullptr && String::Equals(deviceInfo->DeviceAddress, bleDeviceL->GetEstablishedDevice()->DeviceAddress))
+            if (bleDeviceL->GetEstablishedDevice() != nullptr && System::String::Equals(deviceInfo->DeviceAddress, bleDeviceL->GetEstablishedDevice()->DeviceAddress))
             {
                 // Send notify request
                 Console::WriteLine("Check Notify: " + bleDeviceL->GetEstablishedDevice()->ToString());

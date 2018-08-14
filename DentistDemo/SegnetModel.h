@@ -5,9 +5,9 @@
 #include <string>
 
 using namespace caffe;
-using namespace std;
+using namespace cv;
 
-ref class SegnetModel
+class SegnetModel
 {
 public:
 	SegnetModel();
@@ -15,6 +15,11 @@ public:
 	void Load(string, string);
 
 private:
-	Net<float> *SegNet;
+	//////////////////////////////////////////////////////////////////////////
+	// 網路相關變數
+	//////////////////////////////////////////////////////////////////////////
+	caffe::Net<float> 			*SegNet;
+	int							NumChannels;
+	//size						InputSize;
 };
 

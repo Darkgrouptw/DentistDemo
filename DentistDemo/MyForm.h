@@ -20,12 +20,12 @@
 #include "super4pcs/utils/geometry.h"
 #include "super4pcs.h"
 #include <bitset>
-#include <string.h>
+#include <string>
 //#include <msclr/marshal.h>
 //#define PIC_SIZE PIC_SIZE
 
 #include "super4pcs/io/io.h"
-//#include "stdafx.h"
+#include "SegnetModel.h"
 
 struct PointData
 {
@@ -93,6 +93,9 @@ namespace DentistDemo
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
+		// TestModel
+		//SegnetModel^ NetworkModel;
+
 		MyForm(void)
 		{
 			InitializeComponent();
@@ -101,7 +104,9 @@ namespace DentistDemo
 			//
 			//TODO:  在此加入建構函式程式碼
 			//
-
+			// 模型建置
+			//this->NetworkModel = (gcnew SegnetModel());
+			//this->NetworkModel->Load("./Models/segnet_train.prototxt", "./Models/segnet_iter_40000.caffemodel");
 		}
 
 	protected:
@@ -609,7 +614,7 @@ namespace DentistDemo
 			#pragma region Dark Add Part
 			// Test_Model
 			// 
-			/*this->Test_Model = (gcnew System::Windows::Forms::Button());
+			this->Test_Model = (gcnew System::Windows::Forms::Button());
 			this->Test_Model->Location = System::Drawing::Point(755, 196);
 			this->Test_Model->Name = L"Test_Model";
 			this->Test_Model->Size = System::Drawing::Size(75, 23);
@@ -617,7 +622,7 @@ namespace DentistDemo
 			this->Test_Model->Text = L"Test Model";
 			this->Test_Model->UseVisualStyleBackColor = true;
 			this->Test_Model->Click += gcnew System::EventHandler(this, &MyForm::Test_Model_Click);
-			this->Controls->Add(this->Test_Model);*/
+			this->Controls->Add(this->Test_Model);
 
 			//////////////////////////////////////////////////////////////////////////
 			// Model Init
@@ -652,8 +657,8 @@ namespace DentistDemo
 		//
 		// BLE Callback Function Declarations
 		//
-		void Callback_DeviceInitDone(String ^address);
-		void Callback_DeviceCloseDone(String ^comport);
+		void Callback_DeviceInitDone(System::String ^address);
+		void Callback_DeviceCloseDone(System::String ^comport);
 		void Callback_DeviceDiscovered(DeviceInfo ^deviceInfo);
 		void Callback_EstablishLinkDone(DeviceInfo ^deviceInfo, unsigned char status);
 		void Callback_TerminateLinkDone(DeviceInfo ^deviceInfo, unsigned char status, bool byHost);
@@ -743,7 +748,7 @@ namespace DentistDemo
 		// BLE Variables
 		//
 		BluetoothLeDevice ^bleDeviceL, ^bleDeviceR;
-		Dictionary<String^, DeviceInfo^> ^bleDeviceList; // <address, device name>
+		Dictionary<System::String^, DeviceInfo^> ^bleDeviceList; // <address, device name>
 
 														 //
 														 // Processing Threads
@@ -817,23 +822,23 @@ namespace DentistDemo
 	private:
 
 		//Quaternion *preQuaternL, *preQuaternR;
-	private: System::Void reset_rot_Click(System::Object^  sender, System::EventArgs^  e) {
+		private: System::Void reset_rot_Click(System::Object^  sender, System::EventArgs^  e) {
 
-		is_reset = true;
-	}
+			is_reset = true;
+		}
 
-	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
-		timer_rot = true;
+		private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
+			timer_rot = true;
 
 
-		//std::cout << "timer:" << timer_rot << "\n";
-		hkoglPanelControl1->Invalidate();
-	}
+			//std::cout << "timer:" << timer_rot << "\n";
+			hkoglPanelControl1->Invalidate();
+		}
 
-			 // Test
-	private: System::Void Test_Model_Click(System::Object^  sender, System::EventArgs^  e)
-	{
-
-	}
+		// Test
+		private: System::Void Test_Model_Click(System::Object^  sender, System::EventArgs^  e)
+		{
+			//model
+		}
 	};
 }

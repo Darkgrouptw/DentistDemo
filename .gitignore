@@ -332,3 +332,4 @@ OtherPackages/Caffe_vc14_py3.5/
 DentistDemo/x64/Release/DentistDemo.tlog/
 *.rar
 x64/Release/DentistDemo.exe
+DentistDemo/x64/Release/TRcuda.cu.deps
