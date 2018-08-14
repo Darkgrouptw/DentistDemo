@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 
 #include "TRcuda.cuh"
 #include "DotNetUtilities.h"
@@ -61,7 +61,6 @@ struct objData {
 	std::vector<unsigned int> *out_materialIndices;
 	std::vector<std::string> *out_mtls;
 };
-
 struct TransformVisitor {
 	inline void operator() (
 		float fraction,
@@ -74,11 +73,9 @@ struct TransformVisitor {
 	constexpr bool needsGlobalTransformation() const { return false; }
 };
 
-namespace DentistDemo {
-
+namespace DentistDemo 
+{
 	using namespace System;
-	
-	//using namespace System::Configuration;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Collections::Generic;
@@ -91,7 +88,7 @@ namespace DentistDemo {
 	using namespace System::IO;
 	#define PIC_SIZE 2048000
 	/// <summary>
-	/// MyForm ™∫∫K≠n
+	/// MyForm ÁöÑÊëòË¶Å
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -102,14 +99,14 @@ namespace DentistDemo {
 			//finalPC = new std::vector<GlobalRegistration::Point3D>;
 
 			//
-			//TODO:  ¶b¶π•[§J´ÿ∫c®Á¶°µ{¶°ΩX
+			//TODO:  Âú®Ê≠§Âä†ÂÖ•Âª∫ÊßãÂáΩÂºèÁ®ãÂºèÁ¢º
 			//
-			
+
 		}
 
 	protected:
 		/// <summary>
-		/// ≤M∞£•Ù¶Û®œ•Œ§§™∫∏Í∑Ω°C
+		/// Ê∏ÖÈô§‰ªª‰Ωï‰ΩøÁî®‰∏≠ÁöÑË≥áÊ∫ê„ÄÇ
 		/// </summary>
 		~MyForm()
 		{
@@ -120,19 +117,9 @@ namespace DentistDemo {
 		}
 	private: System::Windows::Forms::ComboBox^  cbComPortL;
 	private: System::Windows::Forms::Button^  btnComUpdate;
-	protected:
-
-	protected:
-
 	private: System::Windows::Forms::ComboBox^  cbBleDeviceL;
 	private: System::Windows::Forms::Button^  btnBleScan;
 	private: System::Windows::Forms::Button^  btnComOpen;
-
-
-
-
-
-
 	private: System::Windows::Forms::Button^  btnBleEstablish;
 	private: System::Windows::Forms::Button^  Get_Quat;
 	private: System::Windows::Forms::Button^  Initial_scan;
@@ -141,7 +128,6 @@ namespace DentistDemo {
 	private: HKOGLPanel::HKOGLPanelControl^  hkoglPanelControl1;
 	private: System::Windows::Forms::Button^  Test_file;
 	private: System::Windows::Forms::Button^  Clear_cloud;
-
 	private: System::Windows::Forms::Button^  Alignment;
 	private: System::Windows::Forms::Button^  Save_PointCloud;
 	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
@@ -192,59 +178,40 @@ namespace DentistDemo {
 	private: System::Windows::Forms::Label^  Iter_count;
 	private: System::Windows::Forms::TextBox^  Iter_count_in;
 	private: System::Windows::Forms::Button^  Combine_cloud;
-private: System::Windows::Forms::Button^  Save_combine;
-private: System::Windows::Forms::Label^  output_name;
-private: System::Windows::Forms::TextBox^  name_output;
-private: System::Windows::Forms::Button^  Add2Combine;
-private: System::Windows::Forms::PictureBox^  pictureBox1;
-private: System::Windows::Forms::PictureBox^  pictureBox2;
-private: System::Windows::Forms::PictureBox^  pictureBox3;
-private: System::Windows::Forms::PictureBox^  pictureBox4;
-private: System::Windows::Forms::PictureBox^  pictureBox5;
-private: System::Windows::Forms::Label^  label4;
-private: System::Windows::Forms::Label^  label5;
-private: System::Windows::Forms::Label^  label6;
-private: System::Windows::Forms::Label^  label7;
-private: System::Windows::Forms::Label^  label8;
-private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
-private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
-private: System::Windows::Forms::NumericUpDown^  numericUpDown3;
-private: System::Windows::Forms::Label^  label9;
-private: System::Windows::Forms::Label^  label10;
-private: System::Windows::Forms::Label^  label11;
-private: System::Windows::Forms::Button^  Apply_rot;
-private: System::Windows::Forms::PictureBox^  pictureBox6;
-private: System::Windows::Forms::Label^  label12;
-private: System::Windows::Forms::NumericUpDown^  numericUpDown4;
-private: System::Windows::Forms::Label^  label13;
-private: System::Windows::Forms::Button^  Aligned_target;
-
-
-
+	private: System::Windows::Forms::Button^  Save_combine;
+	private: System::Windows::Forms::Label^  output_name;
+	private: System::Windows::Forms::TextBox^  name_output;
+	private: System::Windows::Forms::Button^  Add2Combine;
+	private: System::Windows::Forms::PictureBox^  pictureBox1;
+	private: System::Windows::Forms::PictureBox^  pictureBox2;
+	private: System::Windows::Forms::PictureBox^  pictureBox3;
+	private: System::Windows::Forms::PictureBox^  pictureBox4;
+	private: System::Windows::Forms::PictureBox^  pictureBox5;
+	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::Label^  label8;
+	private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
+	private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
+	private: System::Windows::Forms::NumericUpDown^  numericUpDown3;
+	private: System::Windows::Forms::Label^  label9;
+	private: System::Windows::Forms::Label^  label10;
+	private: System::Windows::Forms::Label^  label11;
+	private: System::Windows::Forms::Button^  Apply_rot;
+	private: System::Windows::Forms::PictureBox^  pictureBox6;
+	private: System::Windows::Forms::Label^  label12;
+	private: System::Windows::Forms::NumericUpDown^  numericUpDown4;
+	private: System::Windows::Forms::Label^  label13;
+	private: System::Windows::Forms::Button^  Aligned_target;
+	private: System::Windows::Forms::Button^  Test_Model;
 	private: System::ComponentModel::IContainer^  components;
 
-
-
-
-
-
-
-
-
-
-
-
-
 	private:
-		/// <summary>
-		/// ≥]≠p§u®„©“ª›™∫≈‹º∆°C
-		/// </summary>
-
-
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// ¶π¨∞≥]≠p§u®„§‰¥©©“ª›™∫§Ë™k - Ω–§≈®œ•Œµ{¶°ΩXΩsøËæπ≠◊ßÔ
-		/// ≥o≠”§Ë™k™∫§∫Æe°C
+		/// Ê≠§ÁÇ∫Ë®≠Ë®àÂ∑•ÂÖ∑ÊîØÊè¥ÊâÄÈúÄÁöÑÊñπÊ≥ï - Ë´ãÂãø‰ΩøÁî®Á®ãÂºèÁ¢ºÁ∑®ËºØÂô®‰øÆÊîπ
+		/// ÈÄôÂÄãÊñπÊ≥ïÁöÑÂÖßÂÆπ„ÄÇ
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -258,61 +225,15 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->btnComOpen = (gcnew System::Windows::Forms::Button());
 			this->btnBleEstablish = (gcnew System::Windows::Forms::Button());
 			this->Get_Quat = (gcnew System::Windows::Forms::Button());
-			//this->Initial_scan = (gcnew System::Windows::Forms::Button());
-			//this->Single_scan = (gcnew System::Windows::Forms::Button());
 			this->Full_scan = (gcnew System::Windows::Forms::Button());
 			this->hkoglPanelControl1 = (gcnew HKOGLPanel::HKOGLPanelControl());
-			//this->Test_file = (gcnew System::Windows::Forms::Button());
 			this->Clear_cloud = (gcnew System::Windows::Forms::Button());
-			//this->Alignment = (gcnew System::Windows::Forms::Button());
-			//this->Save_PointCloud = (gcnew System::Windows::Forms::Button());
 			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
-			//this->Save_point_s = (gcnew System::Windows::Forms::Button());
-			//this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			//this->label1 = (gcnew System::Windows::Forms::Label());
-			//this->label2 = (gcnew System::Windows::Forms::Label());
-			//this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			//this->label3 = (gcnew System::Windows::Forms::Label());
-			//this->read_point = (gcnew System::Windows::Forms::Button());
-			//this->Combine = (gcnew System::Windows::Forms::Button());
-			//this->Part_Align = (gcnew System::Windows::Forms::Button());
-			//this->Threshold = (gcnew System::Windows::Forms::Label());
-			//this->Theshold_in = (gcnew System::Windows::Forms::TextBox());
-			//this->Max_time = (gcnew System::Windows::Forms::Label());
-			//this->Max_time_in = (gcnew System::Windows::Forms::TextBox());
-			//this->Max_angle = (gcnew System::Windows::Forms::Label());
-			//this->Max_angle_in = (gcnew System::Windows::Forms::TextBox());
-			//this->Sample_points = (gcnew System::Windows::Forms::Label());
-			//this->Sample_points_in = (gcnew System::Windows::Forms::TextBox());
-			//this->Overlap = (gcnew System::Windows::Forms::Label());
-			//this->Overlap_in = (gcnew System::Windows::Forms::TextBox());
-			//this->Delta = (gcnew System::Windows::Forms::Label());
-			//this->Delta_in = (gcnew System::Windows::Forms::TextBox());
-			//this->Transform = (gcnew System::Windows::Forms::Label());
-			//this->Transform_in = (gcnew System::Windows::Forms::TextBox());
-			//this->Constant1 = (gcnew System::Windows::Forms::Label());
-			//this->Constant1_in = (gcnew System::Windows::Forms::TextBox());
-			//this->Conatant2 = (gcnew System::Windows::Forms::Label());
-			//this->Constant2_in = (gcnew System::Windows::Forms::TextBox());
-			//this->Gyro_test = (gcnew System::Windows::Forms::Button());
-			//this->Chose_Align = (gcnew System::Windows::Forms::Button());
-			//this->overlap_constant1 = (gcnew System::Windows::Forms::TrackBar());
-			//this->overlap_constant2 = (gcnew System::Windows::Forms::TrackBar());
-			//this->Read_point_v2 = (gcnew System::Windows::Forms::Button());
-			//this->Rot_test = (gcnew System::Windows::Forms::Button());
-			//this->Aligned_rot = (gcnew System::Windows::Forms::Button());
-			//this->First_cloud = (gcnew System::Windows::Forms::Button());
-			//this->Second_cloud = (gcnew System::Windows::Forms::Button());
 			this->Aligned12 = (gcnew System::Windows::Forms::Button());
-			//this->next_cloud = (gcnew System::Windows::Forms::Button());
 			this->Aligned_near = (gcnew System::Windows::Forms::Button());
 			this->reset_rot = (gcnew System::Windows::Forms::Button());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->Aligned_Pre = (gcnew System::Windows::Forms::Button());
-			//this->Iter_treshold = (gcnew System::Windows::Forms::Label());
-			//this->Iter_thresh = (gcnew System::Windows::Forms::TextBox());
-			//this->Iter_count = (gcnew System::Windows::Forms::Label());
-			//this->Iter_count_in = (gcnew System::Windows::Forms::TextBox());
 			this->Combine_cloud = (gcnew System::Windows::Forms::Button());
 			this->Save_combine = (gcnew System::Windows::Forms::Button());
 			this->output_name = (gcnew System::Windows::Forms::Label());
@@ -323,35 +244,18 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox5 = (gcnew System::Windows::Forms::PictureBox());
-			//this->label4 = (gcnew System::Windows::Forms::Label());
-			//this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
-			//this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
-			//this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
-			//this->numericUpDown3 = (gcnew System::Windows::Forms::NumericUpDown());
-			//this->label9 = (gcnew System::Windows::Forms::Label());
-			//this->label10 = (gcnew System::Windows::Forms::Label());
-			//this->label11 = (gcnew System::Windows::Forms::Label());
-			//this->Apply_rot = (gcnew System::Windows::Forms::Button());
 			this->pictureBox6 = (gcnew System::Windows::Forms::PictureBox());
 			this->label12 = (gcnew System::Windows::Forms::Label());
-			//this->numericUpDown4 = (gcnew System::Windows::Forms::NumericUpDown());
-			//this->label13 = (gcnew System::Windows::Forms::Label());
 			this->Aligned_target = (gcnew System::Windows::Forms::Button());
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->overlap_constant1))->BeginInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->overlap_constant2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->BeginInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox6))->BeginInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown4))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// cbComPortL
@@ -421,26 +325,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->Get_Quat->UseVisualStyleBackColor = true;
 			this->Get_Quat->Click += gcnew System::EventHandler(this, &MyForm::Get_Quat_Click);
 			// 
-			// Initial_scan
-			// 
-			//this->Initial_scan->Location = System::Drawing::Point(755, 114);
-			//this->Initial_scan->Name = L"Initial_scan";
-			//this->Initial_scan->Size = System::Drawing::Size(75, 23);
-			//this->Initial_scan->TabIndex = 7;
-			//this->Initial_scan->Text = L"Initial_scan";
-			//this->Initial_scan->UseVisualStyleBackColor = true;
-			//this->Initial_scan->Click += gcnew System::EventHandler(this, &MyForm::Initial_scan_Click);
-			// 
-			// Single_scan
-			// 
-			//this->Single_scan->Location = System::Drawing::Point(755, 223);
-			//this->Single_scan->Name = L"Single_scan";
-			//this->Single_scan->Size = System::Drawing::Size(75, 23);
-			//this->Single_scan->TabIndex = 8;
-			//this->Single_scan->Text = L"Single_scan";
-			//this->Single_scan->UseVisualStyleBackColor = true;
-			//this->Single_scan->Click += gcnew System::EventHandler(this, &MyForm::Single_scan_Click);
-			// 
 			// Full_scan
 			// 
 			this->Full_scan->Location = System::Drawing::Point(755, 110);
@@ -475,16 +359,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->hkoglPanelControl1->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::hkoglPanelControl1_MouseUp);
 			this->hkoglPanelControl1->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::hkoglPanelControl1_MouseWheel);
 			// 
-			// Test_file
-			// 
-			//this->Test_file->Location = System::Drawing::Point(755, 73);
-			//this->Test_file->Name = L"Test_file";
-			//this->Test_file->Size = System::Drawing::Size(75, 23);
-			//this->Test_file->TabIndex = 11;
-			//this->Test_file->Text = L"Read raw";
-			//this->Test_file->UseVisualStyleBackColor = true;
-			//this->Test_file->Click += gcnew System::EventHandler(this, &MyForm::Test_file_Click);
-			// 
 			// Clear_cloud
 			// 
 			this->Clear_cloud->Location = System::Drawing::Point(754, 9);
@@ -495,366 +369,11 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->Clear_cloud->UseVisualStyleBackColor = true;
 			this->Clear_cloud->Click += gcnew System::EventHandler(this, &MyForm::Clear_cloud_Click);
 			// 
-			// Alignment
-			// 
-			//this->Alignment->Location = System::Drawing::Point(755, 265);
-			//this->Alignment->Name = L"Alignment";
-			//this->Alignment->Size = System::Drawing::Size(75, 23);
-			//this->Alignment->TabIndex = 13;
-			//this->Alignment->Text = L"Alignment";
-			//this->Alignment->UseVisualStyleBackColor = true;
-			//this->Alignment->Click += gcnew System::EventHandler(this, &MyForm::Alignment_Click);
-			// 
-			// Save_PointCloud
-			// 
-			//this->Save_PointCloud->Location = System::Drawing::Point(755, 310);
-			//this->Save_PointCloud->Name = L"Save_PointCloud";
-			//this->Save_PointCloud->Size = System::Drawing::Size(75, 23);
-			//this->Save_PointCloud->TabIndex = 14;
-			//this->Save_PointCloud->Text = L"SavePoint";
-			//this->Save_PointCloud->UseVisualStyleBackColor = true;
-			//this->Save_PointCloud->Click += gcnew System::EventHandler(this, &MyForm::Save_PointCloud_Click);
-			// 
 			// saveFileDialog1
 			// 
 			this->saveFileDialog1->DefaultExt = L"txt";
 			this->saveFileDialog1->RestoreDirectory = true;
 			this->saveFileDialog1->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::saveFileDialog1_FileOk);
-			// 
-			// Save_point_s
-			// 
-			//this->Save_point_s->Location = System::Drawing::Point(755, 346);
-			//this->Save_point_s->Name = L"Save_point_s";
-			//this->Save_point_s->Size = System::Drawing::Size(75, 23);
-			//this->Save_point_s->TabIndex = 15;
-			//this->Save_point_s->Text = L"Save Point s";
-			//this->Save_point_s->UseVisualStyleBackColor = true;
-			//this->Save_point_s->Click += gcnew System::EventHandler(this, &MyForm::Save_point_s_Click);
-			// 
-			// textBox1
-			// 
-			//this->textBox1->Location = System::Drawing::Point(862, 34);
-			//this->textBox1->Name = L"textBox1";
-			//this->textBox1->Size = System::Drawing::Size(100, 22);
-			//this->textBox1->TabIndex = 16;
-			//this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
-			//this->textBox1->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::textBox1_KeyDown);
-			// 
-			// label1
-			// 
-			//this->label1->AutoSize = true;
-			//this->label1->Location = System::Drawing::Point(879, 19);
-			//this->label1->Name = L"label1";
-			//this->label1->Size = System::Drawing::Size(46, 12);
-			//this->label1->TabIndex = 17;
-			//this->label1->Text = L"peakGap";
-			//this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
-			// 
-			// label2
-			// 
-			//this->label2->AutoSize = true;
-			//this->label2->Location = System::Drawing::Point(879, 59);
-			//this->label2->Name = L"label2";
-			//this->label2->Size = System::Drawing::Size(56, 12);
-			//this->label2->TabIndex = 18;
-			//this->label2->Text = L"energyGap";
-			// 
-			// textBox2
-			// 
-			//this->textBox2->Location = System::Drawing::Point(862, 75);
-			//this->textBox2->Name = L"textBox2";
-			//this->textBox2->Size = System::Drawing::Size(100, 22);
-			//this->textBox2->TabIndex = 19;
-			//this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox2_TextChanged);
-			//this->textBox2->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::textBox2_KeyDown);
-			// 
-			// label3
-			// 
-			//this->label3->AutoSize = true;
-			//this->label3->Location = System::Drawing::Point(892, 100);
-			//this->label3->Name = L"label3";
-			//this->label3->Size = System::Drawing::Size(33, 12);
-			//this->label3->TabIndex = 20;
-			//this->label3->Text = L"label3";
-			//this->label3->Click += gcnew System::EventHandler(this, &MyForm::label3_Click);
-			// 
-			// read_point
-			// 
-			//this->read_point->Location = System::Drawing::Point(756, 43);
-			//this->read_point->Name = L"read_point";
-			//this->read_point->Size = System::Drawing::Size(75, 23);
-			//this->read_point->TabIndex = 21;
-			//this->read_point->Text = L"Read point";
-			//this->read_point->UseVisualStyleBackColor = true;
-			//this->read_point->Click += gcnew System::EventHandler(this, &MyForm::read_point_Click);
-			// 
-			// Combine
-			// 
-			//this->Combine->Location = System::Drawing::Point(754, 387);
-			//this->Combine->Name = L"Combine";
-			//this->Combine->Size = System::Drawing::Size(75, 23);
-			//this->Combine->TabIndex = 22;
-			//this->Combine->Text = L"Combine";
-			//this->Combine->UseVisualStyleBackColor = true;
-			//this->Combine->Click += gcnew System::EventHandler(this, &MyForm::Combine_Click);
-			//// 
-			//// Part_Align
-			//// 
-			//this->Part_Align->Location = System::Drawing::Point(881, 191);
-			//this->Part_Align->Name = L"Part_Align";
-			//this->Part_Align->Size = System::Drawing::Size(88, 23);
-			//this->Part_Align->TabIndex = 23;
-			//this->Part_Align->Text = L"Part Align";
-			//this->Part_Align->UseVisualStyleBackColor = true;
-			//this->Part_Align->Click += gcnew System::EventHandler(this, &MyForm::Part_Align_Click);
-			//// 
-			//// Threshold
-			//// 
-			//this->Threshold->AutoSize = true;
-			//this->Threshold->Location = System::Drawing::Point(888, 221);
-			//this->Threshold->Name = L"Threshold";
-			//this->Threshold->Size = System::Drawing::Size(52, 12);
-			//this->Threshold->TabIndex = 24;
-			//this->Threshold->Text = L"Threshold";
-			// 
-			// Theshold_in
-			// 
-			//this->Theshold_in->Location = System::Drawing::Point(862, 237);
-			//this->Theshold_in->Name = L"Theshold_in";
-			//this->Theshold_in->Size = System::Drawing::Size(100, 22);
-			//this->Theshold_in->TabIndex = 25;
-			//this->Theshold_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Theshold_in_TextChanged);
-			//this->Theshold_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Theshold_in_KeyDown_1);
-			// 
-			// Max_time
-			// 
-			//this->Max_time->AutoSize = true;
-			//this->Max_time->Location = System::Drawing::Point(890, 266);
-			//this->Max_time->Name = L"Max_time";
-			//this->Max_time->Size = System::Drawing::Size(49, 12);
-			//this->Max_time->TabIndex = 26;
-			//this->Max_time->Text = L"Max time";
-			// 
-			// Max_time_in
-			// 
-			//this->Max_time_in->Location = System::Drawing::Point(862, 281);
-			//this->Max_time_in->Name = L"Max_time_in";
-			//this->Max_time_in->Size = System::Drawing::Size(100, 22);
-			//this->Max_time_in->TabIndex = 27;
-			//this->Max_time_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Max_time_in_TextChanged);
-			//this->Max_time_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Max_time_in_KeyDown);
-			// 
-			// Max_angle
-			// 
-			//this->Max_angle->AutoSize = true;
-			//this->Max_angle->Location = System::Drawing::Point(890, 310);
-			//this->Max_angle->Name = L"Max_angle";
-			//this->Max_angle->Size = System::Drawing::Size(54, 12);
-			//this->Max_angle->TabIndex = 28;
-			//this->Max_angle->Text = L"Max angle";
-			// 
-			// Max_angle_in
-			// 
-			//this->Max_angle_in->Location = System::Drawing::Point(862, 325);
-			//this->Max_angle_in->Name = L"Max_angle_in";
-			//this->Max_angle_in->Size = System::Drawing::Size(100, 22);
-			//this->Max_angle_in->TabIndex = 29;
-			//this->Max_angle_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Max_angle_in_TextChanged);
-			//this->Max_angle_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Max_angle_in_KeyDown);
-			// 
-			// Sample_points
-			// 
-			//this->Sample_points->AutoSize = true;
-			//this->Sample_points->Location = System::Drawing::Point(882, 354);
-			//this->Sample_points->Name = L"Sample_points";
-			//this->Sample_points->Size = System::Drawing::Size(70, 12);
-			//this->Sample_points->TabIndex = 30;
-			//this->Sample_points->Text = L"Sample points";
-			// 
-			// Sample_points_in
-			// 
-			//this->Sample_points_in->Location = System::Drawing::Point(862, 370);
-			//this->Sample_points_in->Name = L"Sample_points_in";
-			//this->Sample_points_in->Size = System::Drawing::Size(100, 22);
-			//this->Sample_points_in->TabIndex = 31;
-			//this->Sample_points_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Sample_points_in_TextChanged);
-			//this->Sample_points_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Sample_points_in_KeyDown);
-			// 
-			// Overlap
-			// 
-			//this->Overlap->AutoSize = true;
-			//this->Overlap->Location = System::Drawing::Point(891, 399);
-			//this->Overlap->Name = L"Overlap";
-			//this->Overlap->Size = System::Drawing::Size(42, 12);
-			//this->Overlap->TabIndex = 32;
-			//this->Overlap->Text = L"Overlap";
-			// 
-			// Overlap_in
-			// 
-			//this->Overlap_in->Location = System::Drawing::Point(862, 414);
-			//this->Overlap_in->Name = L"Overlap_in";
-			//this->Overlap_in->Size = System::Drawing::Size(100, 22);
-			//this->Overlap_in->TabIndex = 33;
-			//this->Overlap_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Overlap_in_TextChanged);
-			//this->Overlap_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Overlap_in_KeyDown);
-			// 
-			// Delta
-			// 
-			//this->Delta->AutoSize = true;
-			//this->Delta->Location = System::Drawing::Point(894, 443);
-			//this->Delta->Name = L"Delta";
-			//this->Delta->Size = System::Drawing::Size(29, 12);
-			//this->Delta->TabIndex = 34;
-			//this->Delta->Text = L"Delta";
-			// 
-			// Delta_in
-			// 
-			//this->Delta_in->Location = System::Drawing::Point(862, 458);
-			//this->Delta_in->Name = L"Delta_in";
-			//this->Delta_in->Size = System::Drawing::Size(100, 22);
-			//this->Delta_in->TabIndex = 35;
-			//this->Delta_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Delta_in_TextChanged);
-			//this->Delta_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Delta_in_KeyDown);
-			// 
-			// Transform
-			// 
-			//this->Transform->AutoSize = true;
-			//this->Transform->Location = System::Drawing::Point(890, 487);
-			//this->Transform->Name = L"Transform";
-			//this->Transform->Size = System::Drawing::Size(54, 12);
-			//this->Transform->TabIndex = 36;
-			//this->Transform->Text = L"Transform";
-			// 
-			// Transform_in
-			// 
-			//this->Transform_in->Location = System::Drawing::Point(862, 505);
-			//this->Transform_in->Name = L"Transform_in";
-			//this->Transform_in->Size = System::Drawing::Size(100, 22);
-			//this->Transform_in->TabIndex = 37;
-			//this->Transform_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Transform_in_TextChanged);
-			//this->Transform_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Transform_in_KeyDown);
-			//// 
-			//// Constant1
-			//// 
-			//this->Constant1->AutoSize = true;
-			//this->Constant1->Location = System::Drawing::Point(768, 427);
-			//this->Constant1->Name = L"Constant1";
-			//this->Constant1->Size = System::Drawing::Size(52, 12);
-			//this->Constant1->TabIndex = 38;
-			//this->Constant1->Text = L"Constant1";
-			//// 
-			//// Constant1_in
-			//// 
-			//this->Constant1_in->Location = System::Drawing::Point(742, 442);
-			//this->Constant1_in->Name = L"Constant1_in";
-			//this->Constant1_in->Size = System::Drawing::Size(100, 22);
-			//this->Constant1_in->TabIndex = 39;
-			//this->Constant1_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Constant1_in_TextChanged);
-			//this->Constant1_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Constant1_in_KeyDown);
-			//// 
-			//// Conatant2
-			//// 
-			//this->Conatant2->AutoSize = true;
-			//this->Conatant2->Location = System::Drawing::Point(768, 472);
-			//this->Conatant2->Name = L"Conatant2";
-			//this->Conatant2->Size = System::Drawing::Size(53, 12);
-			//this->Conatant2->TabIndex = 40;
-			//this->Conatant2->Text = L"Conatant2";
-			//// 
-			//// Constant2_in
-			//// 
-			//this->Constant2_in->Location = System::Drawing::Point(742, 487);
-			//this->Constant2_in->Name = L"Constant2_in";
-			//this->Constant2_in->Size = System::Drawing::Size(100, 22);
-			//this->Constant2_in->TabIndex = 41;
-			//this->Constant2_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Constant2_in_TextChanged);
-			//this->Constant2_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Constant2_in_KeyDown);
-			// 
-			// Gyro_test
-			// 
-			//this->Gyro_test->Location = System::Drawing::Point(881, 115);
-			//this->Gyro_test->Name = L"Gyro_test";
-			//this->Gyro_test->Size = System::Drawing::Size(88, 23);
-			//this->Gyro_test->TabIndex = 42;
-			//this->Gyro_test->Text = L"Gyro test";
-			//this->Gyro_test->UseVisualStyleBackColor = true;
-			//this->Gyro_test->Click += gcnew System::EventHandler(this, &MyForm::Gyro_test_Click);
-			// 
-			// Chose_Align
-			// 
-			//this->Chose_Align->Location = System::Drawing::Point(754, 519);
-			//this->Chose_Align->Name = L"Chose_Align";
-			//this->Chose_Align->Size = System::Drawing::Size(75, 23);
-			//this->Chose_Align->TabIndex = 43;
-			//this->Chose_Align->Text = L"Chose Align";
-			//this->Chose_Align->UseVisualStyleBackColor = true;
-			//this->Chose_Align->Click += gcnew System::EventHandler(this, &MyForm::Chose_Align_Click);
-			//// 
-			//// overlap_constant1
-			//// 
-			//this->overlap_constant1->Location = System::Drawing::Point(40, 548);
-			//this->overlap_constant1->Name = L"overlap_constant1";
-			//this->overlap_constant1->Size = System::Drawing::Size(151, 45);
-			//this->overlap_constant1->TabIndex = 44;
-			//this->overlap_constant1->Scroll += gcnew System::EventHandler(this, &MyForm::overlap_constant1_Scroll);
-			//// 
-			//// overlap_constant2
-			//// 
-			//this->overlap_constant2->Location = System::Drawing::Point(410, 548);
-			//this->overlap_constant2->Name = L"overlap_constant2";
-			//this->overlap_constant2->Size = System::Drawing::Size(104, 45);
-			//this->overlap_constant2->TabIndex = 45;
-			//this->overlap_constant2->Scroll += gcnew System::EventHandler(this, &MyForm::overlap_constant2_Scroll);
-			// 
-			// Read_point_v2
-			// 
-			//this->Read_point_v2->Location = System::Drawing::Point(881, 152);
-			//this->Read_point_v2->Name = L"Read_point_v2";
-			//this->Read_point_v2->Size = System::Drawing::Size(88, 23);
-			//this->Read_point_v2->TabIndex = 46;
-			//this->Read_point_v2->Text = L"Read point v2";
-			//this->Read_point_v2->UseVisualStyleBackColor = true;
-			//this->Read_point_v2->Click += gcnew System::EventHandler(this, &MyForm::Read_point_v2_Click);
-			// 
-			// Rot_test
-			// 
-			//this->Rot_test->Location = System::Drawing::Point(756, 548);
-			//this->Rot_test->Name = L"Rot_test";
-			//this->Rot_test->Size = System::Drawing::Size(75, 23);
-			//this->Rot_test->TabIndex = 47;
-			//this->Rot_test->Text = L"Rot test";
-			//this->Rot_test->UseVisualStyleBackColor = true;
-			//this->Rot_test->Click += gcnew System::EventHandler(this, &MyForm::Rot_test_Click);
-			// 
-			// Aligned_rot
-			// 
-			//this->Aligned_rot->Location = System::Drawing::Point(881, 577);
-			//this->Aligned_rot->Name = L"Aligned_rot";
-			//this->Aligned_rot->Size = System::Drawing::Size(75, 23);
-			//this->Aligned_rot->TabIndex = 49;
-			//this->Aligned_rot->Text = L"Aligned rot";
-			//this->Aligned_rot->UseVisualStyleBackColor = true;
-			//this->Aligned_rot->Click += gcnew System::EventHandler(this, &MyForm::Aligned_rot_Click);
-			// 
-			// First_cloud
-			// 
-			//this->First_cloud->Location = System::Drawing::Point(997, 23);
-			//this->First_cloud->Name = L"First_cloud";
-			//this->First_cloud->Size = System::Drawing::Size(83, 23);
-			//this->First_cloud->TabIndex = 51;
-			//this->First_cloud->Text = L"First cloud";
-			//this->First_cloud->UseVisualStyleBackColor = true;
-			//this->First_cloud->Click += gcnew System::EventHandler(this, &MyForm::First_cloud_Click);
-			// 
-			// Second_cloud
-			// 
-			//this->Second_cloud->Location = System::Drawing::Point(756, 579);
-			//this->Second_cloud->Name = L"Second_cloud";
-			//this->Second_cloud->Size = System::Drawing::Size(83, 23);
-			//this->Second_cloud->TabIndex = 52;
-			//this->Second_cloud->Text = L"Second cloud";
-			//this->Second_cloud->UseVisualStyleBackColor = true;
-			//this->Second_cloud->Click += gcnew System::EventHandler(this, &MyForm::Second_cloud_Click);
 			// 
 			// Aligned12
 			// 
@@ -865,16 +384,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->Aligned12->Text = L"Aligned to1";
 			this->Aligned12->UseVisualStyleBackColor = true;
 			this->Aligned12->Click += gcnew System::EventHandler(this, &MyForm::Aligned12_Click);
-			// 
-			// next_cloud
-			// 
-			//this->next_cloud->Location = System::Drawing::Point(997, 533);
-			//this->next_cloud->Name = L"next_cloud";
-			//this->next_cloud->Size = System::Drawing::Size(83, 23);
-			//this->next_cloud->TabIndex = 54;
-			//this->next_cloud->Text = L"Next cloud";
-			//this->next_cloud->UseVisualStyleBackColor = true;
-			//this->next_cloud->Click += gcnew System::EventHandler(this, &MyForm::next_cloud_Click);
 			// 
 			// Aligned_near
 			// 
@@ -911,42 +420,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->Aligned_Pre->Text = L"Aligned Pre";
 			this->Aligned_Pre->UseVisualStyleBackColor = true;
 			this->Aligned_Pre->Click += gcnew System::EventHandler(this, &MyForm::Aligned_Pre_Click);
-			// 
-			// Iter_treshold
-			// 
-			//this->Iter_treshold->AutoSize = true;
-			//this->Iter_treshold->Location = System::Drawing::Point(888, 534);
-			//this->Iter_treshold->Name = L"Iter_treshold";
-			//this->Iter_treshold->Size = System::Drawing::Size(61, 12);
-			//this->Iter_treshold->TabIndex = 58;
-			//this->Iter_treshold->Text = L"Iter treshold";
-			//// 
-			//// Iter_thresh
-			//// 
-			//this->Iter_thresh->Location = System::Drawing::Point(862, 548);
-			//this->Iter_thresh->Name = L"Iter_thresh";
-			//this->Iter_thresh->Size = System::Drawing::Size(100, 22);
-			//this->Iter_thresh->TabIndex = 59;
-			//this->Iter_thresh->TextChanged += gcnew System::EventHandler(this, &MyForm::Iter_thresh_TextChanged);
-			//this->Iter_thresh->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Iter_thresh_KeyDown);
-			//// 
-			//// Iter_count
-			//// 
-			//this->Iter_count->AutoSize = true;
-			//this->Iter_count->Location = System::Drawing::Point(1018, 566);
-			//this->Iter_count->Name = L"Iter_count";
-			//this->Iter_count->Size = System::Drawing::Size(50, 12);
-			//this->Iter_count->TabIndex = 60;
-			//this->Iter_count->Text = L"Iter count";
-			//// 
-			//// Iter_count_in
-			//// 
-			//this->Iter_count_in->Location = System::Drawing::Point(992, 580);
-			//this->Iter_count_in->Name = L"Iter_count_in";
-			//this->Iter_count_in->Size = System::Drawing::Size(100, 22);
-			//this->Iter_count_in->TabIndex = 61;
-			//this->Iter_count_in->TextChanged += gcnew System::EventHandler(this, &MyForm::Iter_count_in_TextChanged);
-			//this->Iter_count_in->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Iter_count_in_KeyDown);
 			// 
 			// Combine_cloud
 			// 
@@ -1024,16 +497,6 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->pictureBox3->TabIndex = 69;
 			this->pictureBox3->TabStop = false;
 			// 
-			// pictureBox4
-			// 
-			//this->pictureBox4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
-			//	static_cast<System::Int32>(static_cast<System::Byte>(192)));
-			//this->pictureBox4->Location = System::Drawing::Point(738, 108);
-			//this->pictureBox4->Name = L"pictureBox4";
-			//this->pictureBox4->Size = System::Drawing::Size(111, 109);
-			//this->pictureBox4->TabIndex = 70;
-			//this->pictureBox4->TabStop = false;
-			// 
 			// pictureBox5
 			// 
 			this->pictureBox5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
@@ -1044,32 +507,10 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->pictureBox5->TabIndex = 71;
 			this->pictureBox5->TabStop = false;
 			// 
-			// label4
-			// 
-			//this->label4->AutoSize = true;
-			//this->label4->Font = (gcnew System::Drawing::Font(L"∑s≤”©˙≈È", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-			//	static_cast<System::Byte>(136)));
-			//this->label4->Location = System::Drawing::Point(735, 100);
-			//this->label4->Name = L"label4";
-			//this->label4->Size = System::Drawing::Size(14, 15);
-			//this->label4->TabIndex = 72;
-			//this->label4->Text = L"1";
-			// 
-			// label5
-			// 
-			//this->label5->AutoSize = true;
-			//this->label5->Font = (gcnew System::Drawing::Font(L"∑s≤”©˙≈È", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-			//	static_cast<System::Byte>(136)));
-			//this->label5->Location = System::Drawing::Point(735, 295);
-			//this->label5->Name = L"label5";
-			//this->label5->Size = System::Drawing::Size(14, 15);
-			//this->label5->TabIndex = 73;
-			//this->label5->Text = L"2";
-			// 
 			// label6
 			// 
 			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"∑s≤”©˙≈È", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label6->Font = (gcnew System::Drawing::Font(L"Êñ∞Á¥∞ÊòéÈ´î", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label6->Location = System::Drawing::Point(984, 49);
 			this->label6->Name = L"label6";
@@ -1080,94 +521,24 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"∑s≤”©˙≈È", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label7->Font = (gcnew System::Drawing::Font(L"Êñ∞Á¥∞ÊòéÈ´î", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label7->Location = System::Drawing::Point(975, 222);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(14, 15);
 			this->label7->TabIndex = 75;
 			this->label7->Text = L"5";
-			this->label7->Click += gcnew System::EventHandler(this, &MyForm::label7_Click);
 			// 
 			// label8
 			// 
 			this->label8->AutoSize = true;
-			this->label8->Font = (gcnew System::Drawing::Font(L"∑s≤”©˙≈È", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label8->Font = (gcnew System::Drawing::Font(L"Êñ∞Á¥∞ÊòéÈ´î", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label8->Location = System::Drawing::Point(985, 433);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(14, 15);
 			this->label8->TabIndex = 76;
 			this->label8->Text = L"6";
-			// 
-			// numericUpDown1
-			// 
-			//this->numericUpDown1->Location = System::Drawing::Point(1024, 112);
-			//this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, 0 });
-			//this->numericUpDown1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, System::Int32::MinValue });
-			//this->numericUpDown1->Name = L"numericUpDown1";
-			//this->numericUpDown1->Size = System::Drawing::Size(73, 22);
-			//this->numericUpDown1->TabIndex = 77;
-			//this->numericUpDown1->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown1_ValueChanged);
-			//// 
-			//// numericUpDown2
-			//// 
-			//this->numericUpDown2->Location = System::Drawing::Point(1024, 141);
-			//this->numericUpDown2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, 0 });
-			//this->numericUpDown2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, System::Int32::MinValue });
-			//this->numericUpDown2->Name = L"numericUpDown2";
-			//this->numericUpDown2->Size = System::Drawing::Size(73, 22);
-			//this->numericUpDown2->TabIndex = 78;
-			//this->numericUpDown2->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown2_ValueChanged);
-			//// 
-			//// numericUpDown3
-			//// 
-			//this->numericUpDown3->Location = System::Drawing::Point(1024, 169);
-			//this->numericUpDown3->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, 0 });
-			//this->numericUpDown3->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, System::Int32::MinValue });
-			//this->numericUpDown3->Name = L"numericUpDown3";
-			//this->numericUpDown3->Size = System::Drawing::Size(73, 22);
-			//this->numericUpDown3->TabIndex = 79;
-			//this->numericUpDown3->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown3_ValueChanged);
-			// 
-			// label9
-			//// 
-			//this->label9->AutoSize = true;
-			//this->label9->Font = (gcnew System::Drawing::Font(L"∑s≤”©˙≈È", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-			//	static_cast<System::Byte>(136)));
-			//this->label9->Location = System::Drawing::Point(976, 116);
-			//this->label9->Name = L"label9";
-			//this->label9->Size = System::Drawing::Size(44, 12);
-			//this->label9->TabIndex = 80;
-			//this->label9->Text = L"Angle X";
-			//// 
-			//// label10
-			//// 
-			//this->label10->AutoSize = true;
-			//this->label10->Location = System::Drawing::Point(976, 145);
-			//this->label10->Name = L"label10";
-			//this->label10->Size = System::Drawing::Size(44, 12);
-			//this->label10->TabIndex = 81;
-			//this->label10->Text = L"Angle Y";
-			//// 
-			//// label11
-			//// 
-			//this->label11->AutoSize = true;
-			//this->label11->Location = System::Drawing::Point(976, 174);
-			//this->label11->Name = L"label11";
-			//this->label11->Size = System::Drawing::Size(43, 12);
-			//this->label11->TabIndex = 82;
-			//this->label11->Text = L"Angle Z";
-			// 
-			// Apply_rot
-			// 
-			//this->Apply_rot->Location = System::Drawing::Point(997, 197);
-			//this->Apply_rot->Name = L"Apply_rot";
-			//this->Apply_rot->Size = System::Drawing::Size(75, 23);
-			//this->Apply_rot->TabIndex = 83;
-			//this->Apply_rot->Text = L"Apply rot";
-			//this->Apply_rot->UseVisualStyleBackColor = true;
-			//this->Apply_rot->Click += gcnew System::EventHandler(this, &MyForm::Apply_rot_Click);
 			// 
 			// pictureBox6
 			// 
@@ -1182,30 +553,13 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			// label12
 			// 
 			this->label12->AutoSize = true;
-			this->label12->Font = (gcnew System::Drawing::Font(L"∑s≤”©˙≈È", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label12->Font = (gcnew System::Drawing::Font(L"Êñ∞Á¥∞ÊòéÈ´î", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label12->Location = System::Drawing::Point(975, 93);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(14, 15);
 			this->label12->TabIndex = 85;
 			this->label12->Text = L"4";
-			// 
-			// numericUpDown4
-			// 
-			//this->numericUpDown4->Location = System::Drawing::Point(1024, 328);
-			//this->numericUpDown4->Name = L"numericUpDown4";
-			//this->numericUpDown4->Size = System::Drawing::Size(73, 22);
-			//this->numericUpDown4->TabIndex = 86;
-			//this->numericUpDown4->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown4_ValueChanged);
-			// 
-			// label13
-			// 
-			//this->label13->AutoSize = true;
-			//this->label13->Location = System::Drawing::Point(1001, 333);
-			//this->label13->Name = L"label13";
-			//this->label13->Size = System::Drawing::Size(17, 12);
-			//this->label13->TabIndex = 87;
-			//this->label13->Text = L"ID";
 			// 
 			// Aligned_target
 			// 
@@ -1224,78 +578,16 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->ClientSize = System::Drawing::Size(870, 614);
 			this->Controls->Add(this->Aligned_target);
 			this->Controls->Add(this->label13);
-			//this->Controls->Add(this->numericUpDown4);
 			this->Controls->Add(this->label12);
-			//this->Controls->Add(this->Apply_rot);
-			//this->Controls->Add(this->label11);
-			//this->Controls->Add(this->label10);
-			//this->Controls->Add(this->label9);
-			//this->Controls->Add(this->numericUpDown3);
-			//this->Controls->Add(this->numericUpDown2);
-			//this->Controls->Add(this->numericUpDown1);
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label6);
-			//this->Controls->Add(this->label5);
-			//this->Controls->Add(this->label4);
-			//this->Controls->Add(this->Add2Combine);
 			this->Controls->Add(this->name_output);
 			this->Controls->Add(this->output_name);
-			//this->Controls->Add(this->Save_combine);
-			//this->Controls->Add(this->Combine_cloud);
-			//this->Controls->Add(this->Iter_count_in);
-			//this->Controls->Add(this->Iter_count);
-			//this->Controls->Add(this->Iter_thresh);
-			//this->Controls->Add(this->Iter_treshold);
-			//this->Controls->Add(this->Aligned_Pre);
-			//this->Controls->Add(this->reset_rot);
-			//this->Controls->Add(this->Aligned_near);
-			//this->Controls->Add(this->next_cloud);
 			this->Controls->Add(this->Aligned12);
-			//this->Controls->Add(this->Second_cloud);
-			//this->Controls->Add(this->First_cloud);
-			//this->Controls->Add(this->Aligned_rot);
-			//this->Controls->Add(this->Rot_test);
-			//this->Controls->Add(this->Read_point_v2);
-			//this->Controls->Add(this->overlap_constant2);
-			//this->Controls->Add(this->overlap_constant1);
-			//this->Controls->Add(this->Chose_Align);
-			//this->Controls->Add(this->Gyro_test);
-			//this->Controls->Add(this->Constant2_in);
-			//this->Controls->Add(this->Conatant2);
-			//this->Controls->Add(this->Constant1_in);
-			//this->Controls->Add(this->Constant1);
-			//this->Controls->Add(this->Transform_in);
-			//this->Controls->Add(this->Transform);
-			//this->Controls->Add(this->Delta_in);
-			//this->Controls->Add(this->Delta);
-			//this->Controls->Add(this->Overlap_in);
-			//this->Controls->Add(this->Overlap);
-			//this->Controls->Add(this->Sample_points_in);
-			//this->Controls->Add(this->Sample_points);
-			//this->Controls->Add(this->Max_angle_in);
-			//this->Controls->Add(this->Max_angle);
-			//this->Controls->Add(this->Max_time_in);
-			//this->Controls->Add(this->Max_time);
-			//this->Controls->Add(this->Theshold_in);
-			//this->Controls->Add(this->Threshold);
-			//this->Controls->Add(this->Part_Align);
-			//this->Controls->Add(this->Combine);
-			//this->Controls->Add(this->read_point);
-			//this->Controls->Add(this->label3);
-			//this->Controls->Add(this->textBox2);
-			//this->Controls->Add(this->label2);
-			//this->Controls->Add(this->label1);
-			//this->Controls->Add(this->textBox1);
-			//this->Controls->Add(this->Save_point_s);
-			//this->Controls->Add(this->Save_PointCloud);
-			//this->Controls->Add(this->Alignment);
 			this->Controls->Add(this->Clear_cloud);
-			//this->Controls->Add(this->Test_file);
 			this->Controls->Add(this->hkoglPanelControl1);
 			this->Controls->Add(this->Full_scan);
-			//this->Controls->Add(this->Single_scan);
-			//this->Controls->Add(this->Initial_scan);
 			this->Controls->Add(this->Get_Quat);
 			this->Controls->Add(this->btnBleEstablish);
 			this->Controls->Add(this->btnComOpen);
@@ -1303,30 +595,35 @@ private: System::Windows::Forms::Button^  Aligned_target;
 			this->Controls->Add(this->cbBleDeviceL);
 			this->Controls->Add(this->btnComUpdate);
 			this->Controls->Add(this->cbComPortL);
-			//this->Controls->Add(this->pictureBox1);
-			//this->Controls->Add(this->pictureBox2);
-			//this->Controls->Add(this->pictureBox3);
-			//this->Controls->Add(this->pictureBox4);
-			//this->Controls->Add(this->pictureBox5);
-			//this->Controls->Add(this->pictureBox6);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->overlap_constant1))->EndInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->overlap_constant2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->EndInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->EndInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox6))->EndInit();
-			//(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown4))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
+			#pragma region Dark Add Part
+			// Test_Model
+			// 
+			this->Test_Model = (gcnew System::Windows::Forms::Button());
+			this->Test_Model->Location = System::Drawing::Point(755, 196);
+			this->Test_Model->Name = L"Test_Model";
+			this->Test_Model->Size = System::Drawing::Size(75, 23);
+			this->Test_Model->TabIndex = 66;
+			this->Test_Model->Text = L"Test Model";
+			this->Test_Model->UseVisualStyleBackColor = true;
+			this->Test_Model->Click += gcnew System::EventHandler(this, &MyForm::Test_Model_Click);
+			this->Controls->Add(this->Test_Model);
+
+			//////////////////////////////////////////////////////////////////////////
+			// Model Init
+			//////////////////////////////////////////////////////////////////////////
+
+			#pragma endregion
 		}
 #pragma endregion
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e);
@@ -1343,14 +640,14 @@ private: System::Windows::Forms::Button^  Aligned_target;
 		{
 			Idle, Recording, Recognizing, Playback_Playing, Playback_Paused
 		};
-		private:
-			 //
-			 // Form Function Declarations
-			 //
-			delegate void Callback_DeviceDiscoveredDelegate(DeviceInfo ^deviceInfo);
+	private:
+		//
+		// Form Function Declarations
+		//
+		delegate void Callback_DeviceDiscoveredDelegate(DeviceInfo ^deviceInfo);
 
-			delegate void UpdateConnectionStatusDelegate(State_Connection state);
-			void UpdateConnectionStatus(State_Connection state);
+		delegate void UpdateConnectionStatusDelegate(State_Connection state);
+		void UpdateConnectionStatus(State_Connection state);
 	private:
 		//
 		// BLE Callback Function Declarations
@@ -1382,48 +679,12 @@ private: System::Windows::Forms::Button^  Aligned_target;
 		void Test_file_Click(System::Object^  sender, System::EventArgs^  e);
 		void Get_Quat_Click(System::Object^  sender, System::EventArgs^  e);
 		void Clear_cloud_Click(System::Object^  sender, System::EventArgs^  e);
-		//void Alignment_Click(System::Object^  sender, System::EventArgs^  e);
 		void Save_PointCloud_Click(System::Object^  sender, System::EventArgs^  e);
 		void saveFileDialog1_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e);
 		void Save_point_s_Click(System::Object^  sender, System::EventArgs^  e);
-		//void label1_Click(System::Object^  sender, System::EventArgs^  e);
-		//void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void textBox1_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void textBox2_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void label3_Click(System::Object^  sender, System::EventArgs^  e);
 		void read_point_Click(System::Object^  sender, System::EventArgs^  e);
-		//void Combine_Click(System::Object^  sender, System::EventArgs^  e);
-		//void Part_Align_Click(System::Object^  sender, System::EventArgs^  e);
-		//void Theshold_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Theshold_in_KeyDown_1(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void Max_time_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Max_time_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void Max_angle_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Max_angle_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void Sample_points_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Sample_points_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void Overlap_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Overlap_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void Delta_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Delta_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void Transform_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Transform_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void Iter_thresh_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Iter_thresh_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void Iter_count_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Iter_count_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-
-		//void Constant1_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Constant2_in_TextChanged(System::Object^  sender, System::EventArgs^  e);
-		//void Constant1_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void Constant2_in_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-
 		void Add2Combine_Click(System::Object^  sender, System::EventArgs^  e);
 		void Gyro_test_Click(System::Object^  sender, System::EventArgs^  e);
-		//void Chose_Align_Click(System::Object^  sender, System::EventArgs^  e);
-		//void overlap_constant1_Scroll(System::Object^  sender, System::EventArgs^  e);
-		//void overlap_constant2_Scroll(System::Object^  sender, System::EventArgs^  e);
 		void Read_point_v2_Click(System::Object^  sender, System::EventArgs^  e);
 		void Rot_test_Click(System::Object^  sender, System::EventArgs^  e);
 		void Aligned_rot_Click(System::Object^  sender, System::EventArgs^  e);
@@ -1437,12 +698,7 @@ private: System::Windows::Forms::Button^  Aligned_target;
 		void Save_combine_Click(System::Object^  sender, System::EventArgs^  e);
 		void name_output_TextChanged(System::Object^  sender, System::EventArgs^  e);
 		void name_output_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
-		//void numericUpDown1_ValueChanged(System::Object^  sender, System::EventArgs^  e);
-		//void numericUpDown2_ValueChanged(System::Object^  sender, System::EventArgs^  e);
-		//void numericUpDown3_ValueChanged(System::Object^  sender, System::EventArgs^  e);
 		void Aligned_target_Click(System::Object^  sender, System::EventArgs^  e);
-		//void Apply_rot_Click(System::Object^  sender, System::EventArgs^  e);
-		//void numericUpDown4_ValueChanged(System::Object^  sender, System::EventArgs^  e);
 		void RotatePC();
 		void unsigned_short_to_char(unsigned short *input, int inputlen, char *output);
 		void test_start_cap(int32_t DevIn, uint32_t *Handles, float Lv_65,
@@ -1457,23 +713,15 @@ private: System::Windows::Forms::Button^  Aligned_target;
 		void drawBoardTemp(TRcuda *theTRcuda);
 		void drawPointTypeCloud(TRcuda *theTRcuda);
 		void drawZAxisValue(TRcuda *theTRcuda);
-		//void drawPCSet();
-		//void MovePC();
 		void super4PCS_Align(std::vector<GlobalRegistration::Point3D> PC1, std::vector<GlobalRegistration::Point3D> *PC2, int max_time_seconds);
-		//void CombinePC(int idx);
 		void Find_max_min();
-		//void Find_Plane();
-		//void Find_over_maxmin();
 		void Push_back_file();
 		void read_point_v2(int file_id);
 		void reset_rotation(float angle, float x, float y, float z);
-		//void Rotate2();
 		void Rotate_cloud();
-		void camera_cube(float length,float width,float height);
-		//void Find_min_quat();
+		void camera_cube(float length, float width, float height);
 		void Find_min_quat2();
 		void Find_min_quat3();
-		//void drawPCSet2();
 		void drawPCSet3();
 		void rotate_quat2();
 		void Find_combine_maxmin();
@@ -1509,110 +757,83 @@ private: System::Windows::Forms::Button^  Aligned_target;
 		SystemManager *sysManager;
 		char *ErrorString, *octstatus;
 
-		
+
 		DataManager *DManager;
 
 		unsigned int HandleOut, AllDatabyte, ByteLen;
 		LVBoolean ErrorBoolean, Savedata;
 		unsigned short *outarr, *RealOctData, *ArrSize, *short_arr, *final_oct_arr;
 		char *char_arr, *final_oct_char;
-		
-		public:
-			int32_t ErrorString_len_in, ErrorString_len_out, fftnumber, deviceID, OutArrLenIn, OutArrLenOut;
-			TRcuda *theTRcuda;
-			bool mouse_move;
-			float thePointSize;
-			int volumeDataIdx, PointCloud_idx_now, PointCloud_idx_show, readRaw_count, Point_cloud_idx_sec;
-			int volumeZ_now, Min_quat_idx, scan_count;
 
-			bool showVolumeData, showPointType, showBoardTemp, showPointCloud, can_rotate, Initial_OK, show_first_point;
-			bool show_second_point, enable_review, velocity_offset_enable, showoverlap1, showoverlap2;
-			bool change_constant1, change_constant2, gyro_test, show_third_point, show_tmp_align1, show_tmp_align2;
-			bool is_camera_move, show_aligned_cloud, is_reset, timer_rot, show_combine_cloud, is_before_camera,show_noGyro_PC, show_rawData;
-			clock_t begin_time, end_time;
+	public:
+		int32_t ErrorString_len_in, ErrorString_len_out, fftnumber, deviceID, OutArrLenIn, OutArrLenOut;
+		TRcuda *theTRcuda;
+		bool mouse_move;
+		float thePointSize;
+		int volumeDataIdx, PointCloud_idx_now, PointCloud_idx_show, readRaw_count, Point_cloud_idx_sec;
+		int volumeZ_now, Min_quat_idx, scan_count;
 
-			//std::vector<std::vector<GlobalRegistration::Point3D>> *pointCloudSet/*, *overlap_cloud1, *overlap_cloud2*/, *pointCloud_aligned;
-			//std::vector<GlobalRegistration::Point3D> *finalPC, *aligned, *tmp_alignedPC1, *tmp_alignedPC2;
-			std::vector<GlobalRegistration::Point3D> *tmp_over_aligned1, *tmp_over_aligned2;
-			//std::vector<int> *finalPCid, *nearest_idx;
-			std::vector<file_name> *filename_array;
-			//std::vector<Quaternion> *tmp_input_quat;
-			//std::vector<Radian> *pointCloud_radian;
-			//std::vector<Vector3> *pointCloud_quat_vector;
-			
-			//std::vector <Vector3> *Point_cloud_max;
+		bool showVolumeData, showPointType, showBoardTemp, showPointCloud, can_rotate, Initial_OK, show_first_point;
+		bool show_second_point, enable_review, velocity_offset_enable, showoverlap1, showoverlap2;
+		bool change_constant1, change_constant2, gyro_test, show_third_point, show_tmp_align1, show_tmp_align2;
+		bool is_camera_move, show_aligned_cloud, is_reset, timer_rot, show_combine_cloud, is_before_camera, show_noGyro_PC, show_rawData;
+		clock_t begin_time, end_time;
+		std::vector<GlobalRegistration::Point3D> *tmp_over_aligned1, *tmp_over_aligned2;
+		std::vector<file_name> *filename_array;
+		Radian *theta_diff, *output_diff;
+		Vector3 *rotationAxix_diff, *output_rotVec;
+		Quaternion *quat1, *quat2, *quat3, *all_quat, *quat_tmp, *camera_quat, *all_quat1, *preQuaternL;
+		Matrix3 *tmp_rotMatrix;
+		glm::mat4 *tmp_MM, *reset_M, *mani_MM;
 
-			Radian *theta_diff,*output_diff;
-			Vector3 *rotationAxix_diff,*output_rotVec;
-			Quaternion *quat1, *quat2, *quat3, *all_quat, *quat_tmp, *camera_quat, *all_quat1, *preQuaternL;
-			Matrix3 *tmp_rotMatrix;
-			glm::mat4 *tmp_MM, *reset_M, *mani_MM;
-			
-			glm::mat4 *LocalTransform_M;
-			GLfloat *float_rotate_M;
-			Vector3 *tmp_center/*, *acc_vector1, *acc_vector2, *acc_vector3, *velocity_offset, *movement_vector, *result_movement, *final_max, *final_min, *pre_velocity, *now_velocity*/;
-			Vector3 *pre_acc, *now_acc, *draw_plane1, *draw_plane2, *draw_plane3, *draw_plane4;
-			Vector3 *combine_max, *combine_min;
-			float max_x, max_y, max_z, min_x, min_y, min_z, tmp_peak_gap, tmp_energy_gap, frame_rate;
-			double tmp_theshold, super_theshold, tmp_max_time, super_max_time, tmp_max_angle, super_max_angle, tmp_sample_point, super_sample_point;
-			double tmp_overlap, super_overlap, tmp_delta, super_delta, tmp_transform, super_transform, tmp_constant1, tmp_constant2;
-			double super_constant1, super_constant2, tmp_aligned1_max, tmp_aligned1_min, tmp_aligned2_max, tmp_aligned2_min;
-			double tmp_iterThre, super_iterTre, point_z_124, point_z_125;
+		glm::mat4 *LocalTransform_M;
+		GLfloat *float_rotate_M;
+		Vector3 *tmp_center/*, *acc_vector1, *acc_vector2, *acc_vector3, *velocity_offset, *movement_vector, *result_movement, *final_max, *final_min, *pre_velocity, *now_velocity*/;
+		Vector3 *pre_acc, *now_acc, *draw_plane1, *draw_plane2, *draw_plane3, *draw_plane4;
+		Vector3 *combine_max, *combine_min;
+		float max_x, max_y, max_z, min_x, min_y, min_z, tmp_peak_gap, tmp_energy_gap, frame_rate;
+		double tmp_theshold, super_theshold, tmp_max_time, super_max_time, tmp_max_angle, super_max_angle, tmp_sample_point, super_sample_point;
+		double tmp_overlap, super_overlap, tmp_delta, super_delta, tmp_transform, super_transform, tmp_constant1, tmp_constant2;
+		double super_constant1, super_constant2, tmp_aligned1_max, tmp_aligned1_min, tmp_aligned2_max, tmp_aligned2_min;
+		double tmp_iterThre, super_iterTre, point_z_124, point_z_125;
 
-			float timer_1, timer_2, timer_3;
-			clock_t first_t, second_t;
-			Point3D::Scalar final_score;
-			std::vector<Vector3> /**Point_cloud_Max, *Point_cloud_Min, *Point_cloud_center, *outside_center,*/ *Plane_vector, *input_rotVec;
-			//std::vector<Vector3> *cloud_vec_arr;
-			std::vector<std::vector<int>> *overlap_idx1, *overlap_idx2;
-			std::vector<GlobalRegistration::Match4PCSBase::MatrixType> *translate_mat;
-			std::vector<float> *input_dgree;
-			//std::vector<int> *near_idx2;
-			int file_idx,tmp_iterCount, super_iterCount, Aligned_target_id, show_Cloud_1ID;
-			std::vector<PointCloudArray> *PointCloudArr;
-			std::vector<PointData> *Combine_cloud_PC;
-			std::string *tmp_fileName, *out_fileName;
-			//std::vector<Vector3> *overlap1_Max, *overlap1_Min;
-			//std::vector<Vector3> *overlap2_Max, *overlap2_Min;
-			float full_scan_time, all_time,tmp_rotate_x,tmp_rotate_y,tmp_rotate_z;
+		float timer_1, timer_2, timer_3;
+		clock_t first_t, second_t;
+		Point3D::Scalar final_score;
+		std::vector<Vector3> /**Point_cloud_Max, *Point_cloud_Min, *Point_cloud_center, *outside_center,*/ *Plane_vector, *input_rotVec;
+		//std::vector<Vector3> *cloud_vec_arr;
+		std::vector<std::vector<int>> *overlap_idx1, *overlap_idx2;
+		std::vector<GlobalRegistration::Match4PCSBase::MatrixType> *translate_mat;
+		std::vector<float> *input_dgree;
+		//std::vector<int> *near_idx2;
+		int file_idx, tmp_iterCount, super_iterCount, Aligned_target_id, show_Cloud_1ID;
+		std::vector<PointCloudArray> *PointCloudArr;
+		std::vector<PointData> *Combine_cloud_PC;
+		std::string *tmp_fileName, *out_fileName;
+		float full_scan_time, all_time, tmp_rotate_x, tmp_rotate_y, tmp_rotate_z;
 
-			objData *obj1, *obj2, *obj3, *obj4, *obj5;
+		objData *obj1, *obj2, *obj3, *obj4, *obj5;
 
-			//float theta_diff, rotationAxix_diff_x, rotationAxix_diff_y, rotationAxix_diff_z;
-			
-		private:
+	private:
 
 		//Quaternion *preQuaternL, *preQuaternR;
-private: System::Void reset_rot_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void reset_rot_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	is_reset = true;
-}
-private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
-	timer_rot = true;
+		is_reset = true;
+	}
 
-
-	//std::cout << "timer:" << timer_rot << "\n";
-	hkoglPanelControl1->Invalidate();
-}
+	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
+		timer_rot = true;
 
 
+		//std::cout << "timer:" << timer_rot << "\n";
+		hkoglPanelControl1->Invalidate();
+	}
 
+			 // Test
+	private: System::Void Test_Model_Click(System::Object^  sender, System::EventArgs^  e)
+	{
 
-
-
-
-
-
-
-private: System::Void domainUpDown1_SelectedItemChanged(System::Object^  sender, System::EventArgs^  e) {
-}
-
-
-private: System::Void label7_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-
-
-};
-
-
+	}
+	};
 }

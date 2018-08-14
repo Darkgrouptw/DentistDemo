@@ -16,11 +16,7 @@ GLManager::GLManager()
 
     // Load models
 	tooth1 = new GLModelNode();
-	tooth1->LoadModel("teeth.obj");
-	tooth2 = new GLModelNode();
-	tooth2->LoadModel("teeth2.obj");
-	tooth3 = new GLModelNode();
-	tooth3->LoadModel("teeth3.obj");
+	tooth1->LoadModel("test.obj");
     //modelHandL = new GLModelNode*[HandPart::Finger_Size];
     //modelHandR = new GLModelNode*[HandPart::Finger_Size];
 	//
@@ -35,9 +31,6 @@ GLManager::GLManager()
 	//
     //BuildLeftHand();
     //BuildRightHand();
-	teeth1_draw = false;
-	teeth2_draw = false;
-	teeth3_draw = false;
 }
 
 void GLManager::Draw()
@@ -52,12 +45,7 @@ void GLManager::Draw()
     glm::mat4 viewMat = glCamera->GetViewMatrix();
     glm::mat4 projMat = glCamera->GetProjecyionMatrix();
 
-	if (teeth1_draw == true)
-		tooth1->Render(viewMat, projMat);
-	if (teeth2_draw == true)
-		tooth2->Render(viewMat, projMat);
-	if (teeth3_draw == true)
-		tooth3->Render(viewMat, projMat);
+	tooth1->Render(viewMat, projMat);
 
     //for (int i = 0; i < HandPart::Finger_Size; i++)
     // {

@@ -91,8 +91,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\OtherPackages\Include;..\OtherPackages\Super4PCS\Eigen\Eigen\src;..\OtherPackages\OpenCV\Include;..\OtherPackages\OpenCV\Include\opencv;..\OtherPackages\Super4PCS\include\super4pcs\algorithms;..\OtherPackages\Super4PCS\include\super4pcs\io;..\OtherPackages\Super4PCS\include;..\OtherPackages;$(IncludePath)</IncludePath>
-    <LibraryPath>..\OtherPackages\Lib\x64;..\OtherPackages\Super4PCS\lib;..\OtherPackages\Super4PCS\lib\algorithms\Release;..\OtherPackages\Super4PCS\lib\io\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\OtherPackages\Include;..\OtherPackages\Super4PCS\Eigen\Eigen\src;..\OtherPackages\OpenCV\Include;..\OtherPackages\OpenCV\Include\opencv;..\OtherPackages\Super4PCS\include\super4pcs\algorithms;..\OtherPackages\Super4PCS\include\super4pcs\io;..\OtherPackages\Super4PCS\include;..\OtherPackages;..\OtherPackages\Caffe_vc14_py3.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\OtherPackages\Lib\x64;..\OtherPackages\Super4PCS\lib;..\OtherPackages\Super4PCS\lib\algorithms\Release;..\OtherPackages\Super4PCS\lib\io\Release;..\OtherPackages\Caffe_vc14_py3.5\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -132,12 +132,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;glu32.lib;cuda.lib;cudart.lib;cufft.lib;OCT64C.lib;opencv_world330.lib;Super4PCS.lib;super4pcs_algo.lib;super4pcs_io.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;glu32.lib;cuda.lib;cudart.lib;cufft.lib;OCT64C.lib;Super4PCS.lib;super4pcs_algo.lib;super4pcs_io.lib;boost_system-vc140-mt-1_61.lib;boost_thread-vc140-mt-1_61.lib;boost_filesystem-vc140-mt-1_61.lib;boost_chrono-vc140-mt-1_61.lib;boost_date_time-vc140-mt-1_61.lib;boost_atomic-vc140-mt-1_61.lib;glog.lib;gflags.lib;shlwapi.lib;libprotobuf.lib;caffehdf5_hl.lib;caffehdf5.lib;caffezlib.lib;lmdb.lib;ntdll.lib;leveldb.lib;snappy_static.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\lib\x64\curand.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\lib\x64\cublas_device.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\lib\x64\cudnn.lib;libopenblas.dll.a;C:\Program Files\Python35\libs\python35.lib;boost_python-vc140-mt-1_61.lib;opencv_world330.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <CudaCompile>
       <CodeGeneration>compute_30,sm_30</CodeGeneration>
