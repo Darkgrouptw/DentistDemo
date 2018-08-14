@@ -609,7 +609,7 @@ namespace DentistDemo
 			#pragma region Dark Add Part
 			// Test_Model
 			// 
-			this->Test_Model = (gcnew System::Windows::Forms::Button());
+			/*this->Test_Model = (gcnew System::Windows::Forms::Button());
 			this->Test_Model->Location = System::Drawing::Point(755, 196);
 			this->Test_Model->Name = L"Test_Model";
 			this->Test_Model->Size = System::Drawing::Size(75, 23);
@@ -617,7 +617,7 @@ namespace DentistDemo
 			this->Test_Model->Text = L"Test Model";
 			this->Test_Model->UseVisualStyleBackColor = true;
 			this->Test_Model->Click += gcnew System::EventHandler(this, &MyForm::Test_Model_Click);
-			this->Controls->Add(this->Test_Model);
+			this->Controls->Add(this->Test_Model);*/
 
 			//////////////////////////////////////////////////////////////////////////
 			// Model Init
