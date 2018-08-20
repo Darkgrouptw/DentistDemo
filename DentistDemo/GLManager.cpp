@@ -16,7 +16,9 @@ GLManager::GLManager()
 
     // Load models
 	tooth1 = new GLModelNode();
-	tooth1->LoadModel("./Objx/teeth_test.objx");
+	//tooth1->LoadModel("./Objx/teeth_test.objx");
+	tooth1->LoadModel("./Objx/test.objx");
+	//tooth1->LoadModel("D:/2018_02/DentistDemo/x64/Release/Objx/teeth_test.objx");
     //modelHandL = new GLModelNode*[HandPart::Finger_Size];
     //modelHandR = new GLModelNode*[HandPart::Finger_Size];
 	//

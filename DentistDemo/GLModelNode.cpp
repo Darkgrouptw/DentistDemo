@@ -106,10 +106,12 @@ void GLModelNode::UpdateTransform()
 {
     if (ParentNode != NULL)
     {
+		//printf("ParentNode != NULL\n");
         WorldTransform = ParentNode->GetWorldTransform() * LocalTransform;
     }
     else
     {
+		//printf("ParentNode == NULL\n");
         WorldTransform = LocalTransform;
     }
 }

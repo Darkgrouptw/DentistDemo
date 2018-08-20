@@ -730,6 +730,7 @@ namespace DentistDemo
 		void mani_rotate(float angle, float x, float y, float z);
 		void mani_rotate_cloud(int rot_idx);
 		void load_obj();
+		void load_result();
 	private:
 		//
 		// System Maintenance Variables
@@ -811,6 +812,7 @@ namespace DentistDemo
 		std::vector<PointData> *Combine_cloud_PC;
 		std::string *tmp_fileName, *out_fileName;
 		float full_scan_time, all_time, tmp_rotate_x, tmp_rotate_y, tmp_rotate_z;
+		std::vector<cv::Mat> *result_input;
 
 		objData *obj1, *obj2, *obj3, *obj4, *obj5;
 

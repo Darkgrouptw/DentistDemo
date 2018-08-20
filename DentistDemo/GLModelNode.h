@@ -71,7 +71,7 @@ public:
 		glUseProgram(0);
 
 		// Initialize hierarchy structure
-		//ParentNode = NULL;
+		ParentNode = NULL;
 		//if (maxChildren > 0)
 		//{
 		//    ChildNodes = new GLModelNode *[maxChildren];

@@ -414,18 +414,18 @@ void DentistDemo::MyForm::Single_scan_Click(System::Object^  sender, System::Eve
 	float LV_65 = 65;
 	char SaveName[] = "V:\OCT0107";
 	unsigned int SampRec = 2048;
-	Savedata = false;
-	ErrorBoolean = false;
+	//Savedata = false;
+	//ErrorBoolean = false;
 	ByteLen = 1;
 
 	pin_ptr<int32_t> tmp_ErrorString_len_out = &ErrorString_len_out;
 	pin_ptr<uint32_t> tmp_Handle = &HandleOut;
 	pin_ptr<uint32_t> tmp_ByteLen = &ByteLen;
-	pin_ptr<LVBoolean> tmp_ErrorBoolean = &ErrorBoolean;
+	//pin_ptr<LVBoolean> tmp_ErrorBoolean = &ErrorBoolean;
 
 
 	//StartCap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName,tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
-	test_start_cap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+	//test_start_cap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
 
 
 	/////////////////////////////////////////////////////////H_StartCap///////////////////////////////////////////////
@@ -480,6 +480,7 @@ void DentistDemo::MyForm::hkoglPanelControl1_Load(System::Object^  sender, Syste
 	can_rotate = false;
 	//timer1->Start();
 	load_obj();
+	result_input = new std::vector<cv::Mat>;
 	DManager->ReadCalibrationData();
 
 	std::cout << "GL initial OK " << std::endl;
@@ -487,7 +488,7 @@ void DentistDemo::MyForm::hkoglPanelControl1_Load(System::Object^  sender, Syste
 void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::EventArgs^  e) {
 
 	pin_ptr<int32_t> tmp_deviceID = &deviceID;
-	InitADC(4, tmp_deviceID);
+	//InitADC(4, tmp_deviceID);
 	clock_t scan_t1 = clock();
 
 	//AboutADC(deviceID);
@@ -516,8 +517,8 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 
 
 
-	Savedata = true;
-	ErrorBoolean = false;
+	//Savedata = true;
+	//ErrorBoolean = false;
 	ByteLen = 1;
 
 
@@ -769,6 +770,11 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 	//PointCloud_idx_show = (*pointCloudSet).size() - 1;
 	//std::cout << "PointCloud_idx_show: " << PointCloud_idx_show << std::endl;
 }
+void DentistDemo::MyForm::load_result() {
+	
+
+}
+
 void DentistDemo::MyForm::Rotate_cloud() {
 	Quaternion cloud_quat;
 	Radian *cloud_radian;
