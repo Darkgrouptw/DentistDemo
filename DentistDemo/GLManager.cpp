@@ -47,7 +47,7 @@ void GLManager::Draw()
     glm::mat4 viewMat = glCamera->GetViewMatrix();
     glm::mat4 projMat = glCamera->GetProjecyionMatrix();
 
-	tooth1->Render(viewMat, projMat);
+	//tooth1->Render(viewMat, projMat);
 
     //for (int i = 0; i < HandPart::Finger_Size; i++)
     // {

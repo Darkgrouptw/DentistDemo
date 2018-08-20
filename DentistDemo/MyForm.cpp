@@ -320,7 +320,7 @@ void DentistDemo::MyForm::btnComOpen_Click(System::Object^  sender, System::Even
 		}
 
 		// Get selected COM port
-		String ^comL = cbComPortL->SelectedItem->ToString(); // left COM port
+		System::String ^comL = cbComPortL->SelectedItem->ToString(); // left COM port
 															 //String ^comR = cbComPortR->SelectedItem->ToString(); // right COM port
 
 															 // Check different COM port selected and not null
@@ -361,7 +361,7 @@ void DentistDemo::MyForm::btnBleScan_Click(System::Object^  sender, System::Even
 
 
 	// Clear Bluetooth LE device combobox and list
-	bleDeviceList = gcnew Dictionary<String^, DeviceInfo^>();
+	bleDeviceList = gcnew Dictionary<System::String^, DeviceInfo^>();
 	cbBleDeviceL->DataSource = nullptr;
 	//cbBleDeviceR->DataSource = nullptr;
 
@@ -385,7 +385,7 @@ void DentistDemo::MyForm::btnBleEstablish_Click(System::Object^  sender, System:
 		}
 
 		// Get selected Bluetooth LE device address
-		KeyValuePair<String^, DeviceInfo^> deviceL = (KeyValuePair<String^, DeviceInfo^>)(cbBleDeviceL->SelectedItem); // left hand BLE device
+		KeyValuePair<System::String^, DeviceInfo^> deviceL = (KeyValuePair<System::String^, DeviceInfo^>)(cbBleDeviceL->SelectedItem); // left hand BLE device
 																													   //KeyValuePair<String^, DeviceInfo^> deviceR = (KeyValuePair<String^, DeviceInfo^>)(cbBleDeviceR->SelectedItem); // right hand BLE device
 
 																													   // Check different Bluetooth LE devices are selected
@@ -1665,7 +1665,7 @@ void DentistDemo::MyForm::load_obj() {
 
 
 void DentistDemo::MyForm::name_output_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-	String^ test_in = name_output->Text;
+	System::String^ test_in = name_output->Text;
 	if (test_in->Length > 0) {
 		MarshalString(test_in, *tmp_fileName);
 		//std::cout << "tmp_fileName:" << (*tmp_fileName) << std::endl;
