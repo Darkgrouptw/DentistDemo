@@ -838,9 +838,9 @@ namespace DentistDemo
 		{
 			Mat img;
 			if (indexA == 0)
-				img = imread("./95.png");
+				img = imread("./TestImage/95.png");
 			else if (indexA == 1)
-				img = imread("./76_reverse.png");
+				img = imread("./TestImage/76_reverse.png");
 			indexA = (indexA + 1) % 2;
 
 			img = NetworkModel->Predict(img);
