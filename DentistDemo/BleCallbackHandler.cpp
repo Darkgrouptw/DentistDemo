@@ -23,7 +23,7 @@ namespace DentistDemo
         if (this->InvokeRequired)
         {
             this->Invoke(gcnew Callback_DeviceDiscoveredDelegate(this, &MyForm::Callback_DeviceDiscovered)
-                , gcnew array<Object^> { deviceInfo });
+                , gcnew cli::array<System::Object^> { deviceInfo });
         }
         else
         {
@@ -79,7 +79,7 @@ namespace DentistDemo
         UpdateConnectionStatus(State_Connection::ComOpened);
     }
 
-    void MyForm::Callback_HandleValueNotification(DeviceInfo ^deviceInfo, array<unsigned char> ^payload)
+    void MyForm::Callback_HandleValueNotification(DeviceInfo ^deviceInfo, cli::array<unsigned char> ^payload)
     {
         unsigned char type = DevUtils::GetPacketType(payload);
         if (bleDeviceL->GetEstablishedDevice() != nullptr && System::String::Equals(deviceInfo->DeviceAddress, bleDeviceL->GetEstablishedDevice()->DeviceAddress))

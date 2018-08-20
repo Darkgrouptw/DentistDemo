@@ -12,9 +12,8 @@
 #include "super4pcs/shared4pcs.h"
 
 #include "Eigen/Dense"
-//#include "opencv/opencv2/core/core.hpp"
-#include "opencv2/opencv.hpp"
 #include "DataManager.h"
+
 #include <iostream>
 #include <fstream>
 #include "super4pcs/utils/geometry.h"
@@ -94,19 +93,15 @@ namespace DentistDemo
 	{
 	public:
 		// TestModel
-		//SegnetModel^ NetworkModel;
+		SegnetModel* NetworkModel;
 
 		MyForm(void)
 		{
 			InitializeComponent();
-			//finalPC = new std::vector<GlobalRegistration::Point3D>;
 
-			//
-			//TODO:  在此加入建構函式程式碼
-			//
 			// 模型建置
-			//this->NetworkModel = (gcnew SegnetModel());
-			//this->NetworkModel->Load("./Models/segnet_train.prototxt", "./Models/segnet_iter_40000.caffemodel");
+			NetworkModel = new SegnetModel();
+			NetworkModel->Load("./Models/segnet_inference.prototxt", "./Models/segnet_iter_40000.caffemodel");
 		}
 
 	protected:
@@ -838,9 +833,20 @@ namespace DentistDemo
 		}
 
 		// Test
+		int indexA = 0;
 		private: System::Void Test_Model_Click(System::Object^  sender, System::EventArgs^  e)
 		{
-			//model
+			Mat img;
+			if (indexA == 0)
+				img = imread("./95.png");
+			else if (indexA == 1)
+				img = imread("./76_reverse.png");
+			indexA = (indexA + 1) % 2;
+
+			img = NetworkModel->Predict(img);
+
+			cv::imshow("Display window", img);
+			cv::waitKey(0);
 		}
 	};
 }
