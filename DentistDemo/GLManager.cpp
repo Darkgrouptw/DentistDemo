@@ -17,7 +17,7 @@ GLManager::GLManager()
     // Load models
 	tooth1 = new GLModelNode();
 	//tooth1->LoadModel("./Objx/teeth_test.objx");
-	tooth1->LoadModel("./Objx/test.objx");
+	tooth1->LoadModel("./Objx/T01_02.objx");
 	//tooth1->LoadModel("D:/2018_02/DentistDemo/x64/Release/Objx/teeth_test.objx");
     //modelHandL = new GLModelNode*[HandPart::Finger_Size];
     //modelHandR = new GLModelNode*[HandPart::Finger_Size];
@@ -37,8 +37,8 @@ GLManager::GLManager()
 
 void GLManager::Draw()
 {
-    glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//std::cout << "clear color" << std::endl;
     glBindVertexArray(VAO);
 
@@ -47,7 +47,7 @@ void GLManager::Draw()
     glm::mat4 viewMat = glCamera->GetViewMatrix();
     glm::mat4 projMat = glCamera->GetProjecyionMatrix();
 
-	//tooth1->Render(viewMat, projMat);
+	tooth1->Render(viewMat, projMat);
 
     //for (int i = 0; i < HandPart::Finger_Size; i++)
     // {

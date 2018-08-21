@@ -22,7 +22,12 @@ void GLModelNode::Render(glm::mat4 viewMat, glm::mat4 projMat)
     glBindBuffer(GL_ARRAY_BUFFER, VBO_normals);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
+	
+	glDisable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	glDisable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
     // Draw the object
     glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 

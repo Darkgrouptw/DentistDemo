@@ -481,7 +481,11 @@ void DentistDemo::MyForm::hkoglPanelControl1_Load(System::Object^  sender, Syste
 	//timer1->Start();
 	load_obj();
 	result_input = new std::vector<cv::Mat>;
+	decay_imgPC = new std::vector<Vector3>;
+
 	DManager->ReadCalibrationData();
+	//load_result();
+	//decay_img2space();
 
 	std::cout << "GL initial OK " << std::endl;
 }
@@ -772,8 +776,72 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 }
 void DentistDemo::MyForm::load_result() {
 	
-
+	for (int i = 60; i < 201; i++) {
+		cv::Mat tmp_input;
+		tmp_input = cv::imread("./fileT01_02M/" + std::to_string(i) + ".png");
+		result_input->push_back(tmp_input);
+	}
+	//std::cout << "read OK\n";
 }
+void DentistDemo::MyForm::decay_img2space() {
+
+	int PCidx, Mapidx;
+	float ratio = 1;
+	float zRatio = DManager->zRatio;
+	std::ofstream  output_deacyPC;
+	output_deacyPC.open("decayPC.asc");
+
+	std::cout << "row:"<<(*result_input)[0].rows<<"\n";
+	std::cout << "col:" << (*result_input)[0].cols << "\n";
+	for (int i = 0; i < result_input->size(); i++) {
+		//std::cout << i << "\n";
+		for (int row = 0; row < (*result_input)[i].rows; row++) {
+			for (int col = 0; col < (*result_input)[i].cols; col++) {
+				
+
+
+				if ((*result_input)[i].at<cv::Vec3b>(row, col)[0] == 255) {
+					//Mapidx = ((y * theTRcuda->sample_Y * theTRcuda->VolumeSize_X) + x) * theTRcuda->sample_X;
+					//PCidx = ((x * theTRcuda->VolumeSize_Y) + y) * theTRcuda->VolumeSize_Z;
+
+					int tmp_num = i + 60;//x
+					int tmp_row = (row * 250) / 360;//y
+					int tmp_col = (col * 1024) / 480;//z
+
+					
+					//output_deacyPC << tmp_num << " " << tmp_row << " " << tmp_col << "\n";
+
+					//std::cout << "Mapidx, PCidx:" << Mapidx << ", " << PCidx << "\n";
+
+					float tmp_x, tmp_y, tmp_z;
+
+					Mapidx = ((tmp_num * 250) + tmp_row);
+					//PCidx = ((tmp_num * 250) + tmp_row) * 1024;
+
+					//tmp_Data.Position.x() = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio + 0.2;
+					//tmp_Data.Position.y() = DManager->MappingMatrix[Mapidx * 2] * ratio;
+					//tmp_Data.Position.z() = theTRcuda->PointType[PCidx + 1] * zRatio / theTRcuda->VolumeSize_Z * ratio;
+
+					tmp_x = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio+0.2;
+					tmp_y = DManager->MappingMatrix[Mapidx * 2] * ratio;
+					tmp_z = tmp_col*zRatio / 1024 * ratio;
+					//std::cout << "tmp_x, tmp_y, tmp_z:" << tmp_x << ", " << tmp_y <<","<< tmp_z <<"\n";
+
+
+					output_deacyPC << tmp_x << " " << tmp_y << " " << tmp_z << "\n";
+
+					//Vector3 tmp_imgPC = Vector3(i+60, tmp_row, tmp_col);
+					Vector3 tmp_imgPC = Vector3(tmp_x, tmp_y, tmp_z);
+					//std::cout << row << ", " << col << "\n";
+					decay_imgPC->push_back(tmp_imgPC);
+				}			
+				
+			}
+		}
+	}
+	output_deacyPC.close();
+}
+
 
 void DentistDemo::MyForm::Rotate_cloud() {
 	Quaternion cloud_quat;
@@ -839,6 +907,9 @@ void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, Syst
 {
 	glEnable(GL_COLOR_MATERIAL); //允許使用glColor
 
+	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	//Radian thetaR;
 	//Vector3 rotationAxixR;
 	//sysManager->GetGloveDataLPtr()->GetQuaternion().ToAngleAxis(thetaR, rotationAxixR);
@@ -856,7 +927,7 @@ void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, Syst
 	//glManager->rotateAxis_R = M_R*glm::vec4(-1.5f, 0.0f, 0.0f, 1.0f);
 
 
-	glManager->Draw();
+	
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -942,9 +1013,20 @@ void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, Syst
 	if (showPointCloud) drawPointTypeCloud(theTRcuda);
 	if (show_rawData) drawZAxisValue(theTRcuda);
 	drawPCSet3();
+	
 
 	if (is_before_camera)draw_before_camera();
 
+
+	glPushMatrix();
+	//glTranslatef(-5,-5,-5);
+	//glRotatef(90,0,0,1);
+	//draw_decay();
+	glManager->Draw();
+	//glTranslatef(5, 5, 5);
+	glPopMatrix();
+	glDisable(GL_BLEND);
+	
 	hkoglPanelControl1->Invalidate();
 }
 void DentistDemo::MyForm::draw_before_camera() {
@@ -2773,6 +2855,20 @@ void DentistDemo::MyForm::drawPointType(TRcuda *theTRcuda) {
 	glEnd();
 
 }
+void DentistDemo::MyForm::draw_decay() {
+	//std::cout << "draw_decay\n";
+	if ((*decay_imgPC).empty())
+		return;
+	glPointSize(thePointSize);
+	glBegin(GL_POINTS);
+	for (int i = 0; i < decay_imgPC->size(); i++) {
+		glColor3f(0.2f, 0.8f, 0.2f);
+		glVertex3f((*decay_imgPC)[i].x , (*decay_imgPC)[i].y, (*decay_imgPC)[i].z);
+	}
+
+	glEnd();
+}
+
 void DentistDemo::MyForm::Rotate_quat(float angle, float x, float y, float z)
 {
 	float r = angle * glm::pi<float>() / 180.0f;

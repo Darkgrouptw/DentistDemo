@@ -731,6 +731,8 @@ namespace DentistDemo
 		void mani_rotate_cloud(int rot_idx);
 		void load_obj();
 		void load_result();
+		void decay_img2space();
+		void draw_decay();
 	private:
 		//
 		// System Maintenance Variables
@@ -813,6 +815,7 @@ namespace DentistDemo
 		std::string *tmp_fileName, *out_fileName;
 		float full_scan_time, all_time, tmp_rotate_x, tmp_rotate_y, tmp_rotate_z;
 		std::vector<cv::Mat> *result_input;
+		std::vector<Vector3> *decay_imgPC;
 
 		objData *obj1, *obj2, *obj3, *obj4, *obj5;
 
