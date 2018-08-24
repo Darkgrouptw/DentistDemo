@@ -107,6 +107,10 @@ namespace DentistDemo
 			// 模型建置
 			NetworkModel = new SegnetModel();
 			NetworkModel->Load("./Models/segnet_inference.prototxt", "./Models/segnet_iter_40000.caffemodel");
+			pic_mouse_move = false;
+			mouse_loc_x = 30;
+			mouse_loc_y = 30;
+			block_size = 35;
 		}
 
 	protected:
@@ -215,6 +219,8 @@ namespace DentistDemo
 	private: System::Windows::Forms::PictureBox^  OCT_Img;
 	private: System::Windows::Forms::PictureBox^  Result_Img;
 	private: System::Windows::Forms::TrackBar^  control_pic;
+	private: System::Windows::Forms::PictureBox^  teeth_Model;
+	private: System::Windows::Forms::ComboBox^  Choose_teeth;
 
 	private:
 #pragma region Windows Form Designer generated code
@@ -224,6 +230,7 @@ namespace DentistDemo
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->components = (gcnew System::ComponentModel::Container());
 			HKOGLPanel::HKCOGLPanelCameraSetting^  hkcoglPanelCameraSetting1 = (gcnew HKOGLPanel::HKCOGLPanelCameraSetting());
 			HKOGLPanel::HKCOGLPanelPixelFormat^  hkcoglPanelPixelFormat1 = (gcnew HKOGLPanel::HKCOGLPanelPixelFormat());
@@ -263,6 +270,9 @@ namespace DentistDemo
 			this->OCT_Img = (gcnew System::Windows::Forms::PictureBox());
 			this->Result_Img = (gcnew System::Windows::Forms::PictureBox());
 			this->control_pic = (gcnew System::Windows::Forms::TrackBar());
+			this->Choose_teeth = (gcnew System::Windows::Forms::ComboBox());
+			this->teeth_Model = (gcnew System::Windows::Forms::PictureBox());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->teeth_Model))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
@@ -597,6 +607,20 @@ namespace DentistDemo
 			this->Test_detect->UseVisualStyleBackColor = true;
 			this->Test_detect->Click += gcnew System::EventHandler(this, &MyForm::Test_detect_Click);
 			// 
+			// teeth_Model
+			// 
+			this->teeth_Model->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"teeth_Model.Image")));
+			this->teeth_Model->Location = System::Drawing::Point(731, 312);
+			this->teeth_Model->Name = L"teeth_Model";
+			this->teeth_Model->Size = System::Drawing::Size(138, 206);
+			this->teeth_Model->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->teeth_Model->TabIndex = 68;
+			this->teeth_Model->TabStop = false;
+			this->teeth_Model->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::pictureBox1_Paint);
+			this->teeth_Model->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::pictureBox1_MouseDown);
+			this->teeth_Model->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::pictureBox1_MouseMove);
+			this->teeth_Model->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::pictureBox1_MouseUp);
+			// 
 			// OCT_Img
 			// 
 			this->OCT_Img->Location = System::Drawing::Point(940, 64);
@@ -620,14 +644,29 @@ namespace DentistDemo
 			this->control_pic->Size = System::Drawing::Size(191, 45);
 			this->control_pic->TabIndex = 71;
 			// 
+			// Choose_teeth
+			// 
+			this->Choose_teeth->FormattingEnabled = true;
+			this->Choose_teeth->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
+				L"Teeth 1", L"Teeth 2", L"Teeth 3", L"Teeth 4",
+					L"Teeth 5"
+			});
+			this->Choose_teeth->Location = System::Drawing::Point(743, 277);
+			this->Choose_teeth->Name = L"Choose_teeth";
+			this->Choose_teeth->Size = System::Drawing::Size(100, 20);
+			this->Choose_teeth->TabIndex = 72;
+			this->Choose_teeth->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::Choose_teeth_SelectedIndexChanged);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1203, 614);
+			this->Controls->Add(this->Choose_teeth);
 			this->Controls->Add(this->control_pic);
 			this->Controls->Add(this->Result_Img);
 			this->Controls->Add(this->OCT_Img);
+			this->Controls->Add(this->teeth_Model);
 			this->Controls->Add(this->Test_detect);
 			//this->Controls->Add(this->Aligned_target);
 			//this->Controls->Add(this->label13);
@@ -889,6 +928,8 @@ namespace DentistDemo
 		std::vector<cv::Mat> *Result_Image;
 
 		objData *obj1, *obj2, *obj3, *obj4, *obj5;
+		float mouse_loc_x, mouse_loc_y, block_size;
+		bool pic_mouse_move;
 
 	private:
 
@@ -952,6 +993,99 @@ namespace DentistDemo
 
 			classify_result();
 			/////////////////////////////////////// TEST
+		}
+		private: System::Void pictureBox1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+
+			 Graphics^ g = e->Graphics;
+
+			 // Draw a string on the PictureBox.
+			 //g->DrawString("This is a diagonal line drawn on the control",
+			 //	gcnew System::Drawing::Font("Arial", 10), System::Drawing::Brushes::Blue, Point(30, 30));
+			 Pen^ RedPen = gcnew Pen(Color::Red, 3.0f);
+
+
+			 // Draw a line in the PictureBox.
+			 g->DrawLine(RedPen, mouse_loc_x + block_size, mouse_loc_y + block_size, mouse_loc_x - block_size, mouse_loc_y + block_size);
+			 g->DrawLine(RedPen, mouse_loc_x - block_size, mouse_loc_y + block_size, mouse_loc_x - block_size, mouse_loc_y - block_size);
+			 g->DrawLine(RedPen, mouse_loc_x - block_size, mouse_loc_y - block_size, mouse_loc_x + block_size, mouse_loc_y - block_size);
+			 g->DrawLine(RedPen, mouse_loc_x + block_size, mouse_loc_y - block_size, mouse_loc_x + block_size, mouse_loc_y + block_size);
+
+			 //std::cout << "paint\n";
+		}
+		private: System::Void pictureBox1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			//Point mouseDownLocation = Point(e->X, e->Y);
+			pic_mouse_move = true;
+			//std::cout << "down\n";
+		}
+		private: System::Void pictureBox1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (pic_mouse_move == true) {
+				mouse_loc_x = e->X;
+				mouse_loc_y = e->Y;
+				//std::cout << "mouse_loc_x:" << mouse_loc_x << ", mouse_loc_y:" << mouse_loc_y << "\n";
+				//std::cout << "down & move\n";
+				teeth_Model->Invalidate();
+			}
+		}
+		private: System::Void pictureBox1_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			pic_mouse_move = false;
+			//std::cout << "up\n";
+		}
+		private: System::Void Choose_teeth_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+		
+			ComboBox^ comboBox = (ComboBox^)(sender);
+		
+		
+			int count = 0;
+			int resultIndex = -1;
+		
+			// Call the FindStringExact method to find the first 
+			// occurrence in the list.
+			
+		
+		
+		
+			if (Choose_teeth->SelectedIndex == 0) {
+				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				teeth_Model->Image = Image::FromFile("./image1.jpg");
+				teeth_Model->Invalidate();
+			}
+			else if (Choose_teeth->SelectedIndex == 1) {
+				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				teeth_Model->Image = Image::FromFile("./image2.jpg");
+				teeth_Model->Invalidate();
+			}
+			else if (Choose_teeth->SelectedIndex == 2) {
+				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				teeth_Model->Image = Image::FromFile("./image3.jpg");
+				teeth_Model->Invalidate();
+			}
+			else if (Choose_teeth->SelectedIndex == 3) {
+				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				teeth_Model->Image = Image::FromFile("./image4.jpg");
+				teeth_Model->Invalidate();
+			}
+			else if (Choose_teeth->SelectedIndex == 4) {
+				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				teeth_Model->Image = Image::FromFile("./image5.jpg");
+				teeth_Model->Invalidate();
+			}
+		
+		
+		
+		
+		
+			// Remove the name as it is found, and increment the found count. 
+			// Then call the FindStringExact method again, passing in the 
+			// index of the current found item so the search starts there 
+			// instead of at the beginning of the list.
+			//while (resultIndex != -1)
+			//{
+			//	Choose_teeth->Items->RemoveAt(resultIndex);
+			//	count += 1;
+			//	resultIndex = Choose_teeth->FindStringExact(selectedEmployee, resultIndex);
+			//}
+		
+		
 		}
 	};
 }
