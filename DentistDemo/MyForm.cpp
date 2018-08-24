@@ -150,6 +150,7 @@ System::Void DentistDemo::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 
 	full_scan_time = 0;
 	show_Cloud_1ID = 0;
+	//pic_num = 125;
 	
 	all_time = 0;
 	Push_back_file();
@@ -471,7 +472,8 @@ void DentistDemo::MyForm::hkoglPanelControl1_Load(System::Object^  sender, Syste
 	DManager = new DataManager;
 
 	thePointSize = 3.0f;
-	volumeDataIdx = 0;
+	volumeDataIdx = 125;
+	meat_alpha = 1.0f;
 
 	showVolumeData = true;// true false
 	showPointType = true;
@@ -481,7 +483,13 @@ void DentistDemo::MyForm::hkoglPanelControl1_Load(System::Object^  sender, Syste
 	//timer1->Start();
 	load_obj();
 	result_input = new std::vector<cv::Mat>;
-	decay_imgPC = new std::vector<Vector3>;
+	decay_imgPC = new std::vector<Point_3D>;
+	teeth_imgPC = new std::vector<Point_3D>;
+	meat_imgPC = new std::vector<Point_3D>;
+	disease_imgPC = new std::vector<Point_3D>;
+	RGB_image = new std::vector<cv::Mat>;
+	Result_Image = new std::vector<cv::Mat>;
+	raw_input = new std::vector<cv::Mat>;
 
 	DManager->ReadCalibrationData();
 	//load_result();
@@ -490,9 +498,8 @@ void DentistDemo::MyForm::hkoglPanelControl1_Load(System::Object^  sender, Syste
 	std::cout << "GL initial OK " << std::endl;
 }
 void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::EventArgs^  e) {
-
 	pin_ptr<int32_t> tmp_deviceID = &deviceID;
-	//InitADC(4, tmp_deviceID);
+	InitADC(4, tmp_deviceID);
 	clock_t scan_t1 = clock();
 
 	//AboutADC(deviceID);
@@ -508,21 +515,19 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 
 	strcpy(SaveName2, out_fileName->c_str());
 
-#ifdef TEST_LOCAL
-	SerialPort port("COM6", 9600);
-	port.Open();
-	if (!port.IsOpen) {
-		std::cout << "COM6 fail to open!" << std::endl;
-	}
-
-#endif
+	//SerialPort port("COM6", 9600);
+	//port.Open();
+	//
+	//if (!port.IsOpen) {
+	//	std::cout << "COM6 fail to open!" << std::endl;
+	//}
 	Sleep(100);
 
 
 
 
-	//Savedata = true;
-	//ErrorBoolean = false;
+	Savedata = true;
+	ErrorBoolean = false;
 	ByteLen = 1;
 
 
@@ -532,12 +537,8 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 	pin_ptr<LVBoolean> tmp_ErrorBoolean = &ErrorBoolean;
 
 	//StartCap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
-
 	test_start_cap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName2, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
-
-#ifdef TEST_LOCAL
-	port.RtsEnable = true;
-#endif
+	//port.RtsEnable = true;
 
 
 	/////////////////////////////////////////////////////////H_StartCap///////////////////////////////////////////////
@@ -597,16 +598,10 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 
 
 	}
-#ifdef TEST_LOCAL
-
-	AboutADC(deviceID);
-	port.RtsEnable = false;
-	port.Close();
-
-#endif // TEST_LOCAL
-
-	
-	std::cout << "tmp_char_finish " << std::endl;
+	//AboutADC(deviceID);
+	//port.RtsEnable = false;
+	//port.Close();
+	//std::cout << "tmp_char_finish " << std::endl;
 
 
 	//for (int i = PIC_SIZE * 125 - 100; i < PIC_SIZE * 125 ; i++) {
@@ -634,7 +629,7 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 	//	theTRcuda = new TRcuda;
 	//}
 
-	theTRcuda->RawToPointCloud(tmp_char.data(), tmp_char.size(), 250, 2048);//
+	theTRcuda->RawToPointCloud(tmp_char.data(), tmp_char.size(), 250, 2048);
 	//std::cout << "Scan3D!" << std::endl;
 	scan_count++;
 
@@ -645,7 +640,7 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 	//std::vector<PointData> tmpPC;
 	//std::vector<int> tmp_VolumeData;
 
-	for (int x = 2; x < theTRcuda->VolumeSize_X-2; x++)
+	for (int x = 2; x < theTRcuda->VolumeSize_X - 2; x++)
 	{
 		for (int y = 0; y < theTRcuda->VolumeSize_Y; y++)
 		{
@@ -662,7 +657,7 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 				//tmp.x() = DManager->MappingMatrix[Mapidx * 2] * ratio + 0.2;
 				//tmp.y() = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio;
 				//tmp.z() = theTRcuda->PointType[PCidx + 1] * zRatio / theTRcuda->VolumeSize_Z * ratio;
-				tmp_Data.Position.x() = DManager->MappingMatrix[Mapidx * 2+1] * ratio + 0.2;
+				tmp_Data.Position.x() = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio + 0.2;
 				tmp_Data.Position.y() = DManager->MappingMatrix[Mapidx * 2] * ratio;
 				tmp_Data.Position.z() = theTRcuda->PointType[PCidx + 1] * zRatio / theTRcuda->VolumeSize_Z * ratio;
 				//tmp_VolumeData.push_back(theTRcuda->VolumeData[PCidx]);
@@ -678,6 +673,45 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 			}
 		}
 	}
+
+	//int tmpIdx;
+	//float idt;
+	//cv::Mat tmp_cali = cv::imread("calibration.png");
+	//cv::Mat tmp_result = cv::Mat(theTRcuda->VolumeSize_Y, theTRcuda->VolumeSize_Z, CV_32F, cv::Scalar(0, 0, 0));
+	//for (int row = 0; row < tmp_result.rows; row++) {
+	//	for (int col = 0; col < tmp_result.cols; col++) {
+	//		tmpIdx = ((125 * theTRcuda->VolumeSize_Y) + row) * theTRcuda->VolumeSize_Z + col;
+	//		idt = ((float)theTRcuda->VolumeDataAvg[tmpIdx] - 3) / 2;// theTRcuda->VolumeData[tmpIdx]/6
+	//		idt = (float)(idt - 0.2) / 1.4f;
+	//		tmp_result.at<float>(row, col) = idt;
+	//	}
+	//}
+	//cv::Mat tmp_result2 = cv::Mat(360, 480, CV_8UC3, cv::Scalar(0, 0, 0));
+	//cv::resize(tmp_result, tmp_result, cv::Size(480, 360), 0, 0, CV_INTER_LINEAR);
+	//tmp_result.convertTo(tmp_result2, CV_8UC3, 255);
+	//
+	//cv::imshow("tmp_result", tmp_result2);
+	//cv::imshow("tmp_cali", tmp_cali);
+	////cv::imwrite("tmp_result.png", tmp_result);
+	//cv::Mat tmp_compare = cv::Mat(720, 480, CV_8UC3, cv::Scalar(0, 0, 0));
+	//for (int row = 0; row < tmp_compare.rows; row++) {
+	//	if (row < 360) {
+	//		for (int col = 0; col < tmp_result2.cols; col++) {
+	//			tmp_compare.at<cv::Vec3b>(row, col) = tmp_cali.at<cv::Vec3b>(row, col);
+	//		}
+	//	}
+	//	else {
+	//		for (int col = 0; col < tmp_compare.cols; col++) {
+	//			tmp_compare.at<cv::Vec3b>(row, col) = tmp_result2.at<cv::Vec3b>(row - 360, col);
+	//		}
+	//	}
+	//}
+	//cv::imshow("tmp_compare", tmp_compare);
+	//cv::imwrite(std::to_string(125) + ".png", tmp_compare);
+	//cv::imwrite("tmp_result.png", tmp_result);
+	//color_img();
+	//ToRGB();
+
 	if (tmpPC_T.mPC.size() > 10000) {
 		(*PointCloudArr).push_back(tmpPC_T);
 		//(*pointCloudSet).push_back(tmpPC);
@@ -696,11 +730,11 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 
 		Find_max_min();
 		draw_before_mapping();
-		numericUpDown4->Maximum = (*PointCloudArr).size() - 1;
+		//numericUpDown4->Maximum = (*PointCloudArr).size() - 1;
 		std::cout << "now point cloud size:" << (*PointCloudArr).size() << std::endl;
 		std::cout << "Scan count:" << scan_count << std::endl;
 	}
-	
+
 	//std::cout << "PointCloud_idx_show: " << PointCloud_idx_show << std::endl;
 
 	is_camera_move = true;
@@ -713,7 +747,7 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 
 		//*acc_vector1 = sysManager->GetGloveDataLPtr()->GetAcceleration();
 		first_t = clock();
-		
+
 		//Radian *tmp_diff;
 		//Vector3 *tmp_rotation;
 		//std::vector<GlobalRegistration::Point3D> *tmp_PC;
@@ -731,7 +765,7 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 		//(*near_idx2).push_back(tmp_nearest);
 		//(*near_idx2).push_back(tmp_nearest);
 	}
-	else if((*PointCloudArr).size() == 2){
+	else if ((*PointCloudArr).size() == 2) {
 		//Rotate2();
 		Rotate_cloud();
 		//rotate_quat2();
@@ -741,7 +775,7 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 		std::cout << "now idx:" << PointCloud_idx_show << "     now size is:" << (*PointCloudArr).size() << "   mPC size is:" << (*PointCloudArr)[PointCloud_idx_show].mPC.size() << "   degree is:" << (*PointCloudArr)[PointCloud_idx_show].cloud_degree_arr;
 		//std::cout << "now idx:" << PointCloud_idx_show << "   degree is:" << (*PointCloudArr)[PointCloud_idx_show].cloud_degree_arr << std::endl;
 	}
-	else if((*PointCloudArr).size()>2){
+	else if ((*PointCloudArr).size()>2) {
 		Rotate_cloud();
 		Find_min_quat3();
 		std::cout << "now idx:" << PointCloud_idx_show << "     now size is:" << (*PointCloudArr).size() << "   mPC size is:" << (*PointCloudArr)[PointCloud_idx_show].mPC.size() << "   degree is:" << (*PointCloudArr)[PointCloud_idx_show].cloud_degree_arr;
@@ -774,6 +808,66 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 	//PointCloud_idx_show = (*pointCloudSet).size() - 1;
 	//std::cout << "PointCloud_idx_show: " << PointCloud_idx_show << std::endl;
 }
+
+void DentistDemo::MyForm::color_img() {
+	//mkdir("origin_v2");
+	int tmpIdx;
+	int midIdx;
+	float idt, idtmax = 0, idtmin = 9999;
+	float ori_idt, total_idt = 0, avg_idt = 0;
+	fstream fp;
+	fp.open("vol_data.txt", ios::out);
+
+
+	for (int x = 0; x < theTRcuda->VolumeSize_X; x++) {
+		cv::Mat tmp_floating = cv::Mat(theTRcuda->VolumeSize_Y, theTRcuda->VolumeSize_Z, CV_32F, cv::Scalar(0, 0, 0));
+		cv::Mat tmp_test = cv::Mat(theTRcuda->VolumeSize_Y, theTRcuda->VolumeSize_Z, CV_32F, cv::Scalar(0, 0, 0));
+		for (int row = 0; row < theTRcuda->VolumeSize_Y; row++) {
+			for (int col = 0; col < theTRcuda->VolumeSize_Z; col++) {
+				tmpIdx = ((x * theTRcuda->VolumeSize_Y) + row) * theTRcuda->VolumeSize_Z + col;
+				midIdx = ((125 * theTRcuda->VolumeSize_Y) + row) * theTRcuda->VolumeSize_Z + col;
+
+				//idt = ((float)theTRcuda->VolumeData[tmpIdx] - 3) / 2;// theTRcuda->VolumeData[tmpIdx]/6
+				ori_idt = (float)theTRcuda->VolumeData[tmpIdx];
+
+				//idt = ((float)theTRcuda->VolumeData[tmpIdx] / (float)3.36f) - (float)(3.51f/3.36f);
+				//idt = ((float)theTRcuda->VolumeData[tmpIdx] / (float)3.71933f) - (float)(3.29559f / 3.71933f);
+				idt = ((float)theTRcuda->VolumeDataAvg[tmpIdx] / (float)3.509173f) - (float)(3.39f / 3.509173f);// 調整後能量區間
+				//idt = ((float)theTRcuda->VolumeData[tmpIdx] / (float)7.298081f) + (float)(0.05186f / 7.298081f);// 原始能量區間
+
+				//idt = (float)(idt - 0.2) / 1.4f;
+
+				tmp_floating.at<float>(row, col) = idt;
+				tmp_test.at<float>(row, col) = (float)(ori_idt - 1) / 8;
+				if (ori_idt > idtmax)
+					idtmax = ori_idt;
+				if (ori_idt < idtmin)
+					idtmin = ori_idt;
+
+				total_idt += ori_idt;
+				//orig_pic_1024_3ch.at<cv::Vec3b>(row, col) = cv::Vec3b(idt, idt, idt);
+			}
+		}
+
+		cv::resize(tmp_floating, tmp_floating, cv::Size(480, 360), 0, 0, CV_INTER_LINEAR);
+		//cv::imshow("eee", tmp_test);
+		//cv::imshow("eee", tmp_floating);
+		tmp_floating.convertTo(tmp_floating, CV_8UC3, 255);
+		//cv::imshow("ddd", tmp_floating);
+
+		RGB_image->push_back(tmp_floating);
+		//cv::imwrite("origin_v2\\" + std::to_string(x) + ".png", tmp_floating);
+
+	}
+
+
+	fp.close();
+	//avg_idt = total_idt / (theTRcuda->VolumeSize_X*theTRcuda->VolumeSize_Y*theTRcuda->VolumeSize_Z);
+	std::cout << "avg_idt = " << avg_idt << "\n";
+	std::cout << "idtmax = " << idtmax << "\n";
+	std::cout << "idtmin = " << idtmin << "\n";
+
+}
 void DentistDemo::MyForm::load_result() {
 	
 	for (int i = 60; i < 201; i++) {
@@ -783,7 +877,251 @@ void DentistDemo::MyForm::load_result() {
 	}
 	//std::cout << "read OK\n";
 }
+void DentistDemo::MyForm::load_rawImg() {
+	for (int i = 60; i < 201; i++) {
+		cv::Mat tmp_input;
+		tmp_input = cv::imread("./fileT01_13M/" + std::to_string(i) + ".png");
+		raw_input->push_back(tmp_input);
+		std::cout << "read " << i << "\n";
+	}
+}
+void DentistDemo::MyForm::classify_result() {
+	std::vector<cv::Mat> tmp_result_img;
+	int PCidx, Mapidx;
+	float ratio = 1;
+	float zRatio = DManager->zRatio;
+	int tmpIdx;
+	float idt;
+
+	for (int i = 0; i < (*Result_Image).size(); i++) {
+		cv::Mat tmp_img;
+		//cv::resize((*Result_Image)[i], tmp_img, cv::Size(1024, 250), 0, 0, CV_INTER_LINEAR);
+		//tmp_result_img.push_back(tmp_img);
+
+		tmp_result_img.push_back((*Result_Image)[i]);
+	}
+
+	std::cout << "row:" << tmp_result_img[0].rows << "\n";
+	std::cout << "col:" << tmp_result_img[0].cols << "\n";
+	std::cout << "tmp_result_img.size() = " << tmp_result_img.size() << "\n";
+
+	for (int i = 0; i < tmp_result_img.size(); i++) {
+		//std::cout << "i = " << i << "\n";
+		//std::cout << "tmp_result_img.size() = " << tmp_result_img.size() << "\n";
+		for (int row = 0; row < tmp_result_img[i].rows; row++) {
+			for (int col = 0; col < tmp_result_img[i].cols; col++) {
+
+				
+				//std::cout << "col:" << col << "\n";
+				if (tmp_result_img[i].at<uchar>(row, col) == uchar(2) ) {
+					Point_3D tmp_point_3D;
+
+					int tmp_num = i + 60;//x
+					int tmp_row = (row * 250) / 360;//y
+					int tmp_col = (col * 1024) / 480;//z
+
+					//////////////////////////////////////////////////////////////////////////////////////////
+					//tmpIdx = ((tmp_num * theTRcuda->VolumeSize_Y) + row) * theTRcuda->VolumeSize_Z + col;
+					//idt = ((float)theTRcuda->VolumeDataAvg[tmpIdx] / (float)3.509173f) - (float)(3.39f / 3.509173f);// 調整後能量區間
+					//Mapidx = ((tmp_num * 250) + row);
+					//////////////////////////////////////////////////////////////////////////////////////////
+
+					//////////////////////////////////////////////////////////////////////////////////////////
+					tmpIdx = ((tmp_num * 250) + tmp_row) * 1024 + tmp_col;
+					idt = (*raw_input)[i].at<cv::Vec3b>(row,col)[0];// 調整後能量區間
+					idt = (float)idt / 255;
+					//std::cout << "idt:" << idt << "\n";
+					Mapidx = ((tmp_num * 250) + tmp_row);
+					//////////////////////////////////////////////////////////////////////////////////////////
+
+					float tmp_x, tmp_y, tmp_z;
+
+
+					tmp_x = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio + 0.2;
+					tmp_y = DManager->MappingMatrix[Mapidx * 2] * ratio;
+					tmp_z = col*zRatio / 1024 * ratio;
+
+					Vector3 tmp_imgPC = Vector3(tmp_x, tmp_y, tmp_z);
+					Vector3 tmp_idt = Vector3(idt, idt, idt);
+					tmp_point_3D.position = tmp_imgPC;
+					tmp_point_3D.idt = tmp_idt;
+
+					//std::cout << "(" << tmp_x << "," << tmp_y << "," << tmp_z << "\n";
+					teeth_imgPC->push_back(tmp_point_3D);
+				}
+
+				if (tmp_result_img[i].at<uchar>(row, col) == uchar(3)) {
+					Point_3D tmp_point_3D;
+
+					int tmp_num = i + 60;//x
+					int tmp_row = (row * 250) / 360;//y
+					int tmp_col = (col * 1024) / 480;//z
+
+					//////////////////////////////////////////////////////////////////////////////////////////
+					//tmpIdx = ((tmp_num * theTRcuda->VolumeSize_Y) + row) * theTRcuda->VolumeSize_Z + col;
+					//idt = ((float)theTRcuda->VolumeDataAvg[tmpIdx] / (float)3.509173f) - (float)(3.39f / 3.509173f);// 調整後能量區間
+					//Mapidx = ((tmp_num * 250) + row);
+					//////////////////////////////////////////////////////////////////////////////////////////
+
+					//////////////////////////////////////////////////////////////////////////////////////////
+					tmpIdx = ((tmp_num * 250) + tmp_row) * 1024 + tmp_col;
+					idt = (*raw_input)[i].at<cv::Vec3b>(row, col)[0];// 調整後能量區間
+					idt = (float)idt / 255;
+					//std::cout << "idt:" << idt << "\n";
+					Mapidx = ((tmp_num * 250) + tmp_row);
+					//////////////////////////////////////////////////////////////////////////////////////////
+
+					float tmp_x, tmp_y, tmp_z;
+
+
+					tmp_x = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio + 0.2;
+					tmp_y = DManager->MappingMatrix[Mapidx * 2] * ratio;
+					tmp_z = col*zRatio / 1024 * ratio;
+
+					Vector3 tmp_imgPC = Vector3(tmp_x, tmp_y, tmp_z);
+					Vector3 tmp_idt = Vector3(idt, idt, idt);
+					tmp_point_3D.position = tmp_imgPC;
+					tmp_point_3D.idt = tmp_idt;
+
+					//std::cout << "(" << tmp_x << "," << tmp_y << "," << tmp_z << "\n";
+					meat_imgPC->push_back(tmp_point_3D);
+				}
+				if (tmp_result_img[i].at<uchar>(row, col) == uchar(4)) {
+					Point_3D tmp_point_3D;
+
+					int tmp_num = i + 60;//x
+					int tmp_row = (row * 250) / 360;//y
+					int tmp_col = (col * 1024) / 480;//z
+
+					//////////////////////////////////////////////////////////////////////////////////////////
+					//tmpIdx = ((tmp_num * theTRcuda->VolumeSize_Y) + row) * theTRcuda->VolumeSize_Z + col;
+					//idt = ((float)theTRcuda->VolumeDataAvg[tmpIdx] / (float)3.509173f) - (float)(3.39f / 3.509173f);// 調整後能量區間
+					//Mapidx = ((tmp_num * 250) + row);
+					//////////////////////////////////////////////////////////////////////////////////////////
+
+					//////////////////////////////////////////////////////////////////////////////////////////
+					tmpIdx = ((tmp_num * 250) + tmp_row) * 1024 + tmp_col;
+					idt = (*raw_input)[i].at<cv::Vec3b>(row, col)[0];// 調整後能量區間
+					idt = (float)idt / 255;
+					//std::cout << "idt:" << idt << "\n";
+					Mapidx = ((tmp_num * 250) + tmp_row);
+					//////////////////////////////////////////////////////////////////////////////////////////
+
+					float tmp_x, tmp_y, tmp_z;
+
+
+					tmp_x = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio + 0.2;
+					tmp_y = DManager->MappingMatrix[Mapidx * 2] * ratio;
+					tmp_z = col*zRatio / 1024 * ratio;
+
+					Vector3 tmp_imgPC = Vector3(tmp_x, tmp_y, tmp_z);
+					Vector3 tmp_idt = Vector3(idt, idt, idt);
+					tmp_point_3D.position = tmp_imgPC;
+					tmp_point_3D.idt = tmp_idt;
+
+					//std::cout << "(" << tmp_x << "," << tmp_y << "," << tmp_z << "\n";
+					disease_imgPC->push_back(tmp_point_3D);
+				}
+			}
+		}
+	
+	}
+
+	for (int i = 0; i < (*teeth_imgPC).size(); i++) {
+		//std::cout << "teeth_imgPC i = " << i << "\n";
+		glManager->read_point((double)(*teeth_imgPC)[i].position.x, (double)(*teeth_imgPC)[i].position.y, (double)(*teeth_imgPC)[i].position.z);
+		glManager->read_color(1*(double)(*teeth_imgPC)[i].idt.x, 1*(double)(*teeth_imgPC)[i].idt.y, 0.2*(double)(*teeth_imgPC)[i].idt.z);
+		glManager->initial_alpha();
+	}
+	for (int i = 0; i < (*disease_imgPC).size(); i++) {
+		//std::cout << "teeth_imgPC i = " << i << "\n";
+		glManager->read_point((double)(*disease_imgPC)[i].position.x, (double)(*disease_imgPC)[i].position.y, (double)(*disease_imgPC)[i].position.z);
+		glManager->read_color(0.2*(double)(*disease_imgPC)[i].idt.x, 0.2*(double)(*disease_imgPC)[i].idt.y, 1*(double)(*disease_imgPC)[i].idt.z);
+		glManager->initial_alpha();
+	}
+	for (int i = 0; i < (*meat_imgPC).size(); i++) {
+		//std::cout << "teeth_imgPC i = " << i << "\n";
+		glManager->read_point((double)(*meat_imgPC)[i].position.x, (double)(*meat_imgPC)[i].position.y, (double)(*meat_imgPC)[i].position.z);
+		glManager->read_color(1*(double)(*meat_imgPC)[i].idt.x, 0.2*(double)(*meat_imgPC)[i].idt.y, 0.2*(double)(*meat_imgPC)[i].idt.z);
+		glManager->initial_alpha();
+	}
+
+	//std::cout << "glManager->read_point OK\n";
+	glManager->Initial_vert();
+	//std::cout << "glManager->Initial_vert() OK\n";
+}
+void DentistDemo::MyForm::teeth_vert() {
+
+
+}
 void DentistDemo::MyForm::decay_img2space() {
+	int PCidx, Mapidx;
+	float ratio = 1;
+	float zRatio = DManager->zRatio;
+
+	
+	std::ofstream  output_deacyPC;
+	output_deacyPC.open("decayPC.asc");
+
+	std::cout << "row:" << (*Result_Image)[0].rows << "\n";
+	std::cout << "col:" << (*Result_Image)[0].cols << "\n";
+
+	
+
+	for (int i = 0; i < Result_Image->size(); i++) {
+		//std::cout << i << "\n";
+		for (int row = 0; row < (*Result_Image)[i].rows; row++) {
+			for (int col = 0; col < (*Result_Image)[i].cols; col++) {
+
+
+
+				if ((*Result_Image)[i].at<cv::Vec3b>(row, col)[0] == 222) {
+					Point_3D tmp_point;
+					//Mapidx = ((y * theTRcuda->sample_Y * theTRcuda->VolumeSize_X) + x) * theTRcuda->sample_X;
+					//PCidx = ((x * theTRcuda->VolumeSize_Y) + y) * theTRcuda->VolumeSize_Z;
+
+					int tmp_num = i + 60;//x
+					int tmp_row = (row * 250) / 360;//y
+					int tmp_col = (col * 1024) / 480;//z
+
+
+					//output_deacyPC << tmp_num << " " << tmp_row << " " << tmp_col << "\n";
+					//std::cout << "Mapidx, PCidx:" << Mapidx << ", " << PCidx << "\n";
+
+					float tmp_x, tmp_y, tmp_z;
+
+					Mapidx = ((tmp_num * 250) + tmp_row);
+					//PCidx = ((tmp_num * 250) + tmp_row) * 1024;
+
+					//tmp_Data.Position.x() = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio + 0.2;
+					//tmp_Data.Position.y() = DManager->MappingMatrix[Mapidx * 2] * ratio;
+					//tmp_Data.Position.z() = theTRcuda->PointType[PCidx + 1] * zRatio / theTRcuda->VolumeSize_Z * ratio;
+
+					tmp_x = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio + 0.2;
+					tmp_y = DManager->MappingMatrix[Mapidx * 2] * ratio;
+					tmp_z = tmp_col*zRatio / 1024 * ratio;
+					//std::cout << "tmp_x, tmp_y, tmp_z:" << tmp_x << ", " << tmp_y <<","<< tmp_z <<"\n";
+
+
+					output_deacyPC << tmp_x << " " << tmp_y << " " << tmp_z << "\n";
+
+
+
+					//Vector3 tmp_imgPC = Vector3(i+60, tmp_row, tmp_col);
+					Vector3 tmp_imgPC = Vector3(tmp_x, tmp_y, tmp_z);
+
+					tmp_point.position = tmp_imgPC;
+					//std::cout << row << ", " << col << "\n";
+					decay_imgPC->push_back(tmp_point);
+				}
+
+			}
+		}
+	}
+	output_deacyPC.close();
+
+}
+void DentistDemo::MyForm::Test_decay_img2space() {
 
 	int PCidx, Mapidx;
 	float ratio = 1;
@@ -803,7 +1141,7 @@ void DentistDemo::MyForm::decay_img2space() {
 				if ((*result_input)[i].at<cv::Vec3b>(row, col)[0] == 255) {
 					//Mapidx = ((y * theTRcuda->sample_Y * theTRcuda->VolumeSize_X) + x) * theTRcuda->sample_X;
 					//PCidx = ((x * theTRcuda->VolumeSize_Y) + y) * theTRcuda->VolumeSize_Z;
-
+					Point_3D tmp_point;
 					int tmp_num = i + 60;//x
 					int tmp_row = (row * 250) / 360;//y
 					int tmp_col = (col * 1024) / 480;//z
@@ -832,8 +1170,9 @@ void DentistDemo::MyForm::decay_img2space() {
 
 					//Vector3 tmp_imgPC = Vector3(i+60, tmp_row, tmp_col);
 					Vector3 tmp_imgPC = Vector3(tmp_x, tmp_y, tmp_z);
+					tmp_point.position = tmp_imgPC;
 					//std::cout << row << ", " << col << "\n";
-					decay_imgPC->push_back(tmp_imgPC);
+					decay_imgPC->push_back(tmp_point);
 				}			
 				
 			}
@@ -905,7 +1244,7 @@ void DentistDemo::MyForm::mani_rotate_cloud(int rot_idx) {
 }
 void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, System::Windows::Forms::PaintEventArgs ^ e)
 {
-	glEnable(GL_COLOR_MATERIAL); //允許使用glColor
+	//glEnable(GL_COLOR_MATERIAL); //允許使用glColor
 
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -1021,8 +1360,9 @@ void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, Syst
 	glPushMatrix();
 	//glTranslatef(-5,-5,-5);
 	//glRotatef(90,0,0,1);
-	//draw_decay();
+	draw_decay();
 	glManager->Draw();
+
 	//glTranslatef(5, 5, 5);
 	glPopMatrix();
 	glDisable(GL_BLEND);
@@ -1288,6 +1628,26 @@ void DentistDemo::MyForm::hkoglPanelControl1_KeyDown(System::Object^  sender, Sy
 			volumeZ_now++;
 			std::cout << "\rvolumeZ_now: " << volumeZ_now << "---";
 		}
+	}
+	else if (e->KeyCode == System::Windows::Forms::Keys::M) {
+		if (meat_alpha > 0)
+			meat_alpha = meat_alpha - 0.05f;
+		else
+			meat_alpha = meat_alpha;
+		std::cout << "(*teeth_imgPC).size():" << (*teeth_imgPC).size() << "\n";
+		std::cout << "meat_alpha:" << meat_alpha << "\n";
+		glManager->read_alpha(meat_alpha, (*teeth_imgPC).size()+ (*disease_imgPC).size());
+		
+	}
+	else if (e->KeyCode == System::Windows::Forms::Keys::N) {
+		if (meat_alpha < 1)
+			meat_alpha = meat_alpha + 0.05f;
+		else
+			meat_alpha = meat_alpha;
+		std::cout << "(*teeth_imgPC).size():" << (*teeth_imgPC).size() << "\n";
+		std::cout << "meat_alpha:" << meat_alpha << "\n";
+		glManager->read_alpha(meat_alpha, (*teeth_imgPC).size()+ (*disease_imgPC).size());
+
 	}
 	else if (e->KeyCode == System::Windows::Forms::Keys::G) {
 
@@ -2857,16 +3217,19 @@ void DentistDemo::MyForm::drawPointType(TRcuda *theTRcuda) {
 }
 void DentistDemo::MyForm::draw_decay() {
 	//std::cout << "draw_decay\n";
-	if ((*decay_imgPC).empty())
+	if ((*teeth_imgPC).empty())
 		return;
-	glPointSize(thePointSize);
-	glBegin(GL_POINTS);
-	for (int i = 0; i < decay_imgPC->size(); i++) {
-		glColor3f(0.2f, 0.8f, 0.2f);
-		glVertex3f((*decay_imgPC)[i].x , (*decay_imgPC)[i].y, (*decay_imgPC)[i].z);
-	}
+	//glPointSize(thePointSize);
+	//glBegin(GL_POINTS);
+	//for (int i = 0; i < teeth_imgPC->size(); i++) {
+	//	//glColor3f((*teeth_imgPC)[i].idt.x, (*teeth_imgPC)[i].idt.y, (*teeth_imgPC)[i].idt.z);
+	//	glColor3f(0.2*(*teeth_imgPC)[i].idt.x, 0.2*(*teeth_imgPC)[i].idt.y, 0.8*(*teeth_imgPC)[i].idt.z);
+	//	glVertex3f((*teeth_imgPC)[i].position.x , (*teeth_imgPC)[i].position.y, (*teeth_imgPC)[i].position.z);
+	//}
+	//
+	//glEnd();
 
-	glEnd();
+	glManager->is_PC = true;
 }
 
 void DentistDemo::MyForm::Rotate_quat(float angle, float x, float y, float z)
@@ -3065,6 +3428,20 @@ void DentistDemo::MyForm::draw_before_mapping() {
 			}
 		}
 	}
+}
+void DentistDemo::MyForm::choose_slice(int pic_num) {
+	Vector3 p1, p2, p3, p4;
+	p1 = Vector3 (pic_num, 0, 0);
+	p2 = Vector3(pic_num, 250, 0);
+	p3 = Vector3(pic_num, 250, 250);
+	p3 = Vector3(pic_num, 0, 250);
+
+	glBegin(GL_QUADS);
+	glColor3f(0.8f, 0.2f, 0.2f);
+
+
+	glEnd();
+
 }
 //void DentistDemo::MyForm::drawPCSet() {
 //

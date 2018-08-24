@@ -13,9 +13,11 @@ GLManager::GLManager()
     // VAO generation and binding
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
+	is_PC = false;
 
     // Load models
 	tooth1 = new GLModelNode();
+	teeth_vertex = new GLModelNode();
 	//tooth1->LoadModel("./Objx/teeth_test.objx");
 	tooth1->LoadModel("./Objx/T01_02.objx");
 	//tooth1->LoadModel("D:/2018_02/DentistDemo/x64/Release/Objx/teeth_test.objx");
@@ -47,13 +49,41 @@ void GLManager::Draw()
     glm::mat4 viewMat = glCamera->GetViewMatrix();
     glm::mat4 projMat = glCamera->GetProjecyionMatrix();
 
-	tooth1->Render(viewMat, projMat);
+	if (is_PC == true) {
+		glPointSize(6);
+		teeth_vertex->Render_PC(viewMat, projMat);
+	}
+	
+	//tooth1->Render(viewMat, projMat);
 
     //for (int i = 0; i < HandPart::Finger_Size; i++)
     // {
     //     modelHandL[i]->Render(viewMat, projMat);
     //     modelHandR[i]->Render(viewMat, projMat);
     // }
+}
+void DentistDemo::GLManager::read_point(float x, float y, float z) 
+{
+	//std::cout << "in GLManager read_point\n";
+	teeth_vertex->read_vert(x, y, z);
+	
+}
+void DentistDemo::GLManager::read_color(float x, float y, float z)
+{
+	//std::cout << "in GLManager read_point\n";
+	teeth_vertex->read_color(x, y, z);
+
+}
+void DentistDemo::GLManager::read_alpha(double alpha, int start) {
+	teeth_vertex->read_alpha(alpha, start);
+}
+void DentistDemo::GLManager::initial_alpha() {
+	teeth_vertex->initial_alpha(1.0f);
+}
+void DentistDemo::GLManager::Initial_vert() {
+	
+	teeth_vertex->initial_vert();
+
 }
 
 void DentistDemo::GLManager::MotionUpdate(GloveData &left, GloveData &right)

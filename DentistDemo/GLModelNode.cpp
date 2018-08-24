@@ -38,6 +38,84 @@ void GLModelNode::Render(glm::mat4 viewMat, glm::mat4 projMat)
     // Clear shader program
     glUseProgram(0);
 }
+void GLModelNode::Render_PC(glm::mat4 viewMat, glm::mat4 projMat) 
+{
+	UpdateTransform();
+	glUseProgram(Program);
+	//std::cout << "glUseProgram OK\n";
+
+	glUniformMatrix4fv(ViewMatID, 1, GL_FALSE, glm::value_ptr(viewMat));
+	glUniformMatrix4fv(ProjectMatID, 1, GL_FALSE, glm::value_ptr(projMat));
+	glUniformMatrix4fv(ModelMatID, 1, GL_FALSE, glm::value_ptr(WorldTransform));
+	//std::cout << "glUniformMatrix4fv OK\n";
+
+	
+	
+	//std::cout << "glBindBuffer OK\n";
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_vertices);
+	glBufferData(GL_ARRAY_BUFFER, point_vertices.size() * sizeof(glm::vec3), &point_vertices[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_colors);
+	glBufferData(GL_ARRAY_BUFFER, point_colors.size() * sizeof(glm::vec3), &point_colors[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(1);
+
+	//glUniform1f(glGetUniformLocation(Program, "Alpha"), 0.5);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_alpha);
+	glBufferData(GL_ARRAY_BUFFER, point_alpha.size() * sizeof(float), &point_alpha[0], GL_DYNAMIC_DRAW);
+	glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(2);
+
+	glEnable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//glDisable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+
+	glDrawArrays(GL_POINTS, 0, point_vertices.size());
+	//std::cout << "glEnableVertexAttribArray OK\n";
+	
+	glDisableVertexAttribArray(0);
+	//std::cout << "glDisableVertexAttribArray 0 OK\n";
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+	//std::cout << "glDisableVertexAttribArray 1 OK\n";
+
+	glDisable(GL_BLEND);
+	glUseProgram(0);
+}
+void GLModelNode::read_vert(double x, double y, double z)
+{
+	glm::vec3 tmp_v;
+	tmp_v.x = x;
+	tmp_v.y = y;
+	tmp_v.z = z;
+	
+	point_vertices.push_back(tmp_v);
+	//std::cout << "tmp_v OK";
+}
+
+void GLModelNode::read_color(double x, double y, double z)
+{
+	glm::vec3 tmp_v;
+	tmp_v.x = x;
+	tmp_v.y = y;
+	tmp_v.z = z;
+
+	point_colors.push_back(tmp_v);
+	//std::cout << "tmp_v OK";
+}
+void GLModelNode::read_alpha(double alpha, int start) {
+	for (int i = start; i < point_alpha.size(); i++) {
+		point_alpha[i] = alpha;
+	}
+	std::cout << "mode node alpha:" << alpha << "\n";
+}
+void GLModelNode::initial_alpha(double alpha) {
+	point_alpha.push_back(alpha);
+}
 
 void GLModelNode::Translate(float x, float y, float z)
 {
@@ -196,4 +274,25 @@ bool GLModelNode::LoadModel(char * filename)
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 
     return true;
+}
+void GLModelNode::initial_vert() {
+
+	glGenBuffers(1, &VBO_vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_vertices);
+	glBufferData(GL_ARRAY_BUFFER, point_vertices.size() * sizeof(glm::vec3), &point_vertices[0], GL_STATIC_DRAW);
+	
+
+	glGenBuffers(1, &VBO_colors);
+	std::cout << "glGenBuffers OK\n";
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_colors);
+	std::cout << "glBindBuffer OK\n";
+	glBufferData(GL_ARRAY_BUFFER, point_colors.size() * sizeof(glm::vec3), &point_colors[0], GL_STATIC_DRAW);
+	std::cout << "glBufferData OK\n";
+
+
+	glGenBuffers(1, &VBO_alpha);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_alpha);
+	glBufferData(GL_ARRAY_BUFFER, point_alpha.size() * sizeof(float), &point_alpha[0], GL_DYNAMIC_DRAW);
+
+
 }

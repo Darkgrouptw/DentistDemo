@@ -2,6 +2,10 @@
 
 in vec3 vNormal;
 in vec3 vLightDir;
+in vec3 vColor;
+in float vAlpha;
+
+layout (location = 0) out vec4 outColor;
 
 // Lighting color
 vec4 ambientColor  = vec4(0.2, 0.2, 0.2, 1.0);
@@ -11,7 +15,7 @@ float shininess = 128.0;
 
 void main()
 {
-	vec4 baseColor = vec4(0.8, 0.8, 0.8, 1.0);
+	vec4 baseColor = vec4(vColor.x, vColor.y, vColor.z,1.0);
 
 	vec3 eyeDir = vec3(0.0, 0.0, 1.0);
 	vec3 lightDir = normalize(vLightDir);
@@ -36,7 +40,12 @@ void main()
     vec4 specular = baseColor * specularColor * spec;
     
 	
-	gl_FragColor = ambient + diffuse + specular;
+	//gl_FragColor = 
+	
+	vec4 color_tmp = ambient + diffuse + specular;
+	
+	outColor = baseColor;
+	outColor.a = vAlpha;
 	//gl_FragColor = vec4(0.5,0.5,0.5,0.5); 
-	gl_FragColor.a = 0.5;
+	//gl_FragColor.a = 0.5;
 }

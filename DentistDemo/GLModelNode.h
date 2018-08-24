@@ -66,6 +66,7 @@ public:
 		ViewMatID = glGetUniformLocation(Program, "View");
 		ProjectMatID = glGetUniformLocation(Program, "Projection");
 		ModelMatID = glGetUniformLocation(Program, "Model");
+		//AlphaID = glGetUniformLocation(Program, "Alpha");
 
 		// Clear shader program
 		glUseProgram(0);
@@ -91,6 +92,7 @@ public:
 
     // Model rendering
     void Render(glm::mat4 viewMat, glm::mat4 projMat);
+	void Render_PC(glm::mat4 viewMat, glm::mat4 projMat);
     // Model transform
     void Translate(float x, float y, float z);
     void Translate(glm::vec3 vec);
@@ -114,6 +116,12 @@ public:
 
     bool LoadModel(char* objfilename);
 
+	void read_vert(double x, double y, double z);
+	void read_color(double x, double y, double z);
+	void read_alpha(double alpha, int start);
+	void initial_alpha(double alpha);
+	void initial_vert();
+
 private:
     //
     // Node Information
@@ -134,13 +142,16 @@ private:
     GLuint VBO_vertices;    // OpenGL array buffer for vertices
     GLuint VBO_normals;     // OpenGL array buffer for normals
 
+	GLuint VBO_colors;    // OpenGL array buffer for color
+	GLuint VBO_alpha;
+
     //
     // OpenGL Shader Parameters
     //
     GLuint ViewMatID;
     GLuint ProjectMatID;
     GLuint ModelMatID;
-
+	GLuint AlphaID;
     //
     // Object Primitives
     //
@@ -148,4 +159,8 @@ private:
     std::vector<glm::vec3> normals;             // Normal vectors
     std::vector<unsigned int> materialIndices;  // Face group by materials (not used for now, record only)
     std::vector<std::string> materialStrings;   // Material name (not use for now, record only)
+
+	std::vector<glm::vec3> point_vertices;
+	std::vector<glm::vec3> point_colors;
+	std::vector<float> point_alpha;
 };

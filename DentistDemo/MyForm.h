@@ -20,6 +20,8 @@
 #include "super4pcs.h"
 #include <bitset>
 #include <string>
+//#include <msclr/marshal.h>
+//#define PIC_SIZE PIC_SIZE
 
 #include "super4pcs/io/io.h"
 #include "SegnetModel.h"
@@ -68,6 +70,11 @@ struct TransformVisitor {
 		fflush(stdout);
 	}
 	constexpr bool needsGlobalTransformation() const { return false; }
+};
+struct Point_3D {
+	Vector3 position;
+	Vector3 idt;
+	int type;
 };
 
 namespace DentistDemo 
@@ -204,6 +211,10 @@ namespace DentistDemo
 	private: System::Windows::Forms::Button^  Aligned_target;
 	private: System::Windows::Forms::Button^  Test_Model;
 	private: System::ComponentModel::IContainer^  components;
+	private: System::Windows::Forms::Button^  Test_detect;
+	private: System::Windows::Forms::PictureBox^  OCT_Img;
+	private: System::Windows::Forms::PictureBox^  Result_Img;
+	private: System::Windows::Forms::TrackBar^  control_pic;
 
 	private:
 #pragma region Windows Form Designer generated code
@@ -248,12 +259,19 @@ namespace DentistDemo
 			this->pictureBox6 = (gcnew System::Windows::Forms::PictureBox());
 			this->label12 = (gcnew System::Windows::Forms::Label());
 			this->Aligned_target = (gcnew System::Windows::Forms::Button());
+			this->Test_detect = (gcnew System::Windows::Forms::Button());
+			this->OCT_Img = (gcnew System::Windows::Forms::PictureBox());
+			this->Result_Img = (gcnew System::Windows::Forms::PictureBox());
+			this->control_pic = (gcnew System::Windows::Forms::TrackBar());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox6))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->OCT_Img))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Result_Img))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->control_pic))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// cbComPortL
@@ -569,17 +587,54 @@ namespace DentistDemo
 			this->Aligned_target->UseVisualStyleBackColor = true;
 			this->Aligned_target->Click += gcnew System::EventHandler(this, &MyForm::Aligned_target_Click);
 			// 
+			// Test_detect
+			// 
+			this->Test_detect->Location = System::Drawing::Point(755, 237);
+			this->Test_detect->Name = L"Test_detect";
+			this->Test_detect->Size = System::Drawing::Size(75, 23);
+			this->Test_detect->TabIndex = 67;
+			this->Test_detect->Text = L"Test Detect";
+			this->Test_detect->UseVisualStyleBackColor = true;
+			this->Test_detect->Click += gcnew System::EventHandler(this, &MyForm::Test_detect_Click);
+			// 
+			// OCT_Img
+			// 
+			this->OCT_Img->Location = System::Drawing::Point(940, 64);
+			this->OCT_Img->Name = L"OCT_Image";
+			this->OCT_Img->Size = System::Drawing::Size(240, 154);
+			this->OCT_Img->TabIndex = 69;
+			this->OCT_Img->TabStop = false;
+			// 
+			// Result_Img
+			// 
+			this->Result_Img->Location = System::Drawing::Point(940, 237);
+			this->Result_Img->Name = L"Result_Image";
+			this->Result_Img->Size = System::Drawing::Size(240, 154);
+			this->Result_Img->TabIndex = 70;
+			this->Result_Img->TabStop = false;
+			// 
+			// control_pic
+			// 
+			this->control_pic->Location = System::Drawing::Point(968, 416);
+			this->control_pic->Name = L"control_pic";
+			this->control_pic->Size = System::Drawing::Size(191, 45);
+			this->control_pic->TabIndex = 71;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(870, 614);
-			this->Controls->Add(this->Aligned_target);
-			this->Controls->Add(this->label13);
-			this->Controls->Add(this->label12);
-			this->Controls->Add(this->label8);
-			this->Controls->Add(this->label7);
-			this->Controls->Add(this->label6);
+			this->ClientSize = System::Drawing::Size(1203, 614);
+			this->Controls->Add(this->control_pic);
+			this->Controls->Add(this->Result_Img);
+			this->Controls->Add(this->OCT_Img);
+			this->Controls->Add(this->Test_detect);
+			//this->Controls->Add(this->Aligned_target);
+			//this->Controls->Add(this->label13);
+			//this->Controls->Add(this->label12);
+			//this->Controls->Add(this->label8);
+			//this->Controls->Add(this->label7);
+			//this->Controls->Add(this->label6);
 			this->Controls->Add(this->name_output);
 			this->Controls->Add(this->output_name);
 			this->Controls->Add(this->Aligned12);
@@ -601,6 +656,9 @@ namespace DentistDemo
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox6))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->OCT_Img))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Result_Img))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->control_pic))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -728,9 +786,16 @@ namespace DentistDemo
 		void mani_rotate(float angle, float x, float y, float z);
 		void mani_rotate_cloud(int rot_idx);
 		void load_obj();
+		void load_rawImg();
 		void load_result();
-		void decay_img2space();
+		void Test_decay_img2space();
 		void draw_decay();
+		void color_img();
+		void decay_img2space();
+		void classify_result();
+		void teeth_vert();
+		void choose_slice(int pic_num);
+		
 	private:
 		//
 		// System Maintenance Variables
@@ -812,8 +877,16 @@ namespace DentistDemo
 		std::vector<PointData> *Combine_cloud_PC;
 		std::string *tmp_fileName, *out_fileName;
 		float full_scan_time, all_time, tmp_rotate_x, tmp_rotate_y, tmp_rotate_z;
-		std::vector<cv::Mat> *result_input;
-		std::vector<Vector3> *decay_imgPC;
+		std::vector<cv::Mat> *result_input, *raw_input;
+		std::vector<Point_3D> *decay_imgPC;
+		std::vector<Point_3D> *teeth_imgPC;
+		std::vector<Point_3D> *meat_imgPC;
+		std::vector<Point_3D> *disease_imgPC;
+		float meat_alpha;
+		int pic_num;
+
+		std::vector<cv::Mat> *RGB_image;
+		std::vector<cv::Mat> *Result_Image;
 
 		objData *obj1, *obj2, *obj3, *obj4, *obj5;
 
@@ -845,10 +918,40 @@ namespace DentistDemo
 			indexA = (indexA + 1) % 2;
 
 			img = NetworkModel->Predict(img);
-			img = NetworkModel->Visualization(img);
 
 			cv::imshow("Display window", img);
 			cv::waitKey(0);
+		}
+		private: System::Void Test_detect_Click(System::Object^  sender, System::EventArgs^  e) 
+		{
+			//color_img();
+
+			//for (int i = 0; i < (*RGB_image).size(); i++) {
+			//	cv::Mat tmp_image;
+			//	tmp_image = NetworkModel->Predict((*RGB_image)[i]);
+			//	(*Result_Image).push_back(tmp_image);
+			//	std::cout << "num = " << i << " is OK\n";
+			//}
+			//
+			//classify_result();
+			//decay_img2space();
+
+			/////////////////////////////////////// TEST
+			load_rawImg();
+			//std::cout << "load OK\n";
+			for (int i = 0; i < (*raw_input).size(); i++) {
+				cv::Mat tmp_image;
+				//std::cout << "for OK\n";
+				tmp_image = NetworkModel->Predict((*raw_input)[i]);
+				//std::cout << "predict ok\n";
+				(*Result_Image).push_back(tmp_image);
+				//std::cout << "push back OK\n";
+				std::cout << "num = " << i << " is OK\n";
+				cv::imwrite("./resultT01_13M/" + std::to_string(i+60) + ".png", tmp_image);
+			}
+
+			classify_result();
+			/////////////////////////////////////// TEST
 		}
 	};
 }
