@@ -75,14 +75,20 @@ Mat SegnetModel::Predict(Mat &img)
 				ProbValue.push_back(OutputValue[i * OutputSize.Height * OutputSize.Width + rowIndex* OutputSize.Width + colIndex]);
 			PredictImage.at<uchar>(rowIndex, colIndex) = ArgMax(ProbValue);
 		}
-	//cv::Mat merged_output_image = cv::Mat(output_layer->height(), output_layer->width(), CV_32F, const_cast<float *>(output_layer->cpu_data()));
-	//merged_output_image *= 1 * 255;
-
-	//DebugMat(merged_output_image, Type32F);
-	//merged_output_image.convertTo(merged_output_image, CV_8U);
-
-	return Visualization(PredictImage, "./Models/camvid11.png");
+	return PredictImage;
 	#pragma endregion
+}
+Mat SegnetModel::Visualization(Mat img)
+{
+	// 從灰階轉成 RGB
+	cvtColor(img.clone(), img, CV_GRAY2BGR);
+
+	Mat label_colours = imread(LUT_file, 1);
+	Mat output_image;
+
+	// 對應回 LUT 的資料
+	LUT(img, label_colours, output_image);
+	return output_image;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -140,19 +146,6 @@ void SegnetModel::Preprocess(Mat& img) {
 		== SegNet->input_blobs()[0]->cpu_data())
 		<< "Input channels are not wrapping the input layer of the network.";
 }
-Mat SegnetModel::Visualization(Mat img, string LUT_file) 
-{
-	// 從灰階轉成 RGB
-	cvtColor(img.clone(), img, CV_GRAY2BGR);
-
-	Mat label_colours = imread(LUT_file, 1);
-	Mat output_image;
-
-	// 對應回 LUT 的資料
-	LUT(img, label_colours, output_image);
-	return output_image ;
-}
-
 int SegnetModel::ArgMax(vector<float> ValueArray)
 {
 	int TempIndex = 0;

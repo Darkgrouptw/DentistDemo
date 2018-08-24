@@ -20,8 +20,6 @@
 #include "super4pcs.h"
 #include <bitset>
 #include <string>
-//#include <msclr/marshal.h>
-//#define PIC_SIZE PIC_SIZE
 
 #include "super4pcs/io/io.h"
 #include "SegnetModel.h"
@@ -847,6 +845,7 @@ namespace DentistDemo
 			indexA = (indexA + 1) % 2;
 
 			img = NetworkModel->Predict(img);
+			img = NetworkModel->Visualization(img);
 
 			cv::imshow("Display window", img);
 			cv::waitKey(0);

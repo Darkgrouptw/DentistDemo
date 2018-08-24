@@ -53,6 +53,7 @@ public:
 
 	void						Load(string, string);
 	Mat							Predict(Mat&);
+	Mat							Visualization(Mat);													// 轉成看得懂的圖 Output
 
 private:
 	//////////////////////////////////////////////////////////////////////////
@@ -62,13 +63,13 @@ private:
 	NetworkSize					InputSize;
 	NetworkSize					OutputSize;
 	vector<Mat>					InputChannelPointer;												// 這邊存放資料 Network 對應到每一個 Channel 的位置 Array
+	string						LUT_file = "./Models/camvid11.png";
 
 	//////////////////////////////////////////////////////////////////////////
 	// Helper Function
 	//////////////////////////////////////////////////////////////////////////
 	void						WrapInputLayer();													// 用來轉圖片用的 (如果圖片不符合格式的話)
 	void						Preprocess(Mat& img);												// 同樣，轉成正確規格的圖片
-	Mat							Visualization(Mat, string);											// 轉成看得懂的圖 Output
 	int							ArgMax(vector<float>);												// 找最大的值是多少
 
 	// Debug 用的
