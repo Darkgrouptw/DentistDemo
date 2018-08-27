@@ -286,6 +286,8 @@ bool GLModelNode::LoadModel(char * filename)
 }
 void GLModelNode::initial_vert() {
 
+	Rotate(90, 0, 0, 1);
+
 	glGenBuffers(1, &VBO_vertices);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO_vertices);
 	glBufferData(GL_ARRAY_BUFFER, point_vertices.size() * sizeof(glm::vec3), &point_vertices[0], GL_STATIC_DRAW);

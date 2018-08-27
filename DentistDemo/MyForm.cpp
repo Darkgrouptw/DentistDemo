@@ -153,6 +153,10 @@ System::Void DentistDemo::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 
 	color_idt = 2.2;
 	//pic_num = 125;
+	slice_p1 = new Vector3;
+	slice_p2 = new Vector3;
+	slice_p3 = new Vector3;
+	slice_p4 = new Vector3;
 	
 	all_time = 0;
 	Push_back_file();
@@ -887,6 +891,31 @@ void DentistDemo::MyForm::load_rawImg() {
 		std::cout << "read " << i << "\n";
 	}
 }
+void DentistDemo::MyForm::slice_quad(int index) {
+	int tmp_num = index + 60;//x
+	float ratio = 1;
+	float zRatio = DManager->zRatio;
+	int Mapidx_0, Mapidx_250, col_0, col_1024, row_0, row_250;
+	float tmp_x_0, tmp_y_0, tmp_z_0, tmp_x_250, tmp_y_250, tmp_z_1024;
+
+	
+	
+	Mapidx_0 = ((tmp_num * 250) + 0);////x, y:0
+	Mapidx_250 = ((tmp_num * 250) + 249);////x, y:249
+	tmp_x_0 = DManager->MappingMatrix[Mapidx_0 * 2 + 1] * ratio + 0.2;
+	tmp_y_0 = DManager->MappingMatrix[Mapidx_0 * 2] * ratio;
+	tmp_z_0 = 0*zRatio / 1024 * ratio;
+
+	tmp_x_250 = DManager->MappingMatrix[Mapidx_250 * 2 + 1] * ratio + 0.2;
+	tmp_y_250 = DManager->MappingMatrix[Mapidx_250 * 2] * ratio;
+	tmp_z_1024 = 480 * zRatio / 1024 * ratio;
+
+
+	(*slice_p1) = Vector3(tmp_x_0, tmp_y_0, tmp_z_0);
+	(*slice_p2) = Vector3(tmp_x_0, tmp_y_0, tmp_z_1024);
+	(*slice_p3) = Vector3(tmp_x_250, tmp_y_250, tmp_z_1024);
+	(*slice_p4) = Vector3(tmp_x_250, tmp_y_250, tmp_z_0);
+}
 void DentistDemo::MyForm::classify_result() {
 	std::vector<cv::Mat> tmp_result_img;
 	int PCidx, Mapidx;
@@ -906,6 +935,7 @@ void DentistDemo::MyForm::classify_result() {
 	std::cout << "row:" << tmp_result_img[0].rows << "\n";
 	std::cout << "col:" << tmp_result_img[0].cols << "\n";
 	std::cout << "tmp_result_img.size() = " << tmp_result_img.size() << "\n";
+
 
 	for (int i = 0; i < tmp_result_img.size(); i++) {
 		//std::cout << "i = " << i << "\n";
@@ -1288,66 +1318,66 @@ void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, Syst
 	glVertex3f(0,1,0);
 	glEnd();*/
 
-	int length = 10;
-	glBegin(GL_LINES);
-	glLineWidth(10.0);
-	glColor4f(1.0, 0.0, 0.0, 1.0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(length, 0, 0);
+	//int length = 10;
+	//glBegin(GL_LINES);
+	//glLineWidth(10.0);
+	//glColor4f(1.0, 0.0, 0.0, 1.0);
+	//glVertex3f(0, 0, 0);
+	//glVertex3f(length, 0, 0);
+	//
+	//glColor4f(0.0, 1.0, 0.0, 1.0);
+	//glVertex3f(0, 0, 0);
+	//glVertex3f(0, length, 0);
+	//
+	//glColor4f(0.0, 0.0, 1.0, 1.0);
+	//glVertex3f(0, 0, 0);
+	//glVertex3f(0, 0, length);
+	//glEnd();
 
-	glColor4f(0.0, 1.0, 0.0, 1.0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, length, 0);
-
-	glColor4f(0.0, 0.0, 1.0, 1.0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 0, length);
-	glEnd();
-
-	glPushMatrix();
-	glBegin(GL_QUADS);
-		glColor3f(1, 1, 0);
-		glVertex3f(1.5, -1.5, 0);
-		glVertex3f(1.5, 1.5, 0);
-		glVertex3f(-1.5, 1.5, 0);
-		glVertex3f(-1.5, -1.5, 0);
-	glEnd();
-	glBegin(GL_QUADS);
-		glColor3f(1, 1, 0);
-		glVertex3f(1.5, -1.5, 0);
-		glVertex3f(-1.5, -1.5, 0);
-		glVertex3f(-1.5, 1.5, 0);
-		glVertex3f(1.5, 1.5, 0);
-	glEnd();
-	glBegin(GL_QUADS);
-		glColor3f(0, 1, 1);
-		glVertex3f(0, -1.5, 1.5);
-		glVertex3f(0, 1.5, 1.5);
-		glVertex3f(0, 1.5, -1.5);
-		glVertex3f(0, -1.5, -1.5);
-	glEnd();
-	glBegin(GL_QUADS);
-		glColor3f(0, 1, 1);
-		glVertex3f(0, -1.5, 1.5);
-		glVertex3f(0, -1.5, -1.5);
-		glVertex3f(0, 1.5, -1.5);
-		glVertex3f(0, 1.5, 1.5);
-	glEnd();
-	glBegin(GL_QUADS);
-		glColor3f(1, 0, 1);
-		glVertex3f(1.5, 0, -1.5);
-		glVertex3f(1.5, 0, 1.5);
-		glVertex3f(-1.5, 0, 1.5);
-		glVertex3f(-1.5, 0, -1.5);
-	glEnd();
-	glBegin(GL_QUADS);
-		glColor3f(1, 0, 1);
-		glVertex3f(1.5, 0, -1.5);
-		glVertex3f(-1.5, 0, -1.5);
-		glVertex3f(-1.5, 0, 1.5);
-		glVertex3f(1.5, 0, 1.5);
-	glEnd();
-	glPopMatrix();
+	//glPushMatrix();
+	//glBegin(GL_QUADS);
+	//	glColor3f(1, 1, 0);
+	//	glVertex3f(1.5, -1.5, 0);
+	//	glVertex3f(1.5, 1.5, 0);
+	//	glVertex3f(-1.5, 1.5, 0);
+	//	glVertex3f(-1.5, -1.5, 0);
+	//glEnd();
+	//glBegin(GL_QUADS);
+	//	glColor3f(1, 1, 0);
+	//	glVertex3f(1.5, -1.5, 0);
+	//	glVertex3f(-1.5, -1.5, 0);
+	//	glVertex3f(-1.5, 1.5, 0);
+	//	glVertex3f(1.5, 1.5, 0);
+	//glEnd();
+	//glBegin(GL_QUADS);
+	//	glColor3f(0, 1, 1);
+	//	glVertex3f(0, -1.5, 1.5);
+	//	glVertex3f(0, 1.5, 1.5);
+	//	glVertex3f(0, 1.5, -1.5);
+	//	glVertex3f(0, -1.5, -1.5);
+	//glEnd();
+	//glBegin(GL_QUADS);
+	//	glColor3f(0, 1, 1);
+	//	glVertex3f(0, -1.5, 1.5);
+	//	glVertex3f(0, -1.5, -1.5);
+	//	glVertex3f(0, 1.5, -1.5);
+	//	glVertex3f(0, 1.5, 1.5);
+	//glEnd();
+	//glBegin(GL_QUADS);
+	//	glColor3f(1, 0, 1);
+	//	glVertex3f(1.5, 0, -1.5);
+	//	glVertex3f(1.5, 0, 1.5);
+	//	glVertex3f(-1.5, 0, 1.5);
+	//	glVertex3f(-1.5, 0, -1.5);
+	//glEnd();
+	//glBegin(GL_QUADS);
+	//	glColor3f(1, 0, 1);
+	//	glVertex3f(1.5, 0, -1.5);
+	//	glVertex3f(-1.5, 0, -1.5);
+	//	glVertex3f(-1.5, 0, 1.5);
+	//	glVertex3f(1.5, 0, 1.5);
+	//glEnd();
+	//glPopMatrix();
 
 	if (showVolumeData) draw_volumeData(theTRcuda);
 	if (showBoardTemp) drawPointType(theTRcuda);
@@ -1359,6 +1389,24 @@ void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, Syst
 
 	if (is_before_camera)draw_before_camera();
 
+	glPushMatrix();
+	glRotatef(90, 0, 0, 1);
+	glBegin(GL_QUADS);
+	glColor4f(1, 0, 1,0.3f);
+	glVertex3f(slice_p1->x, slice_p1->y, slice_p1->z);
+	glVertex3f(slice_p2->x, slice_p2->y, slice_p2->z);
+	glVertex3f(slice_p3->x, slice_p3->y, slice_p3->z);
+	glVertex3f(slice_p4->x, slice_p4->y, slice_p4->z);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glColor4f(1, 0, 1,0.3f);
+	glVertex3f(slice_p4->x, slice_p4->y, slice_p4->z);
+	glVertex3f(slice_p3->x, slice_p3->y, slice_p3->z);
+	glVertex3f(slice_p2->x, slice_p2->y, slice_p2->z);
+	glVertex3f(slice_p1->x, slice_p1->y, slice_p1->z);
+	glEnd();
+	glPopMatrix();
 
 	glPushMatrix();
 	//glTranslatef(-5,-5,-5);
@@ -3488,37 +3536,41 @@ void DentistDemo::MyForm::drawPCSet3() {
 		//std::cout << "\rvalueDegrees():" << (*camera_diff).valueDegrees() << "--- rotation:(" << (*camera_rotation).x << "---," << (*camera_rotation).y << "---," << (*camera_rotation).z << "---)";
 		//std::cout << "rotation:(" << (*camera_rotation).x << "," << (*camera_rotation).y << "," << (*camera_rotation).z << ")---";
 
-		glPushMatrix();
-		glRotatef((*camera_diff).valueDegrees(), -(*camera_rotation).z, (*camera_rotation).y, (*camera_rotation).x);
+		//glPushMatrix();
+		//glRotatef((*camera_diff).valueDegrees(), -(*camera_rotation).z, (*camera_rotation).y, (*camera_rotation).x);
 
-		glTranslatef(0, 0, -5);
+		//glTranslatef(0, 0, -5);
 		//glTranslatef((*Point_cloud_center)[0].x, (*Point_cloud_center)[0].y, (*Point_cloud_center)[0].z);
 		//camera_cube(1.0f, 1.0f, 2.0f);
-		glBegin(GL_LINES);
-		glColor3f(1, 0, 0);
-		glVertex3f(0, 0, -3);
-		glVertex3f(3, 0, -3);
-		glEnd();
-		glBegin(GL_LINES);
-		glColor3f(0, 1, 0);
-		glVertex3f(0, 0, -3);
-		glVertex3f(0, 3, -3);
-		glEnd();
-		glBegin(GL_LINES);
-		glColor3f(0, 0, 1);
-		glVertex3f(0, 0, -3);
-		glVertex3f(0, 0, 0);
-		glEnd();
-		glPopMatrix();
 
-		glPushMatrix();
-		glRotated((*camera_diff).valueDegrees(), -(*camera_rotation).z, (*camera_rotation).y, (*camera_rotation).x);
-		glBegin(GL_LINES);
-		glColor3f(1, 1, 1);
-		glVertex3f(0, 0, 0);
-		glVertex3f(0, 0, -5);
-		glEnd();
-		glPopMatrix();
+		
+		//glBegin(GL_LINES);
+		//glColor3f(1, 0, 0);
+		//glVertex3f(0, 0, -3);
+		//glVertex3f(3, 0, -3);
+		//glEnd();
+		//glBegin(GL_LINES);
+		//glColor3f(0, 1, 0);
+		//glVertex3f(0, 0, -3);
+		//glVertex3f(0, 3, -3);
+		//glEnd();
+		//glBegin(GL_LINES);
+		//glColor3f(0, 0, 1);
+		//glVertex3f(0, 0, -3);
+		//glVertex3f(0, 0, 0);
+		//glEnd();
+		//glPopMatrix();
+		//
+		//////////////////////////////////////////////////////gyro axis
+		//glPushMatrix();
+		//glRotated((*camera_diff).valueDegrees(), -(*camera_rotation).z, (*camera_rotation).y, (*camera_rotation).x);
+		//glBegin(GL_LINES);
+		//glColor3f(1, 1, 1);
+		//glVertex3f(0, 0, 0);
+		//glVertex3f(0, 0, -5);
+		//glEnd();
+		//glPopMatrix();
+		////////////////////////////////////////////////////gyro axis
 
 		//(*quat1) = (*camera_quat);
 		//(*quat1) = (*quat1).Inverse();

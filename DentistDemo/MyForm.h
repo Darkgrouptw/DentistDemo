@@ -30,6 +30,7 @@ struct PointData
 {
 	GlobalRegistration::Point3D Position;
 };
+
 struct myPointCloud
 {
 	std::vector<GlobalRegistration::Point3D> mPC;
@@ -108,9 +109,10 @@ namespace DentistDemo
 			NetworkModel = new SegnetModel();
 			NetworkModel->Load("./Models/segnet_inference.prototxt", "./Models/segnet_iter_40000.caffemodel");
 			pic_mouse_move = false;
-			mouse_loc_x = 30;
-			mouse_loc_y = 30;
-			block_size = 35;
+			mouse_loc_x = 73;
+			mouse_loc_y = 72;
+			block_size_y = 35;
+			block_size_x =19.6;
 		}
 
 	protected:
@@ -435,9 +437,9 @@ namespace DentistDemo
 			// 
 			// timer1
 			// 
-			this->timer1->Enabled = true;
-			this->timer1->Interval = 15;
-			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			//this->timer1->Enabled = true;
+			//this->timer1->Interval = 15;
+			//this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
 			// 
 			// Aligned_Pre
 			// 
@@ -628,6 +630,7 @@ namespace DentistDemo
 			this->OCT_Img->Location = System::Drawing::Point(940, 64);
 			this->OCT_Img->Name = L"OCT_Image";
 			this->OCT_Img->Size = System::Drawing::Size(240, 154);
+			this->OCT_Img->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->OCT_Img->TabIndex = 69;
 			this->OCT_Img->TabStop = false;
 			// 
@@ -636,6 +639,7 @@ namespace DentistDemo
 			this->Result_Img->Location = System::Drawing::Point(940, 237);
 			this->Result_Img->Name = L"Result_Image";
 			this->Result_Img->Size = System::Drawing::Size(240, 154);
+			this->Result_Img->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->Result_Img->TabIndex = 70;
 			this->Result_Img->TabStop = false;
 			// 
@@ -849,6 +853,7 @@ namespace DentistDemo
 		void classify_result();
 		void teeth_vert();
 		void choose_slice(int pic_num);
+		void slice_quad(int index);
 		
 	private:
 		//
@@ -943,24 +948,22 @@ namespace DentistDemo
 		std::vector<cv::Mat> *Result_Image;
 
 		objData *obj1, *obj2, *obj3, *obj4, *obj5;
-		float mouse_loc_x, mouse_loc_y, block_size, color_idt;
+		float mouse_loc_x, mouse_loc_y, block_size_x, color_idt, block_size_y;
 		bool pic_mouse_move;
+		Vector3 *slice_p1, *slice_p2, *slice_p3, *slice_p4;
 
 	private:
 
 		//Quaternion *preQuaternL, *preQuaternR;
 		private: System::Void reset_rot_Click(System::Object^  sender, System::EventArgs^  e) {
-
 			is_reset = true;
 		}
 
-		private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
-			timer_rot = true;
-
-
-			//std::cout << "timer:" << timer_rot << "\n";
-			hkoglPanelControl1->Invalidate();
-		}
+		//private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
+		//	timer_rot = true;
+		//	//std::cout << "timer:" << timer_rot << "\n";
+		//	hkoglPanelControl1->Invalidate();
+		//}
 
 		// Test
 		int indexA = 0;
@@ -1016,14 +1019,14 @@ namespace DentistDemo
 			 // Draw a string on the PictureBox.
 			 //g->DrawString("This is a diagonal line drawn on the control",
 			 //	gcnew System::Drawing::Font("Arial", 10), System::Drawing::Brushes::Blue, Point(30, 30));
-			 Pen^ RedPen = gcnew Pen(Color::Red, 3.0f);
+			 Pen^ RedPen = gcnew Pen(Color::Red, 1.5f);
 
 
 			 // Draw a line in the PictureBox.
-			 g->DrawLine(RedPen, mouse_loc_x + block_size, mouse_loc_y + block_size, mouse_loc_x - block_size, mouse_loc_y + block_size);
-			 g->DrawLine(RedPen, mouse_loc_x - block_size, mouse_loc_y + block_size, mouse_loc_x - block_size, mouse_loc_y - block_size);
-			 g->DrawLine(RedPen, mouse_loc_x - block_size, mouse_loc_y - block_size, mouse_loc_x + block_size, mouse_loc_y - block_size);
-			 g->DrawLine(RedPen, mouse_loc_x + block_size, mouse_loc_y - block_size, mouse_loc_x + block_size, mouse_loc_y + block_size);
+			 g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y, mouse_loc_x - block_size_x, mouse_loc_y + block_size_y);
+			 g->DrawLine(RedPen, mouse_loc_x - block_size_x, mouse_loc_y + block_size_y, mouse_loc_x - block_size_x, mouse_loc_y - block_size_y);
+			 g->DrawLine(RedPen, mouse_loc_x - block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y);
+			 g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y);
 
 			 //std::cout << "paint\n";
 		}
@@ -1047,11 +1050,6 @@ namespace DentistDemo
 		}
 		private: System::Void Choose_teeth_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 		
-			ComboBox^ comboBox = (ComboBox^)(sender);
-		
-		
-			int count = 0;
-			int resultIndex = -1;
 		
 			// Call the FindStringExact method to find the first 
 			// occurrence in the list.
@@ -1084,23 +1082,6 @@ namespace DentistDemo
 				teeth_Model->Image = Image::FromFile("./image5.jpg");
 				teeth_Model->Invalidate();
 			}
-		
-		
-		
-		
-		
-			// Remove the name as it is found, and increment the found count. 
-			// Then call the FindStringExact method again, passing in the 
-			// index of the current found item so the search starts there 
-			// instead of at the beginning of the list.
-			//while (resultIndex != -1)
-			//{
-			//	Choose_teeth->Items->RemoveAt(resultIndex);
-			//	count += 1;
-			//	resultIndex = Choose_teeth->FindStringExact(selectedEmployee, resultIndex);
-			//}
-		
-		
 		}
 
 
@@ -1112,6 +1093,7 @@ namespace DentistDemo
 			int index = this->control_pic->Value;
 			cout << index << endl;
 			ShowImage(index);
+			slice_quad(index);
 		}
 		void ShowImage(int index)
 		{
