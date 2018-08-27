@@ -712,7 +712,7 @@ namespace DentistDemo
 			this->Controls->Add(this->btnComUpdate);
 			this->Controls->Add(this->cbComPortL);
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"DentistDemo";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
