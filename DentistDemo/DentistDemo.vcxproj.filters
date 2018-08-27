@@ -169,4 +169,7 @@
       <Filter>原始程式檔</Filter>
     </CudaCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

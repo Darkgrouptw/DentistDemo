@@ -95,7 +95,8 @@ namespace DentistDemo
 	/// <summary>
 	/// MyForm 的摘要
 	/// </summary>
-	public ref class MyForm : public System::Windows::Forms::Form
+	//public ref class MyForm : public System::Windows::Forms::Form
+	public ref class MyForm : public MaterialSkin::Controls::MaterialForm
 	{
 	public:
 		// TestModel
