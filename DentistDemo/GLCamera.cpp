@@ -96,37 +96,6 @@ void GLCamera::UpdateView()
 			ViewMatF[i*ViewMat.col_size() + j] = ViewMat[i][j];
 		}
 	}
-
-	//printf("cameraPosition");
-	//printf("%fx:", cameraPosition.x);
-	//printf("%fy:", cameraPosition.y);
-	//printf("%fz:\n\n", cameraPosition.z);
-	//
-	//printf("targetPosition");
-	//printf("%fx:", targetPosition.x);
-	//printf("%fy:", targetPosition.y);
-	//printf("%fz:\n\n", targetPosition.z);
-	//
-	//
-	//printf("%frotateRadius\n", rotateRadius);
-	//printf("%fangleV\n", angleV);
-	//printf("%fangleH\n\n\n", angleH);
-	//cameraPosition = glm::vec3(5.0f, 5.0f, 0.0f);
-	//targetPosition = glm::vec3(5.0f, 5.0f, -5.0f);
-
-	//printf("ViewMatF\n");
-	//for (int i = 0; i < 16; i++) {
-	//	printf("%f ", ViewMatF[i]);
-	//}
-	//
-	//printf("\n");
-	////
-	//printf("ProjMatF\n");
-	//for (int i = 0; i < 16; i++) {
-	//	printf("%f ", ProjMatF[i]);
-	//}
-	//printf("\n");
-	//printf("\n");
 }
 
 void GLCamera::Reset()
@@ -144,30 +113,10 @@ void GLCamera::Reset()
 		}
 	}
 
-	//for (int i = 0; i < ProjMat.row_size(); i++)
-	//{
-	//	for (int j = 0; j < ProjMat.col_size(); j++)
-	//	{
-	//		ProjMatF[i*ProjMat.col_size() + j] = ProjMat[i][j];
-	//	}
-	//}
-
-	//float tmp[16] = {-0.991216, -0.031996, 0.128328, 0.0, 0.0, 0.970296, 0.241922, 0.0, -0.132256, 0.239797, -0.961772, 0.0, 6.455243, -6.063533, -9.372509, 1.0};
-
-	//for (int i = 0; i < 16; i++) {
-	//	ViewMatF[i] = tmp[i];
-	//}
-
-	cameraPosition = glm::vec3(-10.112521, 9.628954, -8.63829);
-	targetPosition = glm::vec3(-10.278182, 5.566662, 3.225534);
-	rotateRadius = 12.541135;
-	angleV = 71.6000;
-	angleH = -89.2;
-
     translateDelta = glm::vec3(0);
-    //rotateRadius = 10;
+    rotateRadius = 10;
     minRadius = 0.1;
-   // angleV = angleH = 90;
+    angleV = angleH = 90;
     minAngleV = 0;
     maxAngleV = 180;
     isTranslate = false;

@@ -49,7 +49,6 @@ void GLManager::Draw()
     glm::mat4 viewMat = glCamera->GetViewMatrix();
     glm::mat4 projMat = glCamera->GetProjecyionMatrix();
 
-
 	if (is_PC == true) {
 		glPointSize(6);
 		teeth_vertex->Render_PC(viewMat, projMat);
