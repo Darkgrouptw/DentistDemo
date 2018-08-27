@@ -64,6 +64,7 @@ private:
 	NetworkSize					OutputSize;
 	vector<Mat>					InputChannelPointer;												// 這邊存放資料 Network 對應到每一個 Channel 的位置 Array
 	string						LUT_file = "./Models/camvid11.png";
+	Mat							LabelImg;
 
 	//////////////////////////////////////////////////////////////////////////
 	// Helper Function

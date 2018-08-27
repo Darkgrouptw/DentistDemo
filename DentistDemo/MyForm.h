@@ -645,6 +645,10 @@ namespace DentistDemo
 			this->control_pic->Name = L"control_pic";
 			this->control_pic->Size = System::Drawing::Size(191, 45);
 			this->control_pic->TabIndex = 71;
+			this->control_pic->Scroll += gcnew System::EventHandler(this, &MyForm::ScrollChangeEvent);
+			this->control_pic->Minimum = 0;
+			this->control_pic->Maximum = 200 - 60;				// 從 60 ~ 200 張
+			this->control_pic->Enabled = false;
 			// 
 			// Choose_teeth
 			// 
@@ -990,18 +994,18 @@ namespace DentistDemo
 			/////////////////////////////////////// TEST
 			load_rawImg();
 			//std::cout << "load OK\n";
-			for (int i = 0; i < (*raw_input).size()/4; i++) {
-				cv::Mat tmp_image;
+			for (int i = 0; i < (*raw_input).size(); i++) {
 				//std::cout << "for OK\n";
-				tmp_image = NetworkModel->Predict((*raw_input)[i]);
+				cv::Mat tmp_image = NetworkModel->Predict((*raw_input)[i]);
 				//std::cout << "predict ok\n";
 				(*Result_Image).push_back(tmp_image);
 				//std::cout << "push back OK\n";
 				std::cout << "num = " << i << " is OK\n";
-				cv::imwrite("./resultT01_13M/" + std::to_string(i+60) + ".png", tmp_image);
+				//cv::imwrite("./resultT01_13M/" + std::to_string(i+60) + ".png", tmp_image);
 			}
 
 			classify_result();
+			this->control_pic->Enabled = true;
 			/////////////////////////////////////// TEST
 		}
 		private: System::Void pictureBox1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
@@ -1096,6 +1100,33 @@ namespace DentistDemo
 			//}
 		
 		
+		}
+
+
+		//////////////////////////////////////////////////////////////////////////
+		// Scroll Image
+		//////////////////////////////////////////////////////////////////////////
+		private: System::Void ScrollChangeEvent(System::Object^ sender, System::EventArgs^ e)
+		{
+			System::IO::Directory::CreateDirectory("./Temp");
+
+			int index = this->control_pic->Value;
+			cout << index << endl;
+			Mat InputMat = (*raw_input)[index];
+			Mat ResultMat = NetworkModel->Visualization((*Result_Image)[index]);
+
+
+			// 轉型態
+			cvtColor(InputMat.clone(), InputMat, CV_BGR2BGRA);
+			cvtColor(ResultMat.clone(), ResultMat, CV_BGR2BGRA);
+
+			HBITMAP hBit = CreateBitmap(InputMat.cols, InputMat.rows, 1, 32, InputMat.data);
+			Bitmap^ bitMap = Bitmap::FromHbitmap((IntPtr)hBit);
+			this->OCT_Img->Image = bitMap;
+			
+			hBit = CreateBitmap(ResultMat.cols, ResultMat.rows, 1, 32, ResultMat.data);
+			bitMap = Bitmap::FromHbitmap((IntPtr)hBit);
+			this->Result_Img->Image = bitMap;
 		}
 	};
 }

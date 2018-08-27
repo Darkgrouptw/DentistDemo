@@ -4,6 +4,7 @@ SegnetModel::SegnetModel()
 {
 	google::InitGoogleLogging("DentistDemo.exe");
 	Caffe::set_mode(Caffe::GPU);
+	LabelImg = imread(LUT_file, 1);
 }
 SegnetModel::~SegnetModel()
 {
@@ -48,13 +49,13 @@ Mat SegnetModel::Predict(Mat &img)
 	#pragma endregion
 	#pragma region 跑網路結果
 	// 測試時間
-	chrono::steady_clock::time_point BeginTime = chrono::steady_clock::now();
+	//chrono::steady_clock::time_point BeginTime = chrono::steady_clock::now();
 
 	SegNet->Forward();
 
 	// Output時間
-	chrono::steady_clock::time_point EndTime = chrono::steady_clock::now();
-	cout << "處理時間 = " << (chrono::duration_cast<chrono::microseconds>(EndTime - BeginTime).count()) / 1000000.0 << " sec" << endl;
+	//chrono::steady_clock::time_point EndTime = chrono::steady_clock::now();
+	//cout << "處理時間 = " << (chrono::duration_cast<chrono::microseconds>(EndTime - BeginTime).count()) / 1000000.0 << " sec" << endl;
 	#pragma endregion
 	#pragma region 轉成 Output
 	Blob<float>* output_layer = SegNet->output_blobs()[0];
@@ -83,11 +84,10 @@ Mat SegnetModel::Visualization(Mat img)
 	// 從灰階轉成 RGB
 	cvtColor(img.clone(), img, CV_GRAY2BGR);
 
-	Mat label_colours = imread(LUT_file, 1);
 	Mat output_image;
 
 	// 對應回 LUT 的資料
-	LUT(img, label_colours, output_image);
+	LUT(img, LabelImg, output_image);
 	return output_image;
 }
 
