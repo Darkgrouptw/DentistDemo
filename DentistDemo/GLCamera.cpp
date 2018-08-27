@@ -96,6 +96,23 @@ void GLCamera::UpdateView()
 			ViewMatF[i*ViewMat.col_size() + j] = ViewMat[i][j];
 		}
 	}
+	//printf("cameraPosition:\n");
+	//printf("%f x:", cameraPosition.x);
+	//printf("%f y:", cameraPosition.y);
+	//printf("%f z:", cameraPosition.z);
+	//printf("\n\n");
+	//
+	//printf("targetPosition:\n");
+	//printf("%f x:", targetPosition.x);
+	//printf("%f y:", targetPosition.y);
+	//printf("%f z:", targetPosition.z);
+	//printf("\n\n");
+	//
+	//printf("%frotateRadius:\n", rotateRadius);
+	//printf("%fangleV:\n", angleV);
+	//printf("%fangleH:\n", angleH);
+	//printf("\n\n");
+
 }
 
 void GLCamera::Reset()
@@ -114,13 +131,18 @@ void GLCamera::Reset()
 	}
 
     translateDelta = glm::vec3(0);
-    rotateRadius = 10;
+    //rotateRadius = 10;
+	rotateRadius = 6.965914;
     minRadius = 0.1;
-    angleV = angleH = 90;
+    //angleV = angleH = 90;
+	angleV = 72.5;
+	angleH = -103.2;
     minAngleV = 0;
     maxAngleV = 180;
     isTranslate = false;
     isRotate = false;
+	cameraPosition = glm::vec3(-9.834746, 9.261356, -5.892487);
+	targetPosition = glm::vec3(-8.317695, 7.166666, 0.575495);
 
     UpdateView();
 }

@@ -76,7 +76,13 @@ struct Point_3D {
 	Vector3 idt;
 	int type;
 };
-
+struct Teeth_PC
+{
+	std::vector<cv::Mat> *result_input, *raw_input;
+	std::vector<Point_3D> *teeth_imgPC;
+	std::vector<Point_3D> *meat_imgPC;
+	std::vector<Point_3D> *disease_imgPC;
+};
 namespace DentistDemo 
 {
 	using namespace System;
@@ -108,9 +114,10 @@ namespace DentistDemo
 			NetworkModel = new SegnetModel();
 			NetworkModel->Load("./Models/segnet_inference.prototxt", "./Models/segnet_iter_40000.caffemodel");
 			pic_mouse_move = false;
-			mouse_loc_x = 30;
-			mouse_loc_y = 30;
-			block_size = 35;
+			mouse_loc_x = 73;
+			mouse_loc_y = 72;
+			block_size_y = 35;
+			block_size_x = 19.6;
 		}
 
 	protected:
@@ -628,6 +635,7 @@ namespace DentistDemo
 			this->OCT_Img->Location = System::Drawing::Point(940, 134);
 			this->OCT_Img->Name = L"OCT_Image";
 			this->OCT_Img->Size = System::Drawing::Size(240, 154);
+			this->OCT_Img->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->OCT_Img->TabIndex = 69;
 			this->OCT_Img->TabStop = false;
 			// 
@@ -636,6 +644,7 @@ namespace DentistDemo
 			this->Result_Img->Location = System::Drawing::Point(940, 307);
 			this->Result_Img->Name = L"Result_Image";
 			this->Result_Img->Size = System::Drawing::Size(240, 154);
+			this->Result_Img->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->Result_Img->TabIndex = 70;
 			this->Result_Img->TabStop = false;
 			// 
@@ -849,7 +858,8 @@ namespace DentistDemo
 		void classify_result();
 		void teeth_vert();
 		void choose_slice(int pic_num);
-		
+		void slice_quad(int index);
+
 	private:
 		//
 		// System Maintenance Variables
@@ -936,6 +946,7 @@ namespace DentistDemo
 		std::vector<Point_3D> *teeth_imgPC;
 		std::vector<Point_3D> *meat_imgPC;
 		std::vector<Point_3D> *disease_imgPC;
+		std::vector<Teeth_PC> *teeth_1, *teeth_2, *teeth_3, *teeth_4, *teeth_5;
 		float meat_alpha;
 		int pic_num;
 
@@ -943,8 +954,9 @@ namespace DentistDemo
 		std::vector<cv::Mat> *Result_Image;
 
 		objData *obj1, *obj2, *obj3, *obj4, *obj5;
-		float mouse_loc_x, mouse_loc_y, block_size, color_idt;
+		float mouse_loc_x, mouse_loc_y, block_size_x, color_idt, block_size_y;
 		bool pic_mouse_move;
+		Vector3 *slice_p1, *slice_p2, *slice_p3, *slice_p4;
 
 	private:
 
@@ -1016,14 +1028,14 @@ namespace DentistDemo
 			 // Draw a string on the PictureBox.
 			 //g->DrawString("This is a diagonal line drawn on the control",
 			 //	gcnew System::Drawing::Font("Arial", 10), System::Drawing::Brushes::Blue, Point(30, 30));
-			 Pen^ RedPen = gcnew Pen(Color::Red, 3.0f);
+			 Pen^ RedPen = gcnew Pen(Color::Red, 1.5f);
 
 
 			 // Draw a line in the PictureBox.
-			 g->DrawLine(RedPen, mouse_loc_x + block_size, mouse_loc_y + block_size, mouse_loc_x - block_size, mouse_loc_y + block_size);
-			 g->DrawLine(RedPen, mouse_loc_x - block_size, mouse_loc_y + block_size, mouse_loc_x - block_size, mouse_loc_y - block_size);
-			 g->DrawLine(RedPen, mouse_loc_x - block_size, mouse_loc_y - block_size, mouse_loc_x + block_size, mouse_loc_y - block_size);
-			 g->DrawLine(RedPen, mouse_loc_x + block_size, mouse_loc_y - block_size, mouse_loc_x + block_size, mouse_loc_y + block_size);
+			 g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y, mouse_loc_x - block_size_x, mouse_loc_y + block_size_y);
+			 g->DrawLine(RedPen, mouse_loc_x - block_size_x, mouse_loc_y + block_size_y, mouse_loc_x - block_size_x, mouse_loc_y - block_size_y);
+			 g->DrawLine(RedPen, mouse_loc_x - block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y);
+			 g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y);
 
 			 //std::cout << "paint\n";
 		}
@@ -1112,6 +1124,7 @@ namespace DentistDemo
 			int index = this->control_pic->Value;
 			cout << index << endl;
 			ShowImage(index);
+			slice_quad(index);
 		}
 		void ShowImage(int index)
 		{
