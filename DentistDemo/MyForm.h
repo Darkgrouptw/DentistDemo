@@ -94,7 +94,6 @@ namespace DentistDemo
 	/// <summary>
 	/// MyForm 的摘要
 	/// </summary>
-	//public ref class MyForm : public System::Windows::Forms::Form
 	public ref class MyForm : public MaterialSkin::Controls::MaterialForm
 	{
 	public:
@@ -290,14 +289,14 @@ namespace DentistDemo
 			// cbComPortL
 			// 
 			this->cbComPortL->FormattingEnabled = true;
-			this->cbComPortL->Location = System::Drawing::Point(12, 12);
+			this->cbComPortL->Location = System::Drawing::Point(12, 82);
 			this->cbComPortL->Name = L"cbComPortL";
 			this->cbComPortL->Size = System::Drawing::Size(121, 20);
 			this->cbComPortL->TabIndex = 0;
 			// 
 			// btnComUpdate
 			// 
-			this->btnComUpdate->Location = System::Drawing::Point(139, 10);
+			this->btnComUpdate->Location = System::Drawing::Point(139, 80);
 			this->btnComUpdate->Name = L"btnComUpdate";
 			this->btnComUpdate->Size = System::Drawing::Size(75, 23);
 			this->btnComUpdate->TabIndex = 1;
@@ -309,14 +308,14 @@ namespace DentistDemo
 			// cbBleDeviceL
 			// 
 			this->cbBleDeviceL->FormattingEnabled = true;
-			this->cbBleDeviceL->Location = System::Drawing::Point(333, 11);
+			this->cbBleDeviceL->Location = System::Drawing::Point(333, 81);
 			this->cbBleDeviceL->Name = L"cbBleDeviceL";
 			this->cbBleDeviceL->Size = System::Drawing::Size(121, 20);
 			this->cbBleDeviceL->TabIndex = 2;
 			// 
 			// btnBleScan
 			// 
-			this->btnBleScan->Location = System::Drawing::Point(460, 8);
+			this->btnBleScan->Location = System::Drawing::Point(460, 78);
 			this->btnBleScan->Name = L"btnBleScan";
 			this->btnBleScan->Size = System::Drawing::Size(75, 23);
 			this->btnBleScan->TabIndex = 3;
@@ -326,7 +325,7 @@ namespace DentistDemo
 			// 
 			// btnComOpen
 			// 
-			this->btnComOpen->Location = System::Drawing::Point(220, 10);
+			this->btnComOpen->Location = System::Drawing::Point(220, 80);
 			this->btnComOpen->Name = L"btnComOpen";
 			this->btnComOpen->Size = System::Drawing::Size(75, 23);
 			this->btnComOpen->TabIndex = 4;
@@ -336,7 +335,7 @@ namespace DentistDemo
 			// 
 			// btnBleEstablish
 			// 
-			this->btnBleEstablish->Location = System::Drawing::Point(552, 8);
+			this->btnBleEstablish->Location = System::Drawing::Point(552, 78);
 			this->btnBleEstablish->Name = L"btnBleEstablish";
 			this->btnBleEstablish->Size = System::Drawing::Size(75, 23);
 			this->btnBleEstablish->TabIndex = 5;
@@ -346,7 +345,7 @@ namespace DentistDemo
 			// 
 			// Get_Quat
 			// 
-			this->Get_Quat->Location = System::Drawing::Point(645, 8);
+			this->Get_Quat->Location = System::Drawing::Point(645, 78);
 			this->Get_Quat->Name = L"Get_Quat";
 			this->Get_Quat->Size = System::Drawing::Size(75, 23);
 			this->Get_Quat->TabIndex = 6;
@@ -356,7 +355,7 @@ namespace DentistDemo
 			// 
 			// Full_scan
 			// 
-			this->Full_scan->Location = System::Drawing::Point(755, 110);
+			this->Full_scan->Location = System::Drawing::Point(755, 180);
 			this->Full_scan->Name = L"Full_scan";
 			this->Full_scan->Size = System::Drawing::Size(75, 23);
 			this->Full_scan->TabIndex = 9;
@@ -371,7 +370,7 @@ namespace DentistDemo
 			hkcoglPanelCameraSetting1->Near = -1000;
 			hkcoglPanelCameraSetting1->Type = HKOGLPanel::HKCOGLPanelCameraSetting::CAMERATYPE::ORTHOGRAPHIC;
 			this->hkoglPanelControl1->Camera_Setting = hkcoglPanelCameraSetting1;
-			this->hkoglPanelControl1->Location = System::Drawing::Point(14, 49);
+			this->hkoglPanelControl1->Location = System::Drawing::Point(14, 119);
 			this->hkoglPanelControl1->Name = L"hkoglPanelControl1";
 			hkcoglPanelPixelFormat1->Accumu_Buffer_Bits = HKOGLPanel::HKCOGLPanelPixelFormat::PIXELBITS::BITS_0;
 			hkcoglPanelPixelFormat1->Alpha_Buffer_Bits = HKOGLPanel::HKCOGLPanelPixelFormat::PIXELBITS::BITS_0;
@@ -390,7 +389,7 @@ namespace DentistDemo
 			// 
 			// Clear_cloud
 			// 
-			this->Clear_cloud->Location = System::Drawing::Point(754, 9);
+			this->Clear_cloud->Location = System::Drawing::Point(754, 79);
 			this->Clear_cloud->Name = L"Clear_cloud";
 			this->Clear_cloud->Size = System::Drawing::Size(75, 23);
 			this->Clear_cloud->TabIndex = 12;
@@ -406,7 +405,7 @@ namespace DentistDemo
 			// 
 			// Aligned12
 			// 
-			this->Aligned12->Location = System::Drawing::Point(755, 153);
+			this->Aligned12->Location = System::Drawing::Point(755, 273);
 			this->Aligned12->Name = L"Aligned12";
 			this->Aligned12->Size = System::Drawing::Size(75, 23);
 			this->Aligned12->TabIndex = 53;
@@ -416,7 +415,7 @@ namespace DentistDemo
 			// 
 			// Aligned_near
 			// 
-			this->Aligned_near->Location = System::Drawing::Point(997, 299);
+			this->Aligned_near->Location = System::Drawing::Point(997, 369);
 			this->Aligned_near->Name = L"Aligned_near";
 			this->Aligned_near->Size = System::Drawing::Size(83, 23);
 			this->Aligned_near->TabIndex = 55;
@@ -426,7 +425,7 @@ namespace DentistDemo
 			// 
 			// reset_rot
 			// 
-			this->reset_rot->Location = System::Drawing::Point(997, 69);
+			this->reset_rot->Location = System::Drawing::Point(997, 139);
 			this->reset_rot->Name = L"reset_rot";
 			this->reset_rot->Size = System::Drawing::Size(83, 23);
 			this->reset_rot->TabIndex = 56;
@@ -442,7 +441,7 @@ namespace DentistDemo
 			// 
 			// Aligned_Pre
 			// 
-			this->Aligned_Pre->Location = System::Drawing::Point(997, 268);
+			this->Aligned_Pre->Location = System::Drawing::Point(997, 338);
 			this->Aligned_Pre->Name = L"Aligned_Pre";
 			this->Aligned_Pre->Size = System::Drawing::Size(83, 23);
 			this->Aligned_Pre->TabIndex = 57;
@@ -452,7 +451,7 @@ namespace DentistDemo
 			// 
 			// Combine_cloud
 			// 
-			this->Combine_cloud->Location = System::Drawing::Point(997, 453);
+			this->Combine_cloud->Location = System::Drawing::Point(997, 523);
 			this->Combine_cloud->Name = L"Combine_cloud";
 			this->Combine_cloud->Size = System::Drawing::Size(83, 23);
 			this->Combine_cloud->TabIndex = 62;
@@ -462,7 +461,7 @@ namespace DentistDemo
 			// 
 			// Save_combine
 			// 
-			this->Save_combine->Location = System::Drawing::Point(997, 488);
+			this->Save_combine->Location = System::Drawing::Point(997, 558);
 			this->Save_combine->Name = L"Save_combine";
 			this->Save_combine->Size = System::Drawing::Size(83, 23);
 			this->Save_combine->TabIndex = 63;
@@ -473,7 +472,7 @@ namespace DentistDemo
 			// output_name
 			// 
 			this->output_name->AutoSize = true;
-			this->output_name->Location = System::Drawing::Point(778, 62);
+			this->output_name->Location = System::Drawing::Point(778, 132);
 			this->output_name->Name = L"output_name";
 			this->output_name->Size = System::Drawing::Size(32, 12);
 			this->output_name->TabIndex = 64;
@@ -481,7 +480,7 @@ namespace DentistDemo
 			// 
 			// name_output
 			// 
-			this->name_output->Location = System::Drawing::Point(743, 77);
+			this->name_output->Location = System::Drawing::Point(743, 147);
 			this->name_output->Name = L"name_output";
 			this->name_output->Size = System::Drawing::Size(100, 22);
 			this->name_output->TabIndex = 65;
@@ -490,7 +489,7 @@ namespace DentistDemo
 			// 
 			// Add2Combine
 			// 
-			this->Add2Combine->Location = System::Drawing::Point(992, 394);
+			this->Add2Combine->Location = System::Drawing::Point(992, 464);
 			this->Add2Combine->Name = L"Add2Combine";
 			this->Add2Combine->Size = System::Drawing::Size(93, 23);
 			this->Add2Combine->TabIndex = 66;
@@ -501,7 +500,7 @@ namespace DentistDemo
 			// pictureBox1
 			// 
 			this->pictureBox1->BackColor = System::Drawing::Color::Gold;
-			this->pictureBox1->Location = System::Drawing::Point(992, 59);
+			this->pictureBox1->Location = System::Drawing::Point(992, 129);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(93, 38);
 			this->pictureBox1->TabIndex = 67;
@@ -510,7 +509,7 @@ namespace DentistDemo
 			// pictureBox2
 			// 
 			this->pictureBox2->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->pictureBox2->Location = System::Drawing::Point(975, 230);
+			this->pictureBox2->Location = System::Drawing::Point(975, 300);
 			this->pictureBox2->Name = L"pictureBox2";
 			this->pictureBox2->Size = System::Drawing::Size(128, 200);
 			this->pictureBox2->TabIndex = 68;
@@ -520,7 +519,7 @@ namespace DentistDemo
 			// 
 			this->pictureBox3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
-			this->pictureBox3->Location = System::Drawing::Point(992, 441);
+			this->pictureBox3->Location = System::Drawing::Point(992, 511);
 			this->pictureBox3->Name = L"pictureBox3";
 			this->pictureBox3->Size = System::Drawing::Size(93, 79);
 			this->pictureBox3->TabIndex = 69;
@@ -530,7 +529,7 @@ namespace DentistDemo
 			// 
 			this->pictureBox5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
 				static_cast<System::Int32>(static_cast<System::Byte>(192)));
-			this->pictureBox5->Location = System::Drawing::Point(742, 303);
+			this->pictureBox5->Location = System::Drawing::Point(742, 373);
 			this->pictureBox5->Name = L"pictureBox5";
 			this->pictureBox5->Size = System::Drawing::Size(100, 73);
 			this->pictureBox5->TabIndex = 71;
@@ -541,7 +540,7 @@ namespace DentistDemo
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"新細明體", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
-			this->label6->Location = System::Drawing::Point(984, 49);
+			this->label6->Location = System::Drawing::Point(984, 119);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(14, 15);
 			this->label6->TabIndex = 74;
@@ -552,7 +551,7 @@ namespace DentistDemo
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"新細明體", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
-			this->label7->Location = System::Drawing::Point(975, 222);
+			this->label7->Location = System::Drawing::Point(975, 302);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(14, 15);
 			this->label7->TabIndex = 75;
@@ -563,7 +562,7 @@ namespace DentistDemo
 			this->label8->AutoSize = true;
 			this->label8->Font = (gcnew System::Drawing::Font(L"新細明體", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
-			this->label8->Location = System::Drawing::Point(985, 433);
+			this->label8->Location = System::Drawing::Point(985, 503);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(14, 15);
 			this->label8->TabIndex = 76;
@@ -573,7 +572,7 @@ namespace DentistDemo
 			// 
 			this->pictureBox6->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
 				static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			this->pictureBox6->Location = System::Drawing::Point(972, 103);
+			this->pictureBox6->Location = System::Drawing::Point(972, 173);
 			this->pictureBox6->Name = L"pictureBox6";
 			this->pictureBox6->Size = System::Drawing::Size(131, 124);
 			this->pictureBox6->TabIndex = 84;
@@ -584,7 +583,7 @@ namespace DentistDemo
 			this->label12->AutoSize = true;
 			this->label12->Font = (gcnew System::Drawing::Font(L"新細明體", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
-			this->label12->Location = System::Drawing::Point(975, 93);
+			this->label12->Location = System::Drawing::Point(975, 113);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(14, 15);
 			this->label12->TabIndex = 85;
@@ -592,7 +591,7 @@ namespace DentistDemo
 			// 
 			// Aligned_target
 			// 
-			this->Aligned_target->Location = System::Drawing::Point(997, 358);
+			this->Aligned_target->Location = System::Drawing::Point(997, 428);
 			this->Aligned_target->Name = L"Aligned_target";
 			this->Aligned_target->Size = System::Drawing::Size(83, 23);
 			this->Aligned_target->TabIndex = 88;
@@ -602,7 +601,7 @@ namespace DentistDemo
 			// 
 			// Test_detect
 			// 
-			this->Test_detect->Location = System::Drawing::Point(755, 237);
+			this->Test_detect->Location = System::Drawing::Point(755, 307);
 			this->Test_detect->Name = L"Test_detect";
 			this->Test_detect->Size = System::Drawing::Size(75, 23);
 			this->Test_detect->TabIndex = 67;
@@ -613,7 +612,7 @@ namespace DentistDemo
 			// teeth_Model
 			// 
 			this->teeth_Model->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"teeth_Model.Image")));
-			this->teeth_Model->Location = System::Drawing::Point(731, 312);
+			this->teeth_Model->Location = System::Drawing::Point(731, 382);
 			this->teeth_Model->Name = L"teeth_Model";
 			this->teeth_Model->Size = System::Drawing::Size(138, 206);
 			this->teeth_Model->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
@@ -626,7 +625,7 @@ namespace DentistDemo
 			// 
 			// OCT_Img
 			// 
-			this->OCT_Img->Location = System::Drawing::Point(940, 64);
+			this->OCT_Img->Location = System::Drawing::Point(940, 134);
 			this->OCT_Img->Name = L"OCT_Image";
 			this->OCT_Img->Size = System::Drawing::Size(240, 154);
 			this->OCT_Img->TabIndex = 69;
@@ -634,7 +633,7 @@ namespace DentistDemo
 			// 
 			// Result_Img
 			// 
-			this->Result_Img->Location = System::Drawing::Point(940, 237);
+			this->Result_Img->Location = System::Drawing::Point(940, 307);
 			this->Result_Img->Name = L"Result_Image";
 			this->Result_Img->Size = System::Drawing::Size(240, 154);
 			this->Result_Img->TabIndex = 70;
@@ -642,7 +641,7 @@ namespace DentistDemo
 			// 
 			// control_pic
 			// 
-			this->control_pic->Location = System::Drawing::Point(968, 416);
+			this->control_pic->Location = System::Drawing::Point(968, 486);
 			this->control_pic->Name = L"control_pic";
 			this->control_pic->Size = System::Drawing::Size(191, 45);
 			this->control_pic->TabIndex = 71;
@@ -658,7 +657,7 @@ namespace DentistDemo
 				L"Teeth 1", L"Teeth 2", L"Teeth 3", L"Teeth 4",
 					L"Teeth 5"
 			});
-			this->Choose_teeth->Location = System::Drawing::Point(743, 277);
+			this->Choose_teeth->Location = System::Drawing::Point(743, 347);
 			this->Choose_teeth->Name = L"Choose_teeth";
 			this->Choose_teeth->Size = System::Drawing::Size(100, 20);
 			this->Choose_teeth->TabIndex = 72;
@@ -666,7 +665,7 @@ namespace DentistDemo
 			// 
 			// progressBar
 			// 
-			this->progressBar->Location = System::Drawing::Point(968, 467);
+			this->progressBar->Location = System::Drawing::Point(968, 537);
 			this->progressBar->Name = L"progressBar";
 			this->progressBar->Size = System::Drawing::Size(191, 23);
 			this->progressBar->TabIndex = 73;
@@ -721,7 +720,7 @@ namespace DentistDemo
 			// Test_Model
 			// 
 			this->Test_Model = (gcnew System::Windows::Forms::Button());
-			this->Test_Model->Location = System::Drawing::Point(755, 196);
+			this->Test_Model->Location = System::Drawing::Point(755, 216);
 			this->Test_Model->Name = L"Test_Model";
 			this->Test_Model->Size = System::Drawing::Size(75, 23);
 			this->Test_Model->TabIndex = 66;
