@@ -669,6 +669,7 @@ namespace DentistDemo
 			this->progressBar->Name = L"progressBar";
 			this->progressBar->Size = System::Drawing::Size(191, 23);
 			this->progressBar->TabIndex = 73;
+			this->progressBar->Maximum = 200 - 60 + 1;
 			// 
 			// MyForm
 			// 
@@ -992,20 +993,20 @@ namespace DentistDemo
 			//decay_img2space();
 
 			/////////////////////////////////////// TEST
+			progressBar->Value = 0;
 			load_rawImg();
 			//std::cout << "load OK\n";
 			for (int i = 0; i < (*raw_input).size(); i++) {
-				//std::cout << "for OK\n";
 				cv::Mat tmp_image = NetworkModel->Predict((*raw_input)[i]);
-				//std::cout << "predict ok\n";
 				(*Result_Image).push_back(tmp_image);
-				//std::cout << "push back OK\n";
+				progressBar->Value++;
 				std::cout << "num = " << i << " is OK\n";
-				//cv::imwrite("./resultT01_13M/" + std::to_string(i+60) + ".png", tmp_image);
 			}
 
 			classify_result();
+
 			this->control_pic->Enabled = true;
+			ShowImage(0);
 			/////////////////////////////////////// TEST
 		}
 		private: System::Void pictureBox1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
@@ -1108,13 +1109,14 @@ namespace DentistDemo
 		//////////////////////////////////////////////////////////////////////////
 		private: System::Void ScrollChangeEvent(System::Object^ sender, System::EventArgs^ e)
 		{
-			System::IO::Directory::CreateDirectory("./Temp");
-
 			int index = this->control_pic->Value;
 			cout << index << endl;
+			ShowImage(index);
+		}
+		void ShowImage(int index)
+		{
 			Mat InputMat = (*raw_input)[index];
 			Mat ResultMat = NetworkModel->Visualization((*Result_Image)[index]);
-
 
 			// 轉型態
 			cvtColor(InputMat.clone(), InputMat, CV_BGR2BGRA);
@@ -1123,7 +1125,7 @@ namespace DentistDemo
 			HBITMAP hBit = CreateBitmap(InputMat.cols, InputMat.rows, 1, 32, InputMat.data);
 			Bitmap^ bitMap = Bitmap::FromHbitmap((IntPtr)hBit);
 			this->OCT_Img->Image = bitMap;
-			
+
 			hBit = CreateBitmap(ResultMat.cols, ResultMat.rows, 1, 32, ResultMat.data);
 			bitMap = Bitmap::FromHbitmap((IntPtr)hBit);
 			this->Result_Img->Image = bitMap;
