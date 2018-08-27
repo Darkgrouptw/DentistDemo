@@ -105,6 +105,7 @@ void GLModelNode::read_color(double x, double y, double z)
 	tmp_v.z = z;
 
 	point_colors.push_back(tmp_v);
+	tmp_point_colors.push_back(tmp_v);
 	//std::cout << "tmp_v OK";
 }
 void GLModelNode::read_alpha(double alpha, int start) {
@@ -112,6 +113,14 @@ void GLModelNode::read_alpha(double alpha, int start) {
 		point_alpha[i] = alpha;
 	}
 	std::cout << "mode node alpha:" << alpha << "\n";
+}
+void GLModelNode::change_color(double color_idt) {
+	for (int i = 0; i < point_colors.size(); i++) {
+		point_colors[i].x = tmp_point_colors[i].x * color_idt;
+		point_colors[i].y = tmp_point_colors[i].y * color_idt;
+		point_colors[i].z = tmp_point_colors[i].z * color_idt;
+	}
+	std::cout << "mode node color:" << color_idt <<"\n";
 }
 void GLModelNode::initial_alpha(double alpha) {
 	point_alpha.push_back(alpha);

@@ -150,6 +150,8 @@ System::Void DentistDemo::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 
 	full_scan_time = 0;
 	show_Cloud_1ID = 0;
+
+	color_idt = 2.2;
 	//pic_num = 125;
 	
 	all_time = 0;
@@ -1027,22 +1029,23 @@ void DentistDemo::MyForm::classify_result() {
 	
 	}
 
+
 	for (int i = 0; i < (*teeth_imgPC).size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
 		glManager->read_point((double)(*teeth_imgPC)[i].position.x, (double)(*teeth_imgPC)[i].position.y, (double)(*teeth_imgPC)[i].position.z);
-		glManager->read_color(1*(double)(*teeth_imgPC)[i].idt.x, 1*(double)(*teeth_imgPC)[i].idt.y, 0.2*(double)(*teeth_imgPC)[i].idt.z);
+		glManager->read_color(1*(double)(*teeth_imgPC)[i].idt.x*color_idt, 1*(double)(*teeth_imgPC)[i].idt.y*color_idt, 0.2*(double)(*teeth_imgPC)[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
 	for (int i = 0; i < (*disease_imgPC).size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
 		glManager->read_point((double)(*disease_imgPC)[i].position.x, (double)(*disease_imgPC)[i].position.y, (double)(*disease_imgPC)[i].position.z);
-		glManager->read_color(0.2*(double)(*disease_imgPC)[i].idt.x, 0.2*(double)(*disease_imgPC)[i].idt.y, 1*(double)(*disease_imgPC)[i].idt.z);
+		glManager->read_color(0.2*(double)(*disease_imgPC)[i].idt.x*color_idt, 0.2*(double)(*disease_imgPC)[i].idt.y*color_idt, 1*(double)(*disease_imgPC)[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
 	for (int i = 0; i < (*meat_imgPC).size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
 		glManager->read_point((double)(*meat_imgPC)[i].position.x, (double)(*meat_imgPC)[i].position.y, (double)(*meat_imgPC)[i].position.z);
-		glManager->read_color(1*(double)(*meat_imgPC)[i].idt.x, 0.2*(double)(*meat_imgPC)[i].idt.y, 0.2*(double)(*meat_imgPC)[i].idt.z);
+		glManager->read_color(1*(double)(*meat_imgPC)[i].idt.x*color_idt, 0.2*(double)(*meat_imgPC)[i].idt.y*color_idt, 0.2*(double)(*meat_imgPC)[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
 
@@ -1634,9 +1637,14 @@ void DentistDemo::MyForm::hkoglPanelControl1_KeyDown(System::Object^  sender, Sy
 			meat_alpha = meat_alpha - 0.05f;
 		else
 			meat_alpha = meat_alpha;
-		std::cout << "(*teeth_imgPC).size():" << (*teeth_imgPC).size() << "\n";
-		std::cout << "meat_alpha:" << meat_alpha << "\n";
+		//std::cout << "(*teeth_imgPC).size():" << (*teeth_imgPC).size() << "\n";
+		//std::cout << "meat_alpha:" << meat_alpha << "\n";
 		glManager->read_alpha(meat_alpha, (*teeth_imgPC).size()+ (*disease_imgPC).size());
+
+		
+		//color_idt = color_idt + 0.1f;
+		//glManager->change_color(color_idt);
+		//std::cout << "color_idt:" << color_idt << "\n";
 		
 	}
 	else if (e->KeyCode == System::Windows::Forms::Keys::N) {
@@ -1644,10 +1652,17 @@ void DentistDemo::MyForm::hkoglPanelControl1_KeyDown(System::Object^  sender, Sy
 			meat_alpha = meat_alpha + 0.05f;
 		else
 			meat_alpha = meat_alpha;
-		std::cout << "(*teeth_imgPC).size():" << (*teeth_imgPC).size() << "\n";
-		std::cout << "meat_alpha:" << meat_alpha << "\n";
+		//std::cout << "(*teeth_imgPC).size():" << (*teeth_imgPC).size() << "\n";
+		//std::cout << "meat_alpha:" << meat_alpha << "\n";
 		glManager->read_alpha(meat_alpha, (*teeth_imgPC).size()+ (*disease_imgPC).size());
 
+
+
+		//if (color_idt > 1) {
+		//	color_idt = color_idt - 0.1f;
+		//	glManager->change_color(color_idt);
+		//	std::cout << "color_idt:" << color_idt << "\n";
+		//}
 	}
 	else if (e->KeyCode == System::Windows::Forms::Keys::G) {
 

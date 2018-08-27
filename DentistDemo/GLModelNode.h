@@ -118,6 +118,7 @@ public:
 
 	void read_vert(double x, double y, double z);
 	void read_color(double x, double y, double z);
+	void change_color(double color_idt);
 	void read_alpha(double alpha, int start);
 	void initial_alpha(double alpha);
 	void initial_vert();
@@ -162,5 +163,6 @@ private:
 
 	std::vector<glm::vec3> point_vertices;
 	std::vector<glm::vec3> point_colors;
+	std::vector<glm::vec3> tmp_point_colors;
 	std::vector<float> point_alpha;
 };

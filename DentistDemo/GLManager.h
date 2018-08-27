@@ -10,11 +10,12 @@ namespace DentistDemo
     {
     public:
         GLManager();
-
+		
         void Draw();
 		
 		void read_point(float x,float y, float z);
 		void read_color(float x, float y, float z);
+		void change_color(float color_idt);
 		void read_alpha(double alpha, int start);
 		void initial_alpha();
 		void Initial_vert();

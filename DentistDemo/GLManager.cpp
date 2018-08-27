@@ -74,6 +74,10 @@ void DentistDemo::GLManager::read_color(float x, float y, float z)
 	teeth_vertex->read_color(x, y, z);
 
 }
+void DentistDemo::GLManager::change_color(float color_idt)
+{
+	teeth_vertex->change_color(color_idt);
+}
 void DentistDemo::GLManager::read_alpha(double alpha, int start) {
 	teeth_vertex->read_alpha(alpha, start);
 }

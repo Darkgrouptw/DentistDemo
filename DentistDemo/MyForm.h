@@ -221,6 +221,7 @@ namespace DentistDemo
 	private: System::Windows::Forms::TrackBar^  control_pic;
 	private: System::Windows::Forms::PictureBox^  teeth_Model;
 	private: System::Windows::Forms::ComboBox^  Choose_teeth;
+	private: System::Windows::Forms::ProgressBar^  progressBar;
 
 	private:
 #pragma region Windows Form Designer generated code
@@ -272,6 +273,7 @@ namespace DentistDemo
 			this->control_pic = (gcnew System::Windows::Forms::TrackBar());
 			this->Choose_teeth = (gcnew System::Windows::Forms::ComboBox());
 			this->teeth_Model = (gcnew System::Windows::Forms::PictureBox());
+			this->progressBar = (gcnew System::Windows::Forms::ProgressBar());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->teeth_Model))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
@@ -657,11 +659,19 @@ namespace DentistDemo
 			this->Choose_teeth->TabIndex = 72;
 			this->Choose_teeth->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::Choose_teeth_SelectedIndexChanged);
 			// 
+			// progressBar
+			// 
+			this->progressBar->Location = System::Drawing::Point(968, 467);
+			this->progressBar->Name = L"progressBar";
+			this->progressBar->Size = System::Drawing::Size(191, 23);
+			this->progressBar->TabIndex = 73;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1203, 614);
+			this->Controls->Add(this->progressBar);
 			this->Controls->Add(this->Choose_teeth);
 			this->Controls->Add(this->control_pic);
 			this->Controls->Add(this->Result_Img);
@@ -928,7 +938,7 @@ namespace DentistDemo
 		std::vector<cv::Mat> *Result_Image;
 
 		objData *obj1, *obj2, *obj3, *obj4, *obj5;
-		float mouse_loc_x, mouse_loc_y, block_size;
+		float mouse_loc_x, mouse_loc_y, block_size, color_idt;
 		bool pic_mouse_move;
 
 	private:
@@ -980,7 +990,7 @@ namespace DentistDemo
 			/////////////////////////////////////// TEST
 			load_rawImg();
 			//std::cout << "load OK\n";
-			for (int i = 0; i < (*raw_input).size(); i++) {
+			for (int i = 0; i < (*raw_input).size()/4; i++) {
 				cv::Mat tmp_image;
 				//std::cout << "for OK\n";
 				tmp_image = NetworkModel->Predict((*raw_input)[i]);
