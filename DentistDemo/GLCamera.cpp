@@ -132,17 +132,17 @@ void GLCamera::Reset()
 
     translateDelta = glm::vec3(0);
     //rotateRadius = 10;
-	rotateRadius = 6.965914;
+	rotateRadius = 5.673780;
     minRadius = 0.1;
     //angleV = angleH = 90;
-	angleV = 72.5;
-	angleH = -103.2;
+	angleV = 75.5;
+	angleH = -102.6;
     minAngleV = 0;
     maxAngleV = 180;
     isTranslate = false;
     isRotate = false;
-	cameraPosition = glm::vec3(-9.834746, 9.261356, -5.892487);
-	targetPosition = glm::vec3(-8.317695, 7.166666, 0.575495);
+	cameraPosition = glm::vec3(-8.957374, -3.679400, -4.889966);
+	targetPosition = glm::vec3(-7.759100, -5.100001, 0.470800);
 
     UpdateView();
 }

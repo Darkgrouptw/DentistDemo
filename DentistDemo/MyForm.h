@@ -667,6 +667,7 @@ namespace DentistDemo
 					L"Teeth 5"
 			});
 			this->Choose_teeth->Location = System::Drawing::Point(743, 347);
+			this->Choose_teeth->SelectedIndex = 0;
 			this->Choose_teeth->Name = L"Choose_teeth";
 			this->Choose_teeth->Size = System::Drawing::Size(100, 20);
 			this->Choose_teeth->TabIndex = 72;
@@ -992,17 +993,24 @@ namespace DentistDemo
 		}
 		private: System::Void Test_detect_Click(System::Object^  sender, System::EventArgs^  e) 
 		{
-			//color_img();
 
+			/////////////////////////////////////// SCAN
+			//progressBar->Value = 0;
+			//color_img();
+			//
 			//for (int i = 0; i < (*RGB_image).size(); i++) {
-			//	cv::Mat tmp_image;
-			//	tmp_image = NetworkModel->Predict((*RGB_image)[i]);
+			//	cv::Mat tmp_image = NetworkModel->Predict((*RGB_image)[i]);
+			//	
 			//	(*Result_Image).push_back(tmp_image);
+			//	progressBar->Value++;
 			//	std::cout << "num = " << i << " is OK\n";
 			//}
 			//
 			//classify_result();
-			//decay_img2space();
+			////decay_img2space();
+			//this->control_pic->Enabled = true;
+			//ShowImage(0);
+			/////////////////////////////////////// SCAN
 
 			/////////////////////////////////////// TEST
 			progressBar->Value = 0;

@@ -821,13 +821,13 @@ void DentistDemo::MyForm::color_img() {
 	int midIdx;
 	float idt, idtmax = 0, idtmin = 9999;
 	float ori_idt, total_idt = 0, avg_idt = 0;
-	fstream fp;
-	fp.open("vol_data.txt", ios::out);
+	//fstream fp;
+	//fp.open("vol_data.txt", ios::out);
 
 
 	for (int x = 0; x < theTRcuda->VolumeSize_X; x++) {
 		cv::Mat tmp_floating = cv::Mat(theTRcuda->VolumeSize_Y, theTRcuda->VolumeSize_Z, CV_32F, cv::Scalar(0, 0, 0));
-		cv::Mat tmp_test = cv::Mat(theTRcuda->VolumeSize_Y, theTRcuda->VolumeSize_Z, CV_32F, cv::Scalar(0, 0, 0));
+		//cv::Mat tmp_test = cv::Mat(theTRcuda->VolumeSize_Y, theTRcuda->VolumeSize_Z, CV_32F, cv::Scalar(0, 0, 0));
 		for (int row = 0; row < theTRcuda->VolumeSize_Y; row++) {
 			for (int col = 0; col < theTRcuda->VolumeSize_Z; col++) {
 				tmpIdx = ((x * theTRcuda->VolumeSize_Y) + row) * theTRcuda->VolumeSize_Z + col;
@@ -844,7 +844,7 @@ void DentistDemo::MyForm::color_img() {
 				//idt = (float)(idt - 0.2) / 1.4f;
 
 				tmp_floating.at<float>(row, col) = idt;
-				tmp_test.at<float>(row, col) = (float)(ori_idt - 1) / 8;
+				//tmp_test.at<float>(row, col) = (float)(ori_idt - 1) / 8;
 				if (ori_idt > idtmax)
 					idtmax = ori_idt;
 				if (ori_idt < idtmin)
@@ -867,7 +867,7 @@ void DentistDemo::MyForm::color_img() {
 	}
 
 
-	fp.close();
+	//fp.close();
 	//avg_idt = total_idt / (theTRcuda->VolumeSize_X*theTRcuda->VolumeSize_Y*theTRcuda->VolumeSize_Z);
 	std::cout << "avg_idt = " << avg_idt << "\n";
 	std::cout << "idtmax = " << idtmax << "\n";
@@ -1061,19 +1061,19 @@ void DentistDemo::MyForm::classify_result() {
 
 	for (int i = 0; i < (*teeth_imgPC).size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
-		glManager->read_point((double)(*teeth_imgPC)[i].position.x, (double)(*teeth_imgPC)[i].position.y, (double)(*teeth_imgPC)[i].position.z);
+		glManager->read_point(-(double)(*teeth_imgPC)[i].position.x, (double)(*teeth_imgPC)[i].position.y, (double)(*teeth_imgPC)[i].position.z);
 		glManager->read_color(1*(double)(*teeth_imgPC)[i].idt.x*color_idt, 1*(double)(*teeth_imgPC)[i].idt.y*color_idt, 0.2*(double)(*teeth_imgPC)[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
 	for (int i = 0; i < (*disease_imgPC).size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
-		glManager->read_point((double)(*disease_imgPC)[i].position.x, (double)(*disease_imgPC)[i].position.y, (double)(*disease_imgPC)[i].position.z);
+		glManager->read_point(-(double)(*disease_imgPC)[i].position.x, (double)(*disease_imgPC)[i].position.y, (double)(*disease_imgPC)[i].position.z);
 		glManager->read_color(0.2*(double)(*disease_imgPC)[i].idt.x*color_idt, 0.2*(double)(*disease_imgPC)[i].idt.y*color_idt, 1*(double)(*disease_imgPC)[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
 	for (int i = 0; i < (*meat_imgPC).size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
-		glManager->read_point((double)(*meat_imgPC)[i].position.x, (double)(*meat_imgPC)[i].position.y, (double)(*meat_imgPC)[i].position.z);
+		glManager->read_point(-(double)(*meat_imgPC)[i].position.x, (double)(*meat_imgPC)[i].position.y, (double)(*meat_imgPC)[i].position.z);
 		glManager->read_color(1*(double)(*meat_imgPC)[i].idt.x*color_idt, 0.2*(double)(*meat_imgPC)[i].idt.y*color_idt, 0.2*(double)(*meat_imgPC)[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
@@ -1404,18 +1404,18 @@ void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, Syst
 	glRotatef(90, 0, 0, 1);
 	glBegin(GL_QUADS);
 	glColor4f(1, 0, 1, 0.3f);
-	glVertex3f(slice_p1->x, slice_p1->y, slice_p1->z);
-	glVertex3f(slice_p2->x, slice_p2->y, slice_p2->z);
-	glVertex3f(slice_p3->x, slice_p3->y, slice_p3->z);
-	glVertex3f(slice_p4->x, slice_p4->y, slice_p4->z);
+	glVertex3f(-slice_p1->x, slice_p1->y, slice_p1->z);
+	glVertex3f(-slice_p2->x, slice_p2->y, slice_p2->z);
+	glVertex3f(-slice_p3->x, slice_p3->y, slice_p3->z);
+	glVertex3f(-slice_p4->x, slice_p4->y, slice_p4->z);
 	glEnd();
 
 	glBegin(GL_QUADS);
 	glColor4f(1, 0, 1, 0.3f);
-	glVertex3f(slice_p4->x, slice_p4->y, slice_p4->z);
-	glVertex3f(slice_p3->x, slice_p3->y, slice_p3->z);
-	glVertex3f(slice_p2->x, slice_p2->y, slice_p2->z);
-	glVertex3f(slice_p1->x, slice_p1->y, slice_p1->z);
+	glVertex3f(-slice_p4->x, slice_p4->y, slice_p4->z);
+	glVertex3f(-slice_p3->x, slice_p3->y, slice_p3->z);
+	glVertex3f(-slice_p2->x, slice_p2->y, slice_p2->z);
+	glVertex3f(-slice_p1->x, slice_p1->y, slice_p1->z);
 	glEnd();
 	glPopMatrix();
 
