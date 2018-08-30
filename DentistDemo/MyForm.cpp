@@ -558,16 +558,15 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 
 	strcpy(SaveName2, out_fileName->c_str());
 
-	//SerialPort port("COM6", 9600);
-	//port.Open();
-	//
-	//if (!port.IsOpen) {
-	//	std::cout << "COM6 fail to open!" << std::endl;
-	//}
+	#ifndef TEST_NO_OCT
+	SerialPort port("COM6", 9600);
+	port.Open();
+
+	if (!port.IsOpen) {
+		std::cout << "COM6 fail to open!" << std::endl;
+	}
+	#endif // !TEST_NO_OCT
 	Sleep(100);
-
-
-
 
 	Savedata = true;
 	ErrorBoolean = false;
@@ -579,9 +578,12 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 	pin_ptr<uint32_t> tmp_ByteLen = &ByteLen;
 	pin_ptr<LVBoolean> tmp_ErrorBoolean = &ErrorBoolean;
 
-	//StartCap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+
+	#ifndef TEST_NO_OCT
+	StartCap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+	port.RtsEnable = true;
+	#endif // !TEST_NO_OCT
 	test_start_cap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName2, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
-	//port.RtsEnable = true;
 
 
 	/////////////////////////////////////////////////////////H_StartCap///////////////////////////////////////////////
@@ -614,8 +616,12 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 
 
 	while (pic_count < 125) {
-		//ScanADC(HandleOut, AllDatabyte, ArrSize, ByteLen, outarr, OutArrLenIn, tmp_OutArrLenOut, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+		#ifdef TEST_NO_OCT
 		test_scanADC(HandleOut, AllDatabyte, ArrSize, ByteLen, outarr, OutArrLenIn, tmp_OutArrLenOut, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+		#else
+		ScanADC(HandleOut, AllDatabyte, ArrSize, ByteLen, outarr, OutArrLenIn, tmp_OutArrLenOut, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+		#endif // TEST_NO_OCT
+
 
 
 		//for (int i = 0; i < PIC_SIZE; i++) {
@@ -641,11 +647,12 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 
 
 	}
+	#ifndef TEST_NO_OCT
 	//AboutADC(deviceID);
 	//port.RtsEnable = false;
 	//port.Close();
 	//std::cout << "tmp_char_finish " << std::endl;
-
+	#endif // !TEST_NO_OCT
 
 	//for (int i = PIC_SIZE * 125 - 100; i < PIC_SIZE * 125 ; i++) {
 	//	std::cout << "interator: " << interator[i] << std::endl;
@@ -895,9 +902,10 @@ void DentistDemo::MyForm::color_img() {
 
 		cv::resize(tmp_floating, tmp_floating, cv::Size(480, 360), 0, 0, CV_INTER_LINEAR);
 		//cv::imshow("eee", tmp_test);
-		//cv::imshow("eee", tmp_floating);
-		tmp_floating.convertTo(tmp_floating, CV_8UC3, 255);
+		//tmp_floating.convertTo(tmp_floating, CV_8UC3, 255);
 		//cv::imshow("ddd", tmp_floating);
+
+		cvtColor(tmp_floating.clone(), tmp_floating, CV_GRAY2BGR);
 
 		RGB_image->push_back(tmp_floating);
 		//cv::imwrite("origin_v2\\" + std::to_string(x) + ".png", tmp_floating);

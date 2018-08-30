@@ -26,6 +26,9 @@
 #include "super4pcs/io/io.h"
 #include "SegnetModel.h"
 
+// 無註解代表沒有 OCT 裝置下的測試
+#define TEST_NO_OCT
+
 struct PointData
 {
 	GlobalRegistration::Point3D Position;
@@ -1039,8 +1042,10 @@ namespace DentistDemo
 			//if ((*tmp_pic_disease).size() != 0);
 			//	(*tmp_pic_disease).clear();
 			
+			#ifdef TEST_NO_OCT
 			clear_PC_buffer();
 			load_rawImg();
+			#endif // TEST_NO_OCT
 
 
 			Teeth_PC tmp_teeth_PC;
@@ -1271,9 +1276,7 @@ namespace DentistDemo
 			Mat InputMat = (*raw_input)[index];
 			cout << "InputMat.row:" << InputMat.rows << "\n";
 			cout << "InputMat.col:" << InputMat.cols << "\n";
-			//cvtColor(InputMat.clone(), InputMat, CV_GRAY2BGR);
 			Mat ResultMat = NetworkModel->Visualization((*Result_Image)[index]);
-
 			
 			// 轉型態
 			cvtColor(InputMat.clone(), InputMat, CV_BGR2BGRA);
