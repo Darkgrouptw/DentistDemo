@@ -108,11 +108,35 @@ void GLModelNode::read_color(double x, double y, double z)
 	tmp_point_colors.push_back(tmp_v);
 	//std::cout << "tmp_v OK";
 }
-void GLModelNode::read_alpha(double alpha, int start) {
-	for (int i = start; i < point_alpha.size(); i++) {
+void GLModelNode::read_alpha(double alpha, int start, int end) {
+	for (int i = start; i < end; i++) {
 		point_alpha[i] = alpha;
 	}
+	for (int i = end; i < point_alpha.size(); i++) {
+		point_alpha[i] = 0;
+	}
+
 	std::cout << "mode node alpha:" << alpha << "\n";
+}
+void GLModelNode::control_slice(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, int meat_alpha) {
+	for (int i = 0; i < teeth_idx; i++) {
+		point_alpha[i] = 1;
+	}
+	for (int i = teeth_idx; i < teeth_size; i++) {
+		point_alpha[i] = 0;
+	}
+	for (int i = teeth_size; i < disease_idx + teeth_size; i++) {
+		point_alpha[i] = 1;
+	}
+	for (int i = disease_idx + teeth_size; i < teeth_size+ disease_size; i++) {
+		point_alpha[i] = 0;
+	}
+	for (int i = disease_size + teeth_size; i < teeth_size + disease_size + meat_idx; i++) {
+		point_alpha[i] = meat_alpha;
+	}
+	for (int i = disease_size + teeth_size + meat_idx; i < point_alpha.size(); i++) {
+		point_alpha[i] = 0;
+	}
 }
 void GLModelNode::change_color(double color_idt) {
 	for (int i = 0; i < point_colors.size(); i++) {
@@ -121,6 +145,11 @@ void GLModelNode::change_color(double color_idt) {
 		point_colors[i].z = tmp_point_colors[i].z * color_idt;
 	}
 	std::cout << "mode node color:" << color_idt <<"\n";
+}
+void GLModelNode::clear_all() {
+	point_vertices.clear();
+	point_colors.clear();
+	point_alpha.clear();
 }
 void GLModelNode::initial_alpha(double alpha) {
 	point_alpha.push_back(alpha);
@@ -286,7 +315,7 @@ bool GLModelNode::LoadModel(char * filename)
 }
 void GLModelNode::initial_vert() {
 
-	Rotate(90, 0, 0, 1);
+	//Rotate(90, 0, 0, 1);
 	glGenBuffers(1, &VBO_vertices);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO_vertices);
 	glBufferData(GL_ARRAY_BUFFER, point_vertices.size() * sizeof(glm::vec3), &point_vertices[0], GL_STATIC_DRAW);

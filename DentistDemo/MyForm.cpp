@@ -157,7 +157,24 @@ System::Void DentistDemo::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	slice_p2 = new Vector3;
 	slice_p3 = new Vector3;
 	slice_p4 = new Vector3;
+	teeth_1 = new std::vector<Teeth_PC>;
+	teeth_2 = new std::vector<Teeth_PC>;
+	teeth_3 = new std::vector<Teeth_PC>;
+	teeth_4 = new std::vector<Teeth_PC>;
+	teeth_5 = new std::vector<Teeth_PC>;
+	tmp_pic_teeth = new std::vector<int>;
+	tmp_pic_meat = new std::vector<int>;
+	tmp_pic_disease = new std::vector<int>;
+	tmp_display_PC = new Teeth_PC;
 	
+	teeth_slice_idx = false;
+	meat_slice_idx = false;
+	disease_slice_idx = false;
+	alpha_dis_teeth = 0;
+	alpha_dis_meat = 0;
+	alpha_dis_disease = 0;
+
+	glManager->Rotate_90();
 	all_time = 0;
 	Push_back_file();
 }
@@ -503,6 +520,26 @@ void DentistDemo::MyForm::hkoglPanelControl1_Load(System::Object^  sender, Syste
 
 	std::cout << "GL initial OK " << std::endl;
 }
+void DentistDemo::MyForm::clear_PC_buffer() {
+	if ((*teeth_imgPC).size() != 0);
+		(*teeth_imgPC).clear();
+	if ((*disease_imgPC).size() != 0);
+		(*disease_imgPC).clear();
+	if ((*meat_imgPC).size() != 0);
+		(*meat_imgPC).clear();
+	if ((*raw_input).size() != 0)
+		(*raw_input).clear();
+	if ((*Result_Image).size() != 0)
+		(*Result_Image).clear();
+	if ((*RGB_image).size() != 0)
+		(*RGB_image).clear();
+	if ((*tmp_pic_teeth).size() != 0);
+		(*tmp_pic_teeth).clear();
+	if ((*tmp_pic_meat).size() != 0);
+		(*tmp_pic_meat).clear();
+	if ((*tmp_pic_disease).size() != 0);
+		(*tmp_pic_disease).clear();
+}
 void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::EventArgs^  e) {
 	pin_ptr<int32_t> tmp_deviceID = &deviceID;
 	InitADC(4, tmp_deviceID);
@@ -791,7 +828,8 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 	//if ((*PointCloudArr).size() > 1) {
 	//	Point_cloud_idx_sec = (*pointCloudSet).size() - 2;
 	//}
-
+	clear_PC_buffer();
+	color_img();
 
 	delete[] interator;
 	//delete[] final_oct_arr;
@@ -865,7 +903,10 @@ void DentistDemo::MyForm::color_img() {
 		//cv::imwrite("origin_v2\\" + std::to_string(x) + ".png", tmp_floating);
 
 	}
+	for (int i = 60; i < 201; i++) {
 
+		(*raw_input).push_back((*RGB_image)[i]);
+	}
 
 	//fp.close();
 	//avg_idt = total_idt / (theTRcuda->VolumeSize_X*theTRcuda->VolumeSize_Y*theTRcuda->VolumeSize_Z);
@@ -890,6 +931,7 @@ void DentistDemo::MyForm::load_rawImg() {
 		raw_input->push_back(tmp_input);
 		std::cout << "read " << i << "\n";
 	}
+	
 }
 void DentistDemo::MyForm::slice_quad(int index) {
 	int tmp_num = index + 60;//x
@@ -923,7 +965,8 @@ void DentistDemo::MyForm::classify_result() {
 	float zRatio = DManager->zRatio;
 	int tmpIdx;
 	float idt;
-
+	int control_pic_idx = this->control_pic->Value;
+	Teeth_PC tmp_teeth_PC;
 	for (int i = 0; i < (*Result_Image).size(); i++) {
 		cv::Mat tmp_img;
 		//cv::resize((*Result_Image)[i], tmp_img, cv::Size(1024, 250), 0, 0, CV_INTER_LINEAR);
@@ -937,14 +980,17 @@ void DentistDemo::MyForm::classify_result() {
 	std::cout << "tmp_result_img.size() = " << tmp_result_img.size() << "\n";
 
 	for (int i = 0; i < tmp_result_img.size(); i++) {
-		//std::cout << "i = " << i << "\n";
+		std::cout << "i = " << i << "\n";
 		//std::cout << "tmp_result_img.size() = " << tmp_result_img.size() << "\n";
+		
+
 		for (int row = 0; row < tmp_result_img[i].rows; row++) {
 			for (int col = 0; col < tmp_result_img[i].cols; col++) {
 
 				
 				//std::cout << "col:" << col << "\n";
 				if (tmp_result_img[i].at<uchar>(row, col) == uchar(2) ) {
+					
 					Point_3D tmp_point_3D;
 
 					int tmp_num = i + 60;//x
@@ -976,6 +1022,7 @@ void DentistDemo::MyForm::classify_result() {
 					Vector3 tmp_idt = Vector3(idt, idt, idt);
 					tmp_point_3D.position = tmp_imgPC;
 					tmp_point_3D.idt = tmp_idt;
+
 
 					//std::cout << "(" << tmp_x << "," << tmp_y << "," << tmp_z << "\n";
 					teeth_imgPC->push_back(tmp_point_3D);
@@ -1055,32 +1102,60 @@ void DentistDemo::MyForm::classify_result() {
 				}
 			}
 		}
-	
+		(*tmp_pic_teeth).push_back(teeth_imgPC->size());
+		(*tmp_pic_meat).push_back(meat_imgPC->size());
+		(*tmp_pic_disease).push_back(disease_imgPC->size());
 	}
 
 
-	for (int i = 0; i < (*teeth_imgPC).size(); i++) {
+	//for (int i = 0; i < (*teeth_imgPC).size(); i++) {
+	//	//std::cout << "teeth_imgPC i = " << i << "\n";
+	//	glManager->read_point(-(double)(*teeth_imgPC)[i].position.x, (double)(*teeth_imgPC)[i].position.y, (double)(*teeth_imgPC)[i].position.z);
+	//	glManager->read_color(1*(double)(*teeth_imgPC)[i].idt.x*color_idt, 1*(double)(*teeth_imgPC)[i].idt.y*color_idt, 0.2*(double)(*teeth_imgPC)[i].idt.z*color_idt);
+	//	glManager->initial_alpha();
+	//}
+	//for (int i = 0; i < (*disease_imgPC).size(); i++) {
+	//	//std::cout << "teeth_imgPC i = " << i << "\n";
+	//	glManager->read_point(-(double)(*disease_imgPC)[i].position.x, (double)(*disease_imgPC)[i].position.y, (double)(*disease_imgPC)[i].position.z);
+	//	glManager->read_color(0.2*(double)(*disease_imgPC)[i].idt.x*color_idt, 0.2*(double)(*disease_imgPC)[i].idt.y*color_idt, 1*(double)(*disease_imgPC)[i].idt.z*color_idt);
+	//	glManager->initial_alpha();
+	//}
+	//for (int i = 0; i < (*meat_imgPC).size(); i++) {
+	//	//std::cout << "teeth_imgPC i = " << i << "\n";
+	//	glManager->read_point(-(double)(*meat_imgPC)[i].position.x, (double)(*meat_imgPC)[i].position.y, (double)(*meat_imgPC)[i].position.z);
+	//	glManager->read_color(1*(double)(*meat_imgPC)[i].idt.x*color_idt, 0.2*(double)(*meat_imgPC)[i].idt.y*color_idt, 0.2*(double)(*meat_imgPC)[i].idt.z*color_idt);
+	//	glManager->initial_alpha();
+	//}
+	//
+	////std::cout << "glManager->read_point OK\n";
+	//glManager->Initial_vert();
+	//std::cout << "glManager->Initial_vert() OK\n";
+}
+void DentistDemo::MyForm::show_Teeth_PC(Teeth_PC tmp_Teeth) {
+	glManager->Clear_all();
+
+	for (int i = 0; i < tmp_Teeth.teeth_imgPC.size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
-		glManager->read_point(-(double)(*teeth_imgPC)[i].position.x, (double)(*teeth_imgPC)[i].position.y, (double)(*teeth_imgPC)[i].position.z);
-		glManager->read_color(1*(double)(*teeth_imgPC)[i].idt.x*color_idt, 1*(double)(*teeth_imgPC)[i].idt.y*color_idt, 0.2*(double)(*teeth_imgPC)[i].idt.z*color_idt);
+		glManager->read_point(-(double)tmp_Teeth.teeth_imgPC[i].position.x, (double)tmp_Teeth.teeth_imgPC[i].position.y, (double)tmp_Teeth.teeth_imgPC[i].position.z);
+		glManager->read_color(1 * (double)tmp_Teeth.teeth_imgPC[i].idt.x*color_idt, 1 * (double)tmp_Teeth.teeth_imgPC[i].idt.y*color_idt, 0.2*(double)tmp_Teeth.teeth_imgPC[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
-	for (int i = 0; i < (*disease_imgPC).size(); i++) {
+	for (int i = 0; i < tmp_Teeth.disease_imgPC.size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
-		glManager->read_point(-(double)(*disease_imgPC)[i].position.x, (double)(*disease_imgPC)[i].position.y, (double)(*disease_imgPC)[i].position.z);
-		glManager->read_color(0.2*(double)(*disease_imgPC)[i].idt.x*color_idt, 0.2*(double)(*disease_imgPC)[i].idt.y*color_idt, 1*(double)(*disease_imgPC)[i].idt.z*color_idt);
+		glManager->read_point(-(double)tmp_Teeth.disease_imgPC[i].position.x, (double)tmp_Teeth.disease_imgPC[i].position.y, (double)tmp_Teeth.disease_imgPC[i].position.z);
+		glManager->read_color(0.2*(double)tmp_Teeth.disease_imgPC[i].idt.x*color_idt, 0.2*(double)tmp_Teeth.disease_imgPC[i].idt.y*color_idt, 1 * (double)tmp_Teeth.disease_imgPC[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
-	for (int i = 0; i < (*meat_imgPC).size(); i++) {
+	for (int i = 0; i < tmp_Teeth.meat_imgPC.size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
-		glManager->read_point(-(double)(*meat_imgPC)[i].position.x, (double)(*meat_imgPC)[i].position.y, (double)(*meat_imgPC)[i].position.z);
-		glManager->read_color(1*(double)(*meat_imgPC)[i].idt.x*color_idt, 0.2*(double)(*meat_imgPC)[i].idt.y*color_idt, 0.2*(double)(*meat_imgPC)[i].idt.z*color_idt);
+		glManager->read_point(-(double)tmp_Teeth.meat_imgPC[i].position.x, (double)tmp_Teeth.meat_imgPC[i].position.y, (double)tmp_Teeth.meat_imgPC[i].position.z);
+		glManager->read_color(1 * (double)tmp_Teeth.meat_imgPC[i].idt.x*color_idt, 0.2*(double)tmp_Teeth.meat_imgPC[i].idt.y*color_idt, 0.2*(double)tmp_Teeth.meat_imgPC[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
 
 	//std::cout << "glManager->read_point OK\n";
 	glManager->Initial_vert();
-	//std::cout << "glManager->Initial_vert() OK\n";
+
 }
 void DentistDemo::MyForm::teeth_vert() {
 
@@ -1398,26 +1473,26 @@ void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, Syst
 	glPopMatrix();
 
 
-	glPushMatrix();
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glRotatef(90, 0, 0, 1);
-	glBegin(GL_QUADS);
-	glColor4f(1, 0, 1, 0.3f);
-	glVertex3f(-slice_p1->x, slice_p1->y, slice_p1->z);
-	glVertex3f(-slice_p2->x, slice_p2->y, slice_p2->z);
-	glVertex3f(-slice_p3->x, slice_p3->y, slice_p3->z);
-	glVertex3f(-slice_p4->x, slice_p4->y, slice_p4->z);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glColor4f(1, 0, 1, 0.3f);
-	glVertex3f(-slice_p4->x, slice_p4->y, slice_p4->z);
-	glVertex3f(-slice_p3->x, slice_p3->y, slice_p3->z);
-	glVertex3f(-slice_p2->x, slice_p2->y, slice_p2->z);
-	glVertex3f(-slice_p1->x, slice_p1->y, slice_p1->z);
-	glEnd();
-	glPopMatrix();
+	//glPushMatrix();
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glRotatef(90, 0, 0, 1);
+	//glBegin(GL_QUADS);
+	//glColor4f(1, 0, 1, 0.3f);
+	//glVertex3f(-slice_p1->x, slice_p1->y, slice_p1->z);
+	//glVertex3f(-slice_p2->x, slice_p2->y, slice_p2->z);
+	//glVertex3f(-slice_p3->x, slice_p3->y, slice_p3->z);
+	//glVertex3f(-slice_p4->x, slice_p4->y, slice_p4->z);
+	//glEnd();
+	//
+	//glBegin(GL_QUADS);
+	//glColor4f(1, 0, 1, 0.3f);
+	//glVertex3f(-slice_p4->x, slice_p4->y, slice_p4->z);
+	//glVertex3f(-slice_p3->x, slice_p3->y, slice_p3->z);
+	//glVertex3f(-slice_p2->x, slice_p2->y, slice_p2->z);
+	//glVertex3f(-slice_p1->x, slice_p1->y, slice_p1->z);
+	//glEnd();
+	//glPopMatrix();
 
 	glDisable(GL_BLEND);
 	
@@ -1690,7 +1765,7 @@ void DentistDemo::MyForm::hkoglPanelControl1_KeyDown(System::Object^  sender, Sy
 			meat_alpha = meat_alpha;
 		//std::cout << "(*teeth_imgPC).size():" << (*teeth_imgPC).size() << "\n";
 		//std::cout << "meat_alpha:" << meat_alpha << "\n";
-		glManager->read_alpha(meat_alpha, (*teeth_imgPC).size()+ (*disease_imgPC).size());
+		glManager->read_alpha(meat_alpha, (*teeth_imgPC).size()+ (*disease_imgPC).size(), (*tmp_display_PC).teeth_imgPC.size()+(*tmp_display_PC).disease_imgPC.size()+(*tmp_display_PC).meat_pic_index[control_pic->Value]);
 
 		
 		//color_idt = color_idt + 0.1f;
@@ -1705,7 +1780,7 @@ void DentistDemo::MyForm::hkoglPanelControl1_KeyDown(System::Object^  sender, Sy
 			meat_alpha = meat_alpha;
 		//std::cout << "(*teeth_imgPC).size():" << (*teeth_imgPC).size() << "\n";
 		//std::cout << "meat_alpha:" << meat_alpha << "\n";
-		glManager->read_alpha(meat_alpha, (*teeth_imgPC).size()+ (*disease_imgPC).size());
+		glManager->read_alpha(meat_alpha, (*teeth_imgPC).size() + (*disease_imgPC).size(), (*tmp_display_PC).teeth_imgPC.size() + (*tmp_display_PC).disease_imgPC.size() + (*tmp_display_PC).meat_pic_index[control_pic->Value]);
 
 
 

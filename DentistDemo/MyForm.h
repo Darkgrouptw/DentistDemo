@@ -74,14 +74,18 @@ struct TransformVisitor {
 struct Point_3D {
 	Vector3 position;
 	Vector3 idt;
+	
 	int type;
 };
 struct Teeth_PC
 {
-	std::vector<cv::Mat> *result_input, *raw_input;
-	std::vector<Point_3D> *teeth_imgPC;
-	std::vector<Point_3D> *meat_imgPC;
-	std::vector<Point_3D> *disease_imgPC;
+	std::vector<cv::Mat> result_input, raw_input;
+	std::vector<Point_3D> teeth_imgPC;
+	std::vector<Point_3D> meat_imgPC;
+	std::vector<Point_3D> disease_imgPC;
+	std::vector<int> teeth_pic_index;
+	std::vector<int> meat_pic_index;
+	std::vector<int> disease_pic_index;
 };
 namespace DentistDemo 
 {
@@ -622,6 +626,7 @@ namespace DentistDemo
 			this->teeth_Model->Location = System::Drawing::Point(731, 382);
 			this->teeth_Model->Name = L"teeth_Model";
 			this->teeth_Model->Size = System::Drawing::Size(138, 206);
+			this->teeth_Model->Image = Image::FromFile("./image1.jpg");
 			this->teeth_Model->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->teeth_Model->TabIndex = 68;
 			this->teeth_Model->TabStop = false;
@@ -654,6 +659,7 @@ namespace DentistDemo
 			this->control_pic->Name = L"control_pic";
 			this->control_pic->Size = System::Drawing::Size(191, 45);
 			this->control_pic->TabIndex = 71;
+			this->control_pic->Value = 140;
 			this->control_pic->Scroll += gcnew System::EventHandler(this, &MyForm::ScrollChangeEvent);
 			this->control_pic->Minimum = 0;
 			this->control_pic->Maximum = 200 - 60;				// 從 60 ~ 200 張
@@ -860,6 +866,8 @@ namespace DentistDemo
 		void teeth_vert();
 		void choose_slice(int pic_num);
 		void slice_quad(int index);
+		void show_Teeth_PC(Teeth_PC tmp_Teeth);
+		void clear_PC_buffer();
 
 	private:
 		//
@@ -948,15 +956,18 @@ namespace DentistDemo
 		std::vector<Point_3D> *meat_imgPC;
 		std::vector<Point_3D> *disease_imgPC;
 		std::vector<Teeth_PC> *teeth_1, *teeth_2, *teeth_3, *teeth_4, *teeth_5;
+		Teeth_PC *tmp_display_PC;
+
 		float meat_alpha;
-		int pic_num;
+		int pic_num, alpha_dis_teeth, alpha_dis_meat, alpha_dis_disease;
 
 		std::vector<cv::Mat> *RGB_image;
 		std::vector<cv::Mat> *Result_Image;
+		std::vector<int> *tmp_pic_teeth, *tmp_pic_meat, *tmp_pic_disease;
 
 		objData *obj1, *obj2, *obj3, *obj4, *obj5;
 		float mouse_loc_x, mouse_loc_y, block_size_x, color_idt, block_size_y;
-		bool pic_mouse_move;
+		bool pic_mouse_move, teeth_slice_idx, meat_slice_idx, disease_slice_idx;
 		Vector3 *slice_p1, *slice_p2, *slice_p3, *slice_p4;
 
 	private:
@@ -1005,25 +1016,99 @@ namespace DentistDemo
 			//	progressBar->Value++;
 			//	std::cout << "num = " << i << " is OK\n";
 			//}
-			//
-			//classify_result();
-			////decay_img2space();
-			//this->control_pic->Enabled = true;
-			//ShowImage(0);
 			/////////////////////////////////////// SCAN
 
 			/////////////////////////////////////// TEST
 			progressBar->Value = 0;
+
+			//if ((*teeth_imgPC).size() != 0);
+			//	(*teeth_imgPC).clear();
+			//if ((*disease_imgPC).size() != 0);
+			//	(*disease_imgPC).clear();
+			//if ((*meat_imgPC).size() != 0);
+			//	(*meat_imgPC).clear();
+			//if ((*raw_input).size() != 0)
+			//	(*raw_input).clear();
+			//if ((*Result_Image).size() != 0)
+			//	(*Result_Image).clear();
+			//
+			//if ((*tmp_pic_teeth).size() != 0);
+			//	(*tmp_pic_teeth).clear();
+			//if ((*tmp_pic_meat).size() != 0);
+			//	(*tmp_pic_meat).clear();
+			//if ((*tmp_pic_disease).size() != 0);
+			//	(*tmp_pic_disease).clear();
+			
+			clear_PC_buffer();
 			load_rawImg();
+
+
+			Teeth_PC tmp_teeth_PC;
+			tmp_teeth_PC.raw_input = (*raw_input);
 			//std::cout << "load OK\n";
-			for (int i = 0; i < (*raw_input).size(); i++) {
-				cv::Mat tmp_image = NetworkModel->Predict((*raw_input)[i]);
+			for (int i = 0; i < (*raw_input).size(); i++) {// raw_input->RGB_image
+				cv::Mat tmp_image = NetworkModel->Predict((*raw_input)[i]);//  raw_input->RGB_image
 				(*Result_Image).push_back(tmp_image);
 				progressBar->Value++;
 				std::cout << "num = " << i << " is OK\n";
 			}
 
+			tmp_teeth_PC.result_input = (*Result_Image);
 			classify_result();
+
+			tmp_teeth_PC.teeth_imgPC = (*teeth_imgPC);
+			tmp_teeth_PC.disease_imgPC = (*disease_imgPC);
+			tmp_teeth_PC.meat_imgPC = (*meat_imgPC);
+
+			tmp_teeth_PC.teeth_pic_index = (*tmp_pic_teeth);
+			tmp_teeth_PC.meat_pic_index = (*tmp_pic_meat);
+			tmp_teeth_PC.disease_pic_index = (*tmp_pic_disease);
+
+			if (Choose_teeth->SelectedIndex == 0) {
+				(*teeth_1).push_back(tmp_teeth_PC);
+				glManager->Clear_all();
+
+				show_Teeth_PC((*teeth_1)[(*teeth_1).size() - 1]);
+				(*tmp_display_PC) = (*teeth_1)[(*teeth_1).size() - 1];
+				glManager->Initial_vert();
+
+			}
+			else if (Choose_teeth->SelectedIndex == 1) {
+				(*teeth_2).push_back(tmp_teeth_PC);
+
+				glManager->Clear_all();
+				show_Teeth_PC((*teeth_2)[(*teeth_2).size() - 1]);
+				(*tmp_display_PC) = (*teeth_2)[(*teeth_2).size() - 1];
+				glManager->Initial_vert();
+			}
+			else if (Choose_teeth->SelectedIndex == 2) {
+				(*teeth_3).push_back(tmp_teeth_PC);
+
+				glManager->Clear_all();
+
+				show_Teeth_PC((*teeth_3)[(*teeth_3).size() - 1]);
+				(*tmp_display_PC) = (*teeth_3)[(*teeth_3).size() - 1];
+				glManager->Initial_vert();
+			}
+			else if (Choose_teeth->SelectedIndex == 3) {
+				(*teeth_4).push_back(tmp_teeth_PC);
+
+				glManager->Clear_all();
+
+				show_Teeth_PC((*teeth_4)[(*teeth_4).size() - 1]);
+				(*tmp_display_PC) = (*teeth_4)[(*teeth_4).size() - 1];
+				glManager->Initial_vert();
+			}
+			else if (Choose_teeth->SelectedIndex == 4) {
+				(*teeth_5).push_back(tmp_teeth_PC);
+
+				glManager->Clear_all();
+
+				show_Teeth_PC((*teeth_5)[(*teeth_5).size() - 1]);
+				(*tmp_display_PC) = (*teeth_5)[(*teeth_5).size() - 1];
+				glManager->Initial_vert();
+			}
+			
 
 			this->control_pic->Enabled = true;
 			ShowImage(0);
@@ -1037,13 +1122,17 @@ namespace DentistDemo
 			 //g->DrawString("This is a diagonal line drawn on the control",
 			 //	gcnew System::Drawing::Font("Arial", 10), System::Drawing::Brushes::Blue, Point(30, 30));
 			 Pen^ RedPen = gcnew Pen(Color::Red, 1.5f);
+			 Pen^ BluePen = gcnew Pen(Color::Blue, 1.5f);
 
-
+			 int index = this->control_pic->Value;
 			 // Draw a line in the PictureBox.
 			 g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y, mouse_loc_x - block_size_x, mouse_loc_y + block_size_y);
 			 g->DrawLine(RedPen, mouse_loc_x - block_size_x, mouse_loc_y + block_size_y, mouse_loc_x - block_size_x, mouse_loc_y - block_size_y);
 			 g->DrawLine(RedPen, mouse_loc_x - block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y);
 			 g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y);
+
+
+			 g->DrawLine(BluePen, (mouse_loc_x - block_size_x)+ block_size_x*2*((float)index/141), mouse_loc_y - block_size_y, (mouse_loc_x- block_size_x) + block_size_x * 2 * ((float)index / 141), mouse_loc_y + block_size_y);
 
 			 //std::cout << "paint\n";
 		}
@@ -1081,26 +1170,63 @@ namespace DentistDemo
 		
 			if (Choose_teeth->SelectedIndex == 0) {
 				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				if ((*teeth_1).size() != 0) {
+					std::cout << "(*teeth_1).size() != 0";
+					show_Teeth_PC((*teeth_1)[0]);
+					(*tmp_display_PC) = (*teeth_1)[0];
+				}
+				else {
+					std::cout << "(*teeth_1).size() == 0";
+					glManager->Clear_all();
+				}
 				teeth_Model->Image = Image::FromFile("./image1.jpg");
 				teeth_Model->Invalidate();
 			}
 			else if (Choose_teeth->SelectedIndex == 1) {
 				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				if ((*teeth_2).size() != 0) {
+					show_Teeth_PC((*teeth_2)[0]);
+					(*tmp_display_PC) = (*teeth_2)[0];
+				}
+				else
+					glManager->Clear_all();
+
 				teeth_Model->Image = Image::FromFile("./image2.jpg");
 				teeth_Model->Invalidate();
 			}
 			else if (Choose_teeth->SelectedIndex == 2) {
 				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				if ((*teeth_3).size() != 0) {
+					show_Teeth_PC((*teeth_3)[0]);
+					(*tmp_display_PC) = (*teeth_3)[0];
+				}
+				else
+					glManager->Clear_all();
+
 				teeth_Model->Image = Image::FromFile("./image3.jpg");
 				teeth_Model->Invalidate();
 			}
 			else if (Choose_teeth->SelectedIndex == 3) {
 				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				if ((*teeth_4).size() != 0) {
+					show_Teeth_PC((*teeth_4)[0]);
+					(*tmp_display_PC) = (*teeth_4)[0];
+				}
+				else
+					glManager->Clear_all();
+
 				teeth_Model->Image = Image::FromFile("./image4.jpg");
 				teeth_Model->Invalidate();
 			}
 			else if (Choose_teeth->SelectedIndex == 4) {
 				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+				if ((*teeth_5).size() != 0) {
+					show_Teeth_PC((*teeth_5)[0]);
+					(*tmp_display_PC) = (*teeth_5)[0];
+				}
+				else
+					glManager->Clear_all();
+
 				teeth_Model->Image = Image::FromFile("./image5.jpg");
 				teeth_Model->Invalidate();
 			}
@@ -1132,13 +1258,23 @@ namespace DentistDemo
 			int index = this->control_pic->Value;
 			cout << index << endl;
 			ShowImage(index);
-			slice_quad(index);
+			teeth_Model->Invalidate();
+			glManager->control_pic((*tmp_display_PC).teeth_pic_index[index], 
+								   (*tmp_display_PC).disease_pic_index[index], 
+								   (*tmp_display_PC).meat_pic_index[index], 
+								   (*tmp_display_PC).teeth_imgPC.size(), 
+								   (*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+			//slice_quad(index);
 		}
 		void ShowImage(int index)
 		{
 			Mat InputMat = (*raw_input)[index];
+			cout << "InputMat.row:" << InputMat.rows << "\n";
+			cout << "InputMat.col:" << InputMat.cols << "\n";
+			//cvtColor(InputMat.clone(), InputMat, CV_GRAY2BGR);
 			Mat ResultMat = NetworkModel->Visualization((*Result_Image)[index]);
 
+			
 			// 轉型態
 			cvtColor(InputMat.clone(), InputMat, CV_BGR2BGRA);
 			cvtColor(ResultMat.clone(), ResultMat, CV_BGR2BGRA);

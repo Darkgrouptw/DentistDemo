@@ -78,18 +78,29 @@ void DentistDemo::GLManager::change_color(float color_idt)
 {
 	teeth_vertex->change_color(color_idt);
 }
-void DentistDemo::GLManager::read_alpha(double alpha, int start) {
-	teeth_vertex->read_alpha(alpha, start);
+void DentistDemo::GLManager::read_alpha(double alpha, int start, int end) {
+	teeth_vertex->read_alpha(alpha, start, end);
 }
 void DentistDemo::GLManager::initial_alpha() {
 	teeth_vertex->initial_alpha(1.0f);
+}
+void DentistDemo::GLManager::Clear_all() {
+
+	teeth_vertex->clear_all();
 }
 void DentistDemo::GLManager::Initial_vert() {
 	
 	teeth_vertex->initial_vert();
 
 }
+void DentistDemo::GLManager::Rotate_90() {
+	teeth_vertex->Rotate(90, 0, 0, 1);
 
+}
+void DentistDemo::GLManager::control_pic(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, int meat_alpha) {
+	teeth_vertex->control_slice(teeth_idx, disease_idx, meat_idx, teeth_size, disease_size, meat_alpha);
+
+}
 void DentistDemo::GLManager::MotionUpdate(GloveData &left, GloveData &right)
 {
     // Reset all transform
