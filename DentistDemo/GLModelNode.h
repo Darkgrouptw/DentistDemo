@@ -123,7 +123,7 @@ public:
 	//void change_vert_PC(double x, double y, double z);
 	void clear_all();
 	void read_alpha(double alpha, int start, int end);
-	void control_slice(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, int meat_alpha);
+	void control_slice(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, float meat_alpha);
 	void initial_alpha(double alpha);
 	void initial_vert();
 

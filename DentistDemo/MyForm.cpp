@@ -1145,19 +1145,19 @@ void DentistDemo::MyForm::show_Teeth_PC(Teeth_PC tmp_Teeth) {
 	for (int i = 0; i < tmp_Teeth.teeth_imgPC.size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
 		glManager->read_point(-(double)tmp_Teeth.teeth_imgPC[i].position.x, (double)tmp_Teeth.teeth_imgPC[i].position.y, (double)tmp_Teeth.teeth_imgPC[i].position.z);
-		glManager->read_color(1 * (double)tmp_Teeth.teeth_imgPC[i].idt.x*color_idt, 1 * (double)tmp_Teeth.teeth_imgPC[i].idt.y*color_idt, 0.2*(double)tmp_Teeth.teeth_imgPC[i].idt.z*color_idt);
+		glManager->read_color(1 * (double)tmp_Teeth.teeth_imgPC[i].idt.x*color_idt, 1 * (double)tmp_Teeth.teeth_imgPC[i].idt.y*color_idt, 1*(double)tmp_Teeth.teeth_imgPC[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
 	for (int i = 0; i < tmp_Teeth.disease_imgPC.size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
 		glManager->read_point(-(double)tmp_Teeth.disease_imgPC[i].position.x, (double)tmp_Teeth.disease_imgPC[i].position.y, (double)tmp_Teeth.disease_imgPC[i].position.z);
-		glManager->read_color(0.2*(double)tmp_Teeth.disease_imgPC[i].idt.x*color_idt, 0.2*(double)tmp_Teeth.disease_imgPC[i].idt.y*color_idt, 1 * (double)tmp_Teeth.disease_imgPC[i].idt.z*color_idt);
+		glManager->read_color(0.2*(double)tmp_Teeth.disease_imgPC[i].idt.x*color_idt, 1*(double)tmp_Teeth.disease_imgPC[i].idt.y*color_idt, 1 * (double)tmp_Teeth.disease_imgPC[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
 	for (int i = 0; i < tmp_Teeth.meat_imgPC.size(); i++) {
 		//std::cout << "teeth_imgPC i = " << i << "\n";
 		glManager->read_point(-(double)tmp_Teeth.meat_imgPC[i].position.x, (double)tmp_Teeth.meat_imgPC[i].position.y, (double)tmp_Teeth.meat_imgPC[i].position.z);
-		glManager->read_color(1 * (double)tmp_Teeth.meat_imgPC[i].idt.x*color_idt, 0.2*(double)tmp_Teeth.meat_imgPC[i].idt.y*color_idt, 0.2*(double)tmp_Teeth.meat_imgPC[i].idt.z*color_idt);
+		glManager->read_color(1 * (double)tmp_Teeth.meat_imgPC[i].idt.x*color_idt, 1*(double)tmp_Teeth.meat_imgPC[i].idt.y*color_idt, 0.2*(double)tmp_Teeth.meat_imgPC[i].idt.z*color_idt);
 		glManager->initial_alpha();
 	}
 

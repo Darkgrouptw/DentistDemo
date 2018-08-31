@@ -97,7 +97,7 @@ void DentistDemo::GLManager::Rotate_90() {
 	teeth_vertex->Rotate(90, 0, 0, 1);
 
 }
-void DentistDemo::GLManager::control_pic(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, int meat_alpha) {
+void DentistDemo::GLManager::control_pic(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, float meat_alpha) {
 	teeth_vertex->control_slice(teeth_idx, disease_idx, meat_idx, teeth_size, disease_size, meat_alpha);
 
 }

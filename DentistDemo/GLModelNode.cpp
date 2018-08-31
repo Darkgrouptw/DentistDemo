@@ -118,7 +118,7 @@ void GLModelNode::read_alpha(double alpha, int start, int end) {
 
 	std::cout << "mode node alpha:" << alpha << "\n";
 }
-void GLModelNode::control_slice(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, int meat_alpha) {
+void GLModelNode::control_slice(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, float meat_alpha) {
 	for (int i = 0; i < teeth_idx; i++) {
 		point_alpha[i] = 1;
 	}
@@ -132,6 +132,7 @@ void GLModelNode::control_slice(int teeth_idx, int disease_idx, int meat_idx, in
 		point_alpha[i] = 0;
 	}
 	for (int i = disease_size + teeth_size; i < teeth_size + disease_size + meat_idx; i++) {
+		//printf("%f\n", meat_alpha);
 		point_alpha[i] = meat_alpha;
 	}
 	for (int i = disease_size + teeth_size + meat_idx; i < point_alpha.size(); i++) {

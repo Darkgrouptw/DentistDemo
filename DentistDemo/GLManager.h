@@ -17,7 +17,7 @@ namespace DentistDemo
 		void read_color(float x, float y, float z);
 		void change_color(float color_idt);
 		void read_alpha(double alpha, int start, int end);
-		void control_pic(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, int meat_alpha);
+		void control_pic(int teeth_idx, int disease_idx, int meat_idx, int teeth_size, int disease_size, float meat_alpha);
 		void initial_alpha();
 		void Initial_vert();
 		void Clear_all();
