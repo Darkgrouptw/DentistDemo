@@ -123,8 +123,8 @@ namespace DentistDemo
 			pic_mouse_move = false;
 			mouse_loc_x = 73;
 			mouse_loc_y = 72;
-			block_size_y = 35;
-			block_size_x = 19.6;
+			block_size_y = 37.5;
+			block_size_x = 21.15;
 		}
 
 	protected:
@@ -236,6 +236,7 @@ namespace DentistDemo
 	private: System::Windows::Forms::PictureBox^  teeth_Model;
 	private: System::Windows::Forms::ComboBox^  Choose_teeth;
 	private: System::Windows::Forms::ProgressBar^  progressBar;
+	private: System::Windows::Forms::PictureBox^  tooth_table;
 
 	private:
 #pragma region Windows Form Designer generated code
@@ -288,6 +289,7 @@ namespace DentistDemo
 			this->Choose_teeth = (gcnew System::Windows::Forms::ComboBox());
 			this->teeth_Model = (gcnew System::Windows::Forms::PictureBox());
 			this->progressBar = (gcnew System::Windows::Forms::ProgressBar());
+			this->tooth_table = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->teeth_Model))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
@@ -369,7 +371,7 @@ namespace DentistDemo
 			// 
 			// Full_scan
 			// 
-			this->Full_scan->Location = System::Drawing::Point(755, 180);
+			this->Full_scan->Location = System::Drawing::Point(899, 405);
 			this->Full_scan->Name = L"Full_scan";
 			this->Full_scan->Size = System::Drawing::Size(75, 23);
 			this->Full_scan->TabIndex = 9;
@@ -390,7 +392,7 @@ namespace DentistDemo
 			hkcoglPanelPixelFormat1->Alpha_Buffer_Bits = HKOGLPanel::HKCOGLPanelPixelFormat::PIXELBITS::BITS_0;
 			hkcoglPanelPixelFormat1->Stencil_Buffer_Bits = HKOGLPanel::HKCOGLPanelPixelFormat::PIXELBITS::BITS_0;
 			this->hkoglPanelControl1->Pixel_Format = hkcoglPanelPixelFormat1;
-			this->hkoglPanelControl1->Size = System::Drawing::Size(706, 482);
+			this->hkoglPanelControl1->Size = System::Drawing::Size(647, 482);
 			this->hkoglPanelControl1->TabIndex = 10;
 			this->hkoglPanelControl1->Load += gcnew System::EventHandler(this, &MyForm::hkoglPanelControl1_Load);
 			this->hkoglPanelControl1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::hkoglPanelControl1_Paint);
@@ -419,7 +421,7 @@ namespace DentistDemo
 			// 
 			// Aligned12
 			// 
-			this->Aligned12->Location = System::Drawing::Point(755, 273);
+			this->Aligned12->Location = System::Drawing::Point(899, 487);
 			this->Aligned12->Name = L"Aligned12";
 			this->Aligned12->Size = System::Drawing::Size(75, 23);
 			this->Aligned12->TabIndex = 53;
@@ -486,7 +488,7 @@ namespace DentistDemo
 			// output_name
 			// 
 			this->output_name->AutoSize = true;
-			this->output_name->Location = System::Drawing::Point(778, 132);
+			this->output_name->Location = System::Drawing::Point(918, 341);
 			this->output_name->Name = L"output_name";
 			this->output_name->Size = System::Drawing::Size(32, 12);
 			this->output_name->TabIndex = 64;
@@ -494,7 +496,7 @@ namespace DentistDemo
 			// 
 			// name_output
 			// 
-			this->name_output->Location = System::Drawing::Point(743, 147);
+			this->name_output->Location = System::Drawing::Point(883, 361);
 			this->name_output->Name = L"name_output";
 			this->name_output->Size = System::Drawing::Size(100, 22);
 			this->name_output->TabIndex = 65;
@@ -615,7 +617,7 @@ namespace DentistDemo
 			// 
 			// Test_detect
 			// 
-			this->Test_detect->Location = System::Drawing::Point(755, 307);
+			this->Test_detect->Location = System::Drawing::Point(899, 446);
 			this->Test_detect->Name = L"Test_detect";
 			this->Test_detect->Size = System::Drawing::Size(75, 23);
 			this->Test_detect->TabIndex = 67;
@@ -626,9 +628,9 @@ namespace DentistDemo
 			// teeth_Model
 			// 
 			this->teeth_Model->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"teeth_Model.Image")));
-			this->teeth_Model->Location = System::Drawing::Point(731, 382);
+			this->teeth_Model->Location = System::Drawing::Point(715, 314);
 			this->teeth_Model->Name = L"teeth_Model";
-			this->teeth_Model->Size = System::Drawing::Size(138, 206);
+			this->teeth_Model->Size = System::Drawing::Size(144, 225);
 			this->teeth_Model->Image = Image::FromFile("./image1.jpg");
 			this->teeth_Model->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->teeth_Model->TabIndex = 68;
@@ -640,7 +642,7 @@ namespace DentistDemo
 			// 
 			// OCT_Img
 			// 
-			this->OCT_Img->Location = System::Drawing::Point(940, 134);
+			this->OCT_Img->Location = System::Drawing::Point(1036, 127);
 			this->OCT_Img->Name = L"OCT_Image";
 			this->OCT_Img->Size = System::Drawing::Size(240, 154);
 			this->OCT_Img->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
@@ -649,7 +651,7 @@ namespace DentistDemo
 			// 
 			// Result_Img
 			// 
-			this->Result_Img->Location = System::Drawing::Point(940, 307);
+			this->Result_Img->Location = System::Drawing::Point(1036, 300);
 			this->Result_Img->Name = L"Result_Image";
 			this->Result_Img->Size = System::Drawing::Size(240, 154);
 			this->Result_Img->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
@@ -658,7 +660,7 @@ namespace DentistDemo
 			// 
 			// control_pic
 			// 
-			this->control_pic->Location = System::Drawing::Point(968, 486);
+			this->control_pic->Location = System::Drawing::Point(1064, 479);
 			this->control_pic->Name = L"control_pic";
 			this->control_pic->Size = System::Drawing::Size(191, 45);
 			this->control_pic->TabIndex = 71;
@@ -675,7 +677,7 @@ namespace DentistDemo
 				L"Teeth 1", L"Teeth 2", L"Teeth 3", L"Teeth 4",
 					L"Teeth 5"
 			});
-			this->Choose_teeth->Location = System::Drawing::Point(743, 347);
+			this->Choose_teeth->Location = System::Drawing::Point(883, 314);
 			this->Choose_teeth->SelectedIndex = 0;
 			this->Choose_teeth->Name = L"Choose_teeth";
 			this->Choose_teeth->Size = System::Drawing::Size(100, 20);
@@ -684,17 +686,28 @@ namespace DentistDemo
 			// 
 			// progressBar
 			// 
-			this->progressBar->Location = System::Drawing::Point(968, 537);
+			this->progressBar->Location = System::Drawing::Point(1064, 530);
 			this->progressBar->Name = L"progressBar";
 			this->progressBar->Size = System::Drawing::Size(191, 23);
 			this->progressBar->TabIndex = 73;
 			this->progressBar->Maximum = 200 - 60 + 1;
 			// 
+			// tooth_table
+			// 
+			this->tooth_table->Location = System::Drawing::Point(667, 127);
+			this->tooth_table->Name = L"tooth_table";
+			this->tooth_table->Size = System::Drawing::Size(363, 154);
+			this->tooth_table->Image = Image::FromFile("./teeth_table1.jpg");
+			this->tooth_table->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->tooth_table->TabIndex = 74;
+			this->tooth_table->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1203, 614);
+			this->ClientSize = System::Drawing::Size(1300, 614);
+			this->Controls->Add(this->tooth_table);
 			this->Controls->Add(this->progressBar);
 			this->Controls->Add(this->Choose_teeth);
 			this->Controls->Add(this->control_pic);
@@ -732,6 +745,7 @@ namespace DentistDemo
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->OCT_Img))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Result_Img))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->control_pic))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tooth_table))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -739,7 +753,7 @@ namespace DentistDemo
 			// Test_Model
 			// 
 			this->Test_Model = (gcnew System::Windows::Forms::Button());
-			this->Test_Model->Location = System::Drawing::Point(755, 216);
+			this->Test_Model->Location = System::Drawing::Point(899, 530);
 			this->Test_Model->Name = L"Test_Model";
 			this->Test_Model->Size = System::Drawing::Size(75, 23);
 			this->Test_Model->TabIndex = 66;
@@ -1181,11 +1195,13 @@ namespace DentistDemo
 					(*tmp_display_PC) = (*teeth_1)[0];
 				}
 				else {
-					std::cout << "(*teeth_1).size() == 0";
+					//std::cout << "(*teeth_1).size() == 0";
 					glManager->Clear_all();
 				}
 				teeth_Model->Image = Image::FromFile("./image1.jpg");
 				teeth_Model->Invalidate();
+				tooth_table->Image = Image::FromFile("./teeth_table1.jpg");
+				tooth_table->Invalidate();
 			}
 			else if (Choose_teeth->SelectedIndex == 1) {
 				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
@@ -1198,6 +1214,8 @@ namespace DentistDemo
 
 				teeth_Model->Image = Image::FromFile("./image2.jpg");
 				teeth_Model->Invalidate();
+				tooth_table->Image = Image::FromFile("./teeth_table2.jpg");
+				tooth_table->Invalidate();
 			}
 			else if (Choose_teeth->SelectedIndex == 2) {
 				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
@@ -1210,6 +1228,8 @@ namespace DentistDemo
 
 				teeth_Model->Image = Image::FromFile("./image3.jpg");
 				teeth_Model->Invalidate();
+				tooth_table->Image = Image::FromFile("./teeth_table3.jpg");
+				tooth_table->Invalidate();
 			}
 			else if (Choose_teeth->SelectedIndex == 3) {
 				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
@@ -1222,6 +1242,8 @@ namespace DentistDemo
 
 				teeth_Model->Image = Image::FromFile("./image4.jpg");
 				teeth_Model->Invalidate();
+				tooth_table->Image = Image::FromFile("./teeth_table4.jpg");
+				tooth_table->Invalidate();
 			}
 			else if (Choose_teeth->SelectedIndex == 4) {
 				std::cout << " " << Choose_teeth->SelectedIndex << "\n";
@@ -1234,6 +1256,8 @@ namespace DentistDemo
 
 				teeth_Model->Image = Image::FromFile("./image5.jpg");
 				teeth_Model->Invalidate();
+				tooth_table->Image = Image::FromFile("./teeth_table5.jpg");
+				tooth_table->Invalidate();
 			}
 		
 		
