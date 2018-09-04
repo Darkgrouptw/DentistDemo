@@ -4427,3 +4427,308 @@ void DentistDemo::MyForm::Find_min_quat3() {
 	//near_idx2->push_back(tmp_min_idx);
 	//std::cout << "min degree idx is:" << (*PointCloudArr)[PointCloud_idx_show].near_idx2 << "\n";
 }
+void DentistDemo::MyForm::pictureBox1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+	Graphics^ g = e->Graphics;
+	Pen^ RedPen = gcnew Pen(Color::Red, 1.5f);
+	Pen^ BluePen = gcnew Pen(Color::Blue, 1.5f);
+
+	int index = this->control_pic->Value;
+	// Draw a line in the PictureBox.
+	g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y, mouse_loc_x - block_size_x, mouse_loc_y + block_size_y);
+	g->DrawLine(RedPen, mouse_loc_x - block_size_x, mouse_loc_y + block_size_y, mouse_loc_x - block_size_x, mouse_loc_y - block_size_y);
+	g->DrawLine(RedPen, mouse_loc_x - block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y);
+	g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y);
+
+	g->DrawLine(BluePen, (mouse_loc_x - block_size_x) + block_size_x * 2 * ((float)index / 141), mouse_loc_y - block_size_y, (mouse_loc_x - block_size_x) + block_size_x * 2 * ((float)index / 141), mouse_loc_y + block_size_y);
+
+	//std::cout << "paint\n";
+}
+void DentistDemo::MyForm::pictureBox1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	//Point mouseDownLocation = Point(e->X, e->Y);
+	pic_mouse_move = true;
+	//std::cout << "down\n";
+}
+void DentistDemo::MyForm::pictureBox1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	if (pic_mouse_move == true) {
+		mouse_loc_x = e->X;
+		mouse_loc_y = e->Y;
+		//std::cout << "mouse_loc_x:" << mouse_loc_x << ", mouse_loc_y:" << mouse_loc_y << "\n";
+		//std::cout << "down & move\n";
+		teeth_Model->Invalidate();
+	}
+}
+void DentistDemo::MyForm::pictureBox1_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	pic_mouse_move = false;
+	//std::cout << "up\n";
+}
+void DentistDemo::MyForm::Choose_teeth_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+	ComboBox^ comboBox = (ComboBox^)(sender);
+
+	int count = 0;
+	int resultIndex = -1;
+
+	// Call the FindStringExact method to find the first 
+	// occurrence in the list.
+
+	if (Choose_teeth->SelectedIndex == 0) {
+		std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+		if ((*teeth_1).size() != 0) {
+			std::cout << "(*teeth_1).size() != 0";
+			show_Teeth_PC((*teeth_1)[0]);
+			(*tmp_display_PC) = (*teeth_1)[0];
+		}
+		else {
+			//std::cout << "(*teeth_1).size() == 0";
+			glManager->Clear_all();
+		}
+		teeth_Model->Image = Image::FromFile("./image1.jpg");
+		teeth_Model->Invalidate();
+		tooth_table->Image = Image::FromFile("./teeth_table1.jpg");
+		tooth_table->Invalidate();
+	}
+	else if (Choose_teeth->SelectedIndex == 1) {
+		std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+		if ((*teeth_2).size() != 0) {
+			show_Teeth_PC((*teeth_2)[0]);
+			(*tmp_display_PC) = (*teeth_2)[0];
+		}
+		else
+			glManager->Clear_all();
+
+		teeth_Model->Image = Image::FromFile("./image2.jpg");
+		teeth_Model->Invalidate();
+		tooth_table->Image = Image::FromFile("./teeth_table2.jpg");
+		tooth_table->Invalidate();
+	}
+	else if (Choose_teeth->SelectedIndex == 2) {
+		std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+		if ((*teeth_3).size() != 0) {
+			show_Teeth_PC((*teeth_3)[0]);
+			(*tmp_display_PC) = (*teeth_3)[0];
+		}
+		else
+			glManager->Clear_all();
+
+		teeth_Model->Image = Image::FromFile("./image3.jpg");
+		teeth_Model->Invalidate();
+		tooth_table->Image = Image::FromFile("./teeth_table3.jpg");
+		tooth_table->Invalidate();
+	}
+	else if (Choose_teeth->SelectedIndex == 3) {
+		std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+		if ((*teeth_4).size() != 0) {
+			show_Teeth_PC((*teeth_4)[0]);
+			(*tmp_display_PC) = (*teeth_4)[0];
+		}
+		else
+			glManager->Clear_all();
+
+		teeth_Model->Image = Image::FromFile("./image4.jpg");
+		teeth_Model->Invalidate();
+		tooth_table->Image = Image::FromFile("./teeth_table4.jpg");
+		tooth_table->Invalidate();
+	}
+	else if (Choose_teeth->SelectedIndex == 4) {
+		std::cout << " " << Choose_teeth->SelectedIndex << "\n";
+		if ((*teeth_5).size() != 0) {
+			show_Teeth_PC((*teeth_5)[0]);
+			(*tmp_display_PC) = (*teeth_5)[0];
+		}
+		else
+			glManager->Clear_all();
+
+		teeth_Model->Image = Image::FromFile("./image5.jpg");
+		teeth_Model->Invalidate();
+		tooth_table->Image = Image::FromFile("./teeth_table5.jpg");
+		tooth_table->Invalidate();
+	}
+	// Remove the name as it is found, and increment the found count. 
+	// Then call the FindStringExact method again, passing in the 
+	// index of the current found item so the search starts there 
+	// instead of at the beginning of the list.
+	//while (resultIndex != -1)
+	//{
+	//	Choose_teeth->Items->RemoveAt(resultIndex);
+	//	count += 1;
+	//	resultIndex = Choose_teeth->FindStringExact(selectedEmployee, resultIndex);
+	//}
+}
+void DentistDemo::MyForm::reset_rot_Click(System::Object^  sender, System::EventArgs^  e) {
+	is_reset = true;
+}
+void DentistDemo::MyForm::timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
+	timer_rot = true;
+
+	//std::cout << "timer:" << timer_rot << "\n";
+	hkoglPanelControl1->Invalidate();
+}
+void DentistDemo::MyForm::Test_Model_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	Mat img;
+	if (indexA == 0)
+		img = imread("./TestImage/95.png");
+	else if (indexA == 1)
+		img = imread("./TestImage/76_reverse.png");
+	indexA = (indexA + 1) % 2;
+
+	img = NetworkModel->Predict(img);
+
+	cv::imshow("Display window", img);
+	cv::waitKey(0);
+}
+void DentistDemo::MyForm::Test_detect_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	/////////////////////////////////////// SCAN
+	//progressBar->Value = 0;
+	//color_img();
+	//
+	//for (int i = 0; i < (*RGB_image).size(); i++) {
+	//	cv::Mat tmp_image = NetworkModel->Predict((*RGB_image)[i]);
+	//	
+	//	(*Result_Image).push_back(tmp_image);
+	//	progressBar->Value++;
+	//	std::cout << "num = " << i << " is OK\n";
+	//}
+	/////////////////////////////////////// SCAN
+
+	/////////////////////////////////////// TEST
+	progressBar->Value = 0;
+
+	//if ((*teeth_imgPC).size() != 0);
+	//	(*teeth_imgPC).clear();
+	//if ((*disease_imgPC).size() != 0);
+	//	(*disease_imgPC).clear();
+	//if ((*meat_imgPC).size() != 0);
+	//	(*meat_imgPC).clear();
+	//if ((*raw_input).size() != 0)
+	//	(*raw_input).clear();
+	//if ((*Result_Image).size() != 0)
+	//	(*Result_Image).clear();
+	//
+	//if ((*tmp_pic_teeth).size() != 0);
+	//	(*tmp_pic_teeth).clear();
+	//if ((*tmp_pic_meat).size() != 0);
+	//	(*tmp_pic_meat).clear();
+	//if ((*tmp_pic_disease).size() != 0);
+	//	(*tmp_pic_disease).clear();
+
+	#ifdef TEST_NO_OCT
+	clear_PC_buffer();
+	load_rawImg();
+	#endif // TEST_NO_OCT
+
+
+	Teeth_PC tmp_teeth_PC;
+	tmp_teeth_PC.raw_input = (*raw_input);
+	//std::cout << "load OK\n";
+	for (int i = 0; i < (*raw_input).size(); i++) {// raw_input->RGB_image
+		cv::Mat tmp_image = NetworkModel->Predict((*raw_input)[i]);//  raw_input->RGB_image
+		(*Result_Image).push_back(tmp_image);
+		progressBar->Value++;
+		std::cout << "num = " << i << " is OK\n";
+	}
+
+	tmp_teeth_PC.result_input = (*Result_Image);
+	classify_result();
+
+	tmp_teeth_PC.teeth_imgPC = (*teeth_imgPC);
+	tmp_teeth_PC.disease_imgPC = (*disease_imgPC);
+	tmp_teeth_PC.meat_imgPC = (*meat_imgPC);
+
+	tmp_teeth_PC.teeth_pic_index = (*tmp_pic_teeth);
+	tmp_teeth_PC.meat_pic_index = (*tmp_pic_meat);
+	tmp_teeth_PC.disease_pic_index = (*tmp_pic_disease);
+
+	if (Choose_teeth->SelectedIndex == 0) {
+		(*teeth_1).push_back(tmp_teeth_PC);
+		glManager->Clear_all();
+
+		show_Teeth_PC((*teeth_1)[(*teeth_1).size() - 1]);
+		(*tmp_display_PC) = (*teeth_1)[(*teeth_1).size() - 1];
+		glManager->Initial_vert();
+
+	}
+	else if (Choose_teeth->SelectedIndex == 1) {
+		(*teeth_2).push_back(tmp_teeth_PC);
+
+		glManager->Clear_all();
+		show_Teeth_PC((*teeth_2)[(*teeth_2).size() - 1]);
+		(*tmp_display_PC) = (*teeth_2)[(*teeth_2).size() - 1];
+		glManager->Initial_vert();
+	}
+	else if (Choose_teeth->SelectedIndex == 2) {
+		(*teeth_3).push_back(tmp_teeth_PC);
+
+		glManager->Clear_all();
+
+		show_Teeth_PC((*teeth_3)[(*teeth_3).size() - 1]);
+		(*tmp_display_PC) = (*teeth_3)[(*teeth_3).size() - 1];
+		glManager->Initial_vert();
+	}
+	else if (Choose_teeth->SelectedIndex == 3) {
+		(*teeth_4).push_back(tmp_teeth_PC);
+
+		glManager->Clear_all();
+
+		show_Teeth_PC((*teeth_4)[(*teeth_4).size() - 1]);
+		(*tmp_display_PC) = (*teeth_4)[(*teeth_4).size() - 1];
+		glManager->Initial_vert();
+	}
+	else if (Choose_teeth->SelectedIndex == 4) {
+		(*teeth_5).push_back(tmp_teeth_PC);
+
+		glManager->Clear_all();
+
+		show_Teeth_PC((*teeth_5)[(*teeth_5).size() - 1]);
+		(*tmp_display_PC) = (*teeth_5)[(*teeth_5).size() - 1];
+		glManager->Initial_vert();
+	}
+
+
+	this->control_pic->Enabled = true;
+	ShowImage(0);
+	/////////////////////////////////////// TEST
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+// Dark Part
+//////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////
+// Scroll Image
+//////////////////////////////////////////////////////////////////////////
+void DentistDemo::MyForm::ScrollChangeEvent(System::Object^ sender, System::EventArgs^ e)
+{
+	int index = this->control_pic->Value;
+	cout << index << endl;
+	ShowImage(index);
+	teeth_Model->Invalidate();
+	glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+		(*tmp_display_PC).disease_pic_index[index],
+		(*tmp_display_PC).meat_pic_index[index],
+		(*tmp_display_PC).teeth_imgPC.size(),
+		(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+	//slice_quad(index);
+}
+void  DentistDemo::MyForm::ShowImage(int index)
+{
+	 Mat InputMat = (*raw_input)[index];
+	 cout << "InputMat.row:" << InputMat.rows << "\n";
+	 cout << "InputMat.col:" << InputMat.cols << "\n";
+	 Mat ResultMat = NetworkModel->Visualization((*Result_Image)[index]);
+
+	 // 轉型態
+	 cvtColor(InputMat.clone(), InputMat, CV_BGR2BGRA);
+	 cvtColor(ResultMat.clone(), ResultMat, CV_BGR2BGRA);
+
+	 HBITMAP hBit = CreateBitmap(InputMat.cols, InputMat.rows, 1, 32, InputMat.data);
+	 Bitmap^ bitMap = Bitmap::FromHbitmap((IntPtr)hBit);
+	 this->OCT_Img->Image = bitMap;
+
+	 hBit = CreateBitmap(ResultMat.cols, ResultMat.rows, 1, 32, ResultMat.data);
+	 bitMap = Bitmap::FromHbitmap((IntPtr)hBit);
+	 this->Result_Img->Image = bitMap;
+}
