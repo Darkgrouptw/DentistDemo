@@ -582,8 +582,10 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 	#ifndef TEST_NO_OCT
 	StartCap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
 	port.RtsEnable = true;
-	#endif // !TEST_NO_OCT
+	#else
 	test_start_cap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName2, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+	#endif // !TEST_NO_OCT
+	
 
 
 	/////////////////////////////////////////////////////////H_StartCap///////////////////////////////////////////////
@@ -648,9 +650,9 @@ void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::Event
 
 	}
 	#ifndef TEST_NO_OCT
-	//AboutADC(deviceID);
-	//port.RtsEnable = false;
-	//port.Close();
+	AboutADC(deviceID);
+	port.RtsEnable = false;
+	port.Close();
 	//std::cout << "tmp_char_finish " << std::endl;
 	#endif // !TEST_NO_OCT
 
@@ -902,7 +904,7 @@ void DentistDemo::MyForm::color_img() {
 
 		cv::resize(tmp_floating, tmp_floating, cv::Size(480, 360), 0, 0, CV_INTER_LINEAR);
 		//cv::imshow("eee", tmp_test);
-		//tmp_floating.convertTo(tmp_floating, CV_8UC3, 255);
+		tmp_floating.convertTo(tmp_floating, CV_8UC3, 255);
 		//cv::imshow("ddd", tmp_floating);
 
 		cvtColor(tmp_floating.clone(), tmp_floating, CV_GRAY2BGR);
