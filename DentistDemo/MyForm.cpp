@@ -166,6 +166,10 @@ System::Void DentistDemo::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	tmp_pic_meat = new std::vector<int>;
 	tmp_pic_disease = new std::vector<int>;
 	tmp_display_PC = new Teeth_PC;
+	tmp_Mask_Model = new cv::Mat/*(250, 141, CV_8UC3, cv::Scalar(0, 0, 0))*/;
+	tmp_tooth_M = new cv::Mat;
+	(*tmp_tooth_M) = cv::imread("./image1.jpg");
+	
 	
 	teeth_slice_idx = false;
 	meat_slice_idx = false;
@@ -539,6 +543,8 @@ void DentistDemo::MyForm::clear_PC_buffer() {
 		(*tmp_pic_meat).clear();
 	if ((*tmp_pic_disease).size() != 0);
 		(*tmp_pic_disease).clear();
+	if ((*tmp_Mask_Model).empty() == 0);
+		(*tmp_Mask_Model).release();
 }
 void DentistDemo::MyForm::Full_scan_Click(System::Object^  sender, System::EventArgs^  e) {
 	pin_ptr<int32_t> tmp_deviceID = &deviceID;
@@ -976,7 +982,9 @@ void DentistDemo::MyForm::classify_result() {
 	int tmpIdx;
 	float idt;
 	int control_pic_idx = this->control_pic->Value;
+	//cv::Mat tmp_Mask_Model = cv::Mat(250,141 , CV_8UC3, cv::Scalar(0, 0, 0));
 	Teeth_PC tmp_teeth_PC;
+	(*tmp_Mask_Model) = cv::Mat(250, 141, CV_8UC4, cv::Scalar(0, 0, 0,0));
 	for (int i = 0; i < (*Result_Image).size(); i++) {
 		cv::Mat tmp_img;
 		//cv::resize((*Result_Image)[i], tmp_img, cv::Size(1024, 250), 0, 0, CV_INTER_LINEAR);
@@ -995,6 +1003,10 @@ void DentistDemo::MyForm::classify_result() {
 		
 
 		for (int row = 0; row < tmp_result_img[i].rows; row++) {
+			bool disease_class = false;
+			bool meat_class = false;
+
+
 			for (int col = 50; col < tmp_result_img[i].cols; col++) {
 
 				
@@ -1041,6 +1053,7 @@ void DentistDemo::MyForm::classify_result() {
 				if (tmp_result_img[i].at<uchar>(row, col) == uchar(3)) {
 					Point_3D tmp_point_3D;
 
+					meat_class = true;
 					int tmp_num = i + 60;//x
 					int tmp_row = (row * 250) / 360;//y
 					int tmp_col = (col * 1024) / 480;//z
@@ -1077,6 +1090,7 @@ void DentistDemo::MyForm::classify_result() {
 				if (tmp_result_img[i].at<uchar>(row, col) == uchar(4)) {
 					Point_3D tmp_point_3D;
 
+					disease_class = true;
 					int tmp_num = i + 60;//x
 					int tmp_row = (row * 250) / 360;//y
 					int tmp_col = (col * 1024) / 480;//z
@@ -1111,13 +1125,40 @@ void DentistDemo::MyForm::classify_result() {
 					disease_imgPC->push_back(tmp_point_3D);
 				}
 			}
+			if (meat_class == true) {
+				//std::cout << " meat_class = true\n";
+				int tmp_row = (row * 250) / 360;
+				//std::cout << "row:" << row << "\n";
+				//std::cout << "i:" << i << "\n";
+				
+				(*tmp_Mask_Model).at<cv::Vec4b>(tmp_row, i)[0] = 126;
+				(*tmp_Mask_Model).at<cv::Vec4b>(tmp_row, i)[1] = 126;
+				(*tmp_Mask_Model).at<cv::Vec4b>(tmp_row, i)[2] = 255;
+				(*tmp_Mask_Model).at<cv::Vec4b>(tmp_row, i)[3] = 127;
+				if (disease_class == true) {
+					//std::cout << " disease_class = true\n";
+					(*tmp_Mask_Model).at<cv::Vec4b>(tmp_row, i)[0] = 255;
+					(*tmp_Mask_Model).at<cv::Vec4b>(tmp_row, i)[1] = 0;
+					(*tmp_Mask_Model).at<cv::Vec4b>(tmp_row, i)[2] = 0;
+					(*tmp_Mask_Model).at<cv::Vec4b>(tmp_row, i)[3] = 127;
+				}
+			}
+
+
 		}
+
 		(*tmp_pic_teeth).push_back(teeth_imgPC->size());
 		(*tmp_pic_meat).push_back(meat_imgPC->size());
 		(*tmp_pic_disease).push_back(disease_imgPC->size());
 	}
+	
 
+	//cvtColor((*tmp_Mask_Model).clone(), (*tmp_Mask_Model), CV_BGR2BGRA);
+	cv::resize((*tmp_Mask_Model).clone(), (*tmp_Mask_Model), cv::Size(42, 75), 0, 0, CV_INTER_LINEAR);
 
+	cv::imwrite("mask.png", (*tmp_Mask_Model));
+
+	//tmp_teeth_PC.Model_mask = tmp_Mask_Model;
 	//for (int i = 0; i < (*teeth_imgPC).size(); i++) {
 	//	//std::cout << "teeth_imgPC i = " << i << "\n";
 	//	glManager->read_point(-(double)(*teeth_imgPC)[i].position.x, (double)(*teeth_imgPC)[i].position.y, (double)(*teeth_imgPC)[i].position.z);
@@ -1363,7 +1404,7 @@ void DentistDemo::MyForm::hkoglPanelControl1_Paint(System::Object ^ sender, Syst
 {
 	//glEnable(GL_COLOR_MATERIAL); //允許使用glColor
 
-	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Radian thetaR;
@@ -4434,6 +4475,7 @@ void DentistDemo::MyForm::pictureBox1_Paint(System::Object^  sender, System::Win
 	Pen^ RedPen = gcnew Pen(Color::Red, 1.5f);
 	Pen^ BluePen = gcnew Pen(Color::Blue, 1.5f);
 
+
 	int index = this->control_pic->Value;
 	// Draw a line in the PictureBox.
 	g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y, mouse_loc_x - block_size_x, mouse_loc_y + block_size_y);
@@ -4441,9 +4483,20 @@ void DentistDemo::MyForm::pictureBox1_Paint(System::Object^  sender, System::Win
 	g->DrawLine(RedPen, mouse_loc_x - block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y);
 	g->DrawLine(RedPen, mouse_loc_x + block_size_x, mouse_loc_y - block_size_y, mouse_loc_x + block_size_x, mouse_loc_y + block_size_y);
 
+	float tmp_origin_x = mouse_loc_x - block_size_x;
+	float tmp_origin_y = mouse_loc_y - block_size_y;
+
+	if ((*tmp_Mask_Model).empty() == 0) {
+		for (int row = 0; row < (*tmp_Mask_Model).rows ; row++) {
+			for (int col = 0; col < (*tmp_Mask_Model).cols; col++) {
+				SolidBrush^ MeatBrush = gcnew SolidBrush(Color::FromArgb((*tmp_Mask_Model).at<cv::Vec4b>(row, col)[3], (*tmp_Mask_Model).at<cv::Vec4b>(row, col)[2], (*tmp_Mask_Model).at<cv::Vec4b>(row, col)[1], (*tmp_Mask_Model).at<cv::Vec4b>(row, col)[0]));
+				g->FillRectangle((Brush^)MeatBrush, (float)(tmp_origin_x+col), (float)(tmp_origin_y+row), 1.0f, 1.0f);
+			}
+		}
+	}
+
 	g->DrawLine(BluePen, (mouse_loc_x - block_size_x) + block_size_x * 2 * ((float)index / 141), mouse_loc_y - block_size_y, (mouse_loc_x - block_size_x) + block_size_x * 2 * ((float)index / 141), mouse_loc_y + block_size_y);
 
-	//std::cout << "paint\n";
 }
 void DentistDemo::MyForm::pictureBox1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 	//Point mouseDownLocation = Point(e->X, e->Y);
@@ -4471,6 +4524,7 @@ void DentistDemo::MyForm::Choose_teeth_SelectedIndexChanged(System::Object^  sen
 
 	// Call the FindStringExact method to find the first 
 	// occurrence in the list.
+	int index = this->control_pic->Value;
 
 	if (Choose_teeth->SelectedIndex == 0) {
 		std::cout << " " << Choose_teeth->SelectedIndex << "\n";
@@ -4478,9 +4532,17 @@ void DentistDemo::MyForm::Choose_teeth_SelectedIndexChanged(System::Object^  sen
 			std::cout << "(*teeth_1).size() != 0";
 			show_Teeth_PC((*teeth_1)[0]);
 			(*tmp_display_PC) = (*teeth_1)[0];
+			(*tmp_Mask_Model) = (*teeth_1)[0].Model_mask;
+
+			glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+				(*tmp_display_PC).disease_pic_index[index],
+				(*tmp_display_PC).meat_pic_index[index],
+				(*tmp_display_PC).teeth_imgPC.size(),
+				(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
 		}
 		else {
 			//std::cout << "(*teeth_1).size() == 0";
+			clear_PC_buffer();
 			glManager->Clear_all();
 		}
 		teeth_Model->Image = Image::FromFile("./image1.jpg");
@@ -4493,10 +4555,18 @@ void DentistDemo::MyForm::Choose_teeth_SelectedIndexChanged(System::Object^  sen
 		if ((*teeth_2).size() != 0) {
 			show_Teeth_PC((*teeth_2)[0]);
 			(*tmp_display_PC) = (*teeth_2)[0];
-		}
-		else
-			glManager->Clear_all();
+			(*tmp_Mask_Model) = (*teeth_2)[0].Model_mask;
 
+			glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+				(*tmp_display_PC).disease_pic_index[index],
+				(*tmp_display_PC).meat_pic_index[index],
+				(*tmp_display_PC).teeth_imgPC.size(),
+				(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+		}
+		else {
+			clear_PC_buffer();
+			glManager->Clear_all();
+		}
 		teeth_Model->Image = Image::FromFile("./image2.jpg");
 		teeth_Model->Invalidate();
 		tooth_table->Image = Image::FromFile("./teeth_table2.jpg");
@@ -4507,10 +4577,18 @@ void DentistDemo::MyForm::Choose_teeth_SelectedIndexChanged(System::Object^  sen
 		if ((*teeth_3).size() != 0) {
 			show_Teeth_PC((*teeth_3)[0]);
 			(*tmp_display_PC) = (*teeth_3)[0];
-		}
-		else
-			glManager->Clear_all();
+			(*tmp_Mask_Model) = (*teeth_3)[0].Model_mask;
 
+			glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+				(*tmp_display_PC).disease_pic_index[index],
+				(*tmp_display_PC).meat_pic_index[index],
+				(*tmp_display_PC).teeth_imgPC.size(),
+				(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+		}
+		else {
+			clear_PC_buffer();
+			glManager->Clear_all();
+		}
 		teeth_Model->Image = Image::FromFile("./image3.jpg");
 		teeth_Model->Invalidate();
 		tooth_table->Image = Image::FromFile("./teeth_table3.jpg");
@@ -4521,10 +4599,18 @@ void DentistDemo::MyForm::Choose_teeth_SelectedIndexChanged(System::Object^  sen
 		if ((*teeth_4).size() != 0) {
 			show_Teeth_PC((*teeth_4)[0]);
 			(*tmp_display_PC) = (*teeth_4)[0];
-		}
-		else
-			glManager->Clear_all();
+			(*tmp_Mask_Model) = (*teeth_4)[0].Model_mask;
 
+			glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+				(*tmp_display_PC).disease_pic_index[index],
+				(*tmp_display_PC).meat_pic_index[index],
+				(*tmp_display_PC).teeth_imgPC.size(),
+				(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+		}
+		else {
+			clear_PC_buffer();
+			glManager->Clear_all();
+		}
 		teeth_Model->Image = Image::FromFile("./image4.jpg");
 		teeth_Model->Invalidate();
 		tooth_table->Image = Image::FromFile("./teeth_table4.jpg");
@@ -4535,10 +4621,18 @@ void DentistDemo::MyForm::Choose_teeth_SelectedIndexChanged(System::Object^  sen
 		if ((*teeth_5).size() != 0) {
 			show_Teeth_PC((*teeth_5)[0]);
 			(*tmp_display_PC) = (*teeth_5)[0];
-		}
-		else
-			glManager->Clear_all();
+			(*tmp_Mask_Model) = (*teeth_5)[0].Model_mask;
 
+			glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+				(*tmp_display_PC).disease_pic_index[index],
+				(*tmp_display_PC).meat_pic_index[index],
+				(*tmp_display_PC).teeth_imgPC.size(),
+				(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+		}
+		else {
+			clear_PC_buffer();
+			glManager->Clear_all();
+		}
 		teeth_Model->Image = Image::FromFile("./image5.jpg");
 		teeth_Model->Invalidate();
 		tooth_table->Image = Image::FromFile("./teeth_table5.jpg");
@@ -4633,6 +4727,11 @@ void DentistDemo::MyForm::Test_detect_Click(System::Object^  sender, System::Eve
 	tmp_teeth_PC.result_input = (*Result_Image);
 	classify_result();
 
+	this->control_pic->Enabled = true;
+	int index = this->control_pic->Value;
+
+	tmp_teeth_PC.Model_mask = (*tmp_Mask_Model);
+
 	tmp_teeth_PC.teeth_imgPC = (*teeth_imgPC);
 	tmp_teeth_PC.disease_imgPC = (*disease_imgPC);
 	tmp_teeth_PC.meat_imgPC = (*meat_imgPC);
@@ -4647,6 +4746,13 @@ void DentistDemo::MyForm::Test_detect_Click(System::Object^  sender, System::Eve
 
 		show_Teeth_PC((*teeth_1)[(*teeth_1).size() - 1]);
 		(*tmp_display_PC) = (*teeth_1)[(*teeth_1).size() - 1];
+
+		glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+			(*tmp_display_PC).disease_pic_index[index],
+			(*tmp_display_PC).meat_pic_index[index],
+			(*tmp_display_PC).teeth_imgPC.size(),
+			(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+
 		glManager->Initial_vert();
 
 	}
@@ -4656,6 +4762,13 @@ void DentistDemo::MyForm::Test_detect_Click(System::Object^  sender, System::Eve
 		glManager->Clear_all();
 		show_Teeth_PC((*teeth_2)[(*teeth_2).size() - 1]);
 		(*tmp_display_PC) = (*teeth_2)[(*teeth_2).size() - 1];
+
+		glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+			(*tmp_display_PC).disease_pic_index[index],
+			(*tmp_display_PC).meat_pic_index[index],
+			(*tmp_display_PC).teeth_imgPC.size(),
+			(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+
 		glManager->Initial_vert();
 	}
 	else if (Choose_teeth->SelectedIndex == 2) {
@@ -4665,6 +4778,13 @@ void DentistDemo::MyForm::Test_detect_Click(System::Object^  sender, System::Eve
 
 		show_Teeth_PC((*teeth_3)[(*teeth_3).size() - 1]);
 		(*tmp_display_PC) = (*teeth_3)[(*teeth_3).size() - 1];
+
+		glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+			(*tmp_display_PC).disease_pic_index[index],
+			(*tmp_display_PC).meat_pic_index[index],
+			(*tmp_display_PC).teeth_imgPC.size(),
+			(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+
 		glManager->Initial_vert();
 	}
 	else if (Choose_teeth->SelectedIndex == 3) {
@@ -4674,6 +4794,13 @@ void DentistDemo::MyForm::Test_detect_Click(System::Object^  sender, System::Eve
 
 		show_Teeth_PC((*teeth_4)[(*teeth_4).size() - 1]);
 		(*tmp_display_PC) = (*teeth_4)[(*teeth_4).size() - 1];
+
+		glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+			(*tmp_display_PC).disease_pic_index[index],
+			(*tmp_display_PC).meat_pic_index[index],
+			(*tmp_display_PC).teeth_imgPC.size(),
+			(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+
 		glManager->Initial_vert();
 	}
 	else if (Choose_teeth->SelectedIndex == 4) {
@@ -4683,12 +4810,20 @@ void DentistDemo::MyForm::Test_detect_Click(System::Object^  sender, System::Eve
 
 		show_Teeth_PC((*teeth_5)[(*teeth_5).size() - 1]);
 		(*tmp_display_PC) = (*teeth_5)[(*teeth_5).size() - 1];
+
+		glManager->control_pic((*tmp_display_PC).teeth_pic_index[index],
+			(*tmp_display_PC).disease_pic_index[index],
+			(*tmp_display_PC).meat_pic_index[index],
+			(*tmp_display_PC).teeth_imgPC.size(),
+			(*tmp_display_PC).disease_imgPC.size(), meat_alpha);
+
 		glManager->Initial_vert();
 	}
 
 
-	this->control_pic->Enabled = true;
-	ShowImage(0);
+	
+	ShowImage(index);
+	teeth_Model->Invalidate();
 	/////////////////////////////////////// TEST
 }
 

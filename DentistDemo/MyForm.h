@@ -89,6 +89,7 @@ struct Teeth_PC
 	std::vector<int> teeth_pic_index;
 	std::vector<int> meat_pic_index;
 	std::vector<int> disease_pic_index;
+	cv::Mat Model_mask;
 };
 namespace DentistDemo 
 {
@@ -998,6 +999,8 @@ namespace DentistDemo
 		float mouse_loc_x, mouse_loc_y, block_size_x, color_idt, block_size_y;
 		bool pic_mouse_move, teeth_slice_idx, meat_slice_idx, disease_slice_idx;
 		Vector3 *slice_p1, *slice_p2, *slice_p3, *slice_p4;
+		cv::Mat *tmp_Mask_Model;
+		cv::Mat *tmp_tooth_M;
 
 		// Test
 		int indexA = 0;
