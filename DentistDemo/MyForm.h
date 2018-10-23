@@ -231,6 +231,7 @@ namespace DentistDemo
 	private: System::Windows::Forms::Button^  Test_Model;
 	private: System::ComponentModel::IContainer^  components;
 	private: System::Windows::Forms::Button^  Test_detect;
+	private: System::Windows::Forms::Button^  TestGetData;
 	private: System::Windows::Forms::PictureBox^  OCT_Img;
 	private: System::Windows::Forms::PictureBox^  Result_Img;
 	private: System::Windows::Forms::TrackBar^  control_pic;
@@ -284,6 +285,7 @@ namespace DentistDemo
 			this->label12 = (gcnew System::Windows::Forms::Label());
 			this->Aligned_target = (gcnew System::Windows::Forms::Button());
 			this->Test_detect = (gcnew System::Windows::Forms::Button());
+			this->TestGetData = (gcnew System::Windows::Forms::Button());
 			this->OCT_Img = (gcnew System::Windows::Forms::PictureBox());
 			this->Result_Img = (gcnew System::Windows::Forms::PictureBox());
 			this->control_pic = (gcnew System::Windows::Forms::TrackBar());
@@ -626,6 +628,16 @@ namespace DentistDemo
 			this->Test_detect->UseVisualStyleBackColor = true;
 			this->Test_detect->Click += gcnew System::EventHandler(this, &MyForm::Test_detect_Click);
 			// 
+			// TestGetModel
+			// 
+			this->TestGetData->Location = System::Drawing::Point(899, 576);
+			this->TestGetData->Name = L"TestGetModel";
+			this->TestGetData->Size = System::Drawing::Size(75, 23);
+			this->TestGetData->TabIndex = 67;
+			this->TestGetData->Text = L"Test Get Model";
+			this->TestGetData->UseVisualStyleBackColor = true;
+			this->TestGetData->Click += gcnew System::EventHandler(this, &MyForm::TestGetData_Click);
+			// 
 			// teeth_Model
 			// 
 			this->teeth_Model->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"teeth_Model.Image")));
@@ -716,6 +728,7 @@ namespace DentistDemo
 			this->Controls->Add(this->OCT_Img);
 			this->Controls->Add(this->teeth_Model);
 			this->Controls->Add(this->Test_detect);
+			this->Controls->Add(this->TestGetData);
 			//this->Controls->Add(this->Aligned_target);
 			//this->Controls->Add(this->label13);
 			//this->Controls->Add(this->label12);
@@ -852,6 +865,7 @@ namespace DentistDemo
 		void timer1_Tick(System::Object^  sender, System::EventArgs^  e);
 		void Test_Model_Click(System::Object^  sender, System::EventArgs^  e);
 		void Test_detect_Click(System::Object^  sender, System::EventArgs^  e);
+		void TestGetData_Click(System::Object^  sender, System::EventArgs^  e);
 		void ScrollChangeEvent(System::Object^ sender, System::EventArgs^ e);
 		void RotatePC();
 		void unsigned_short_to_char(unsigned short *input, int inputlen, char *output);

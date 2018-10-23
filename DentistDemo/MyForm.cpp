@@ -4668,6 +4668,7 @@ void DentistDemo::MyForm::Test_Model_Click(System::Object^  sender, System::Even
 	indexA = (indexA + 1) % 2;
 
 	img = NetworkModel->Predict(img);
+	img = NetworkModel->Visualization(img);
 
 	cv::imshow("Display window", img);
 	cv::waitKey(0);
@@ -4868,4 +4869,243 @@ void  DentistDemo::MyForm::ShowImage(int index)
 	 hBit = CreateBitmap(ResultMat.cols, ResultMat.rows, 1, 32, ResultMat.data);
 	 bitMap = Bitmap::FromHbitmap((IntPtr)hBit);
 	 this->Result_Img->Image = bitMap;
+}
+void DentistDemo::MyForm::TestGetData_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	cout << "Testss" << endl;
+	pin_ptr<int32_t> tmp_deviceID = &deviceID;
+	InitADC(4, tmp_deviceID);
+	clock_t scan_t1 = clock();
+
+	//AboutADC(deviceID);
+	/////////////////////////////////////////////////////////H_StartCap///////////////////////////////////////////////
+	float LV_65 = 65;
+	char SaveName[] = "V:\\OCT20170928";
+	unsigned int SampRec = 2048;
+
+	char SaveName2[1024];
+	std::string name_title = "V:\\";
+
+	(*out_fileName) = name_title + (*out_fileName);
+
+	strcpy(SaveName2, out_fileName->c_str());
+
+#ifndef TEST_NO_OCT
+	SerialPort port("COM6", 9600);
+	port.Open();
+
+	if (!port.IsOpen) {
+		std::cout << "COM6 fail to open!" << std::endl;
+	}
+#endif // !TEST_NO_OCT
+	Sleep(100);
+
+	Savedata = true;
+	ErrorBoolean = false;
+	ByteLen = 1;
+
+
+	pin_ptr<int32_t> tmp_ErrorString_len_out = &ErrorString_len_out;
+	pin_ptr<uint32_t> tmp_Handle = &HandleOut;
+	pin_ptr<uint32_t> tmp_ByteLen = &ByteLen;
+	pin_ptr<LVBoolean> tmp_ErrorBoolean = &ErrorBoolean;
+
+
+#ifndef TEST_NO_OCT
+	StartCap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+	port.RtsEnable = true;
+#else
+	test_start_cap(deviceID, tmp_Handle, LV_65, SampRec, tmp_ByteLen, Savedata, SaveName2, tmp_ErrorBoolean, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+#endif // !TEST_NO_OCT
+
+
+
+	/////////////////////////////////////////////////////////H_StartCap///////////////////////////////////////////////
+
+
+	/////////////////////////////////////////////////////////H_ScanADC///////////////////////////////////////////////
+
+	AllDatabyte = ByteLen * 2;
+	ArrSize = new unsigned short[PIC_SIZE];
+	outarr = new unsigned short[PIC_SIZE];
+	final_oct_arr = new unsigned short[PIC_SIZE * 125];
+	final_oct_char = new char[PIC_SIZE * 250];
+
+	OutArrLenIn = 2048 * 500 * 2;
+	OutArrLenOut = 0;
+	//button_stop_enable = true;
+	pin_ptr<int32_t> tmp_OutArrLenOut = &OutArrLenOut;
+	int pic_count = 0;
+	clock_t t3, t4, t5;
+	bool change_point_cloud = false;
+
+	//Sleep(100);
+
+	t3 = clock();
+
+	unsigned short *interator;
+	interator = new unsigned short;
+	interator = final_oct_arr;
+	//final_oct_arr = final_oct_arr + PIC_SIZE * 62;
+
+
+	while (pic_count < 125) {
+#ifdef TEST_NO_OCT
+		test_scanADC(HandleOut, AllDatabyte, ArrSize, ByteLen, outarr, OutArrLenIn, tmp_OutArrLenOut, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+#else
+		ScanADC(HandleOut, AllDatabyte, ArrSize, ByteLen, outarr, OutArrLenIn, tmp_OutArrLenOut, ErrorString, ErrorString_len_in, tmp_ErrorString_len_out);
+#endif // TEST_NO_OCT
+
+		memcpy(final_oct_arr, outarr, sizeof(unsigned short) * PIC_SIZE);
+
+		pic_count++;
+
+		final_oct_arr = final_oct_arr + PIC_SIZE;
+
+	}
+#ifndef TEST_NO_OCT
+	AboutADC(deviceID);
+	port.RtsEnable = false;
+	port.Close();
+	//std::cout << "tmp_char_finish " << std::endl;
+#endif // !TEST_NO_OCT
+
+	t4 = clock();
+
+	unsigned_short_to_char(interator, PIC_SIZE * 125, final_oct_char);
+	t5 = clock();
+
+	std::vector<char> tmp_char(final_oct_char, final_oct_char + PIC_SIZE * 250);
+
+	std::cout << "to array time:" << (t4 - t3) / (double)(CLOCKS_PER_SEC) << "s" << std::endl;
+	std::cout << "short to char time:" << (t5 - t4) / (double)(CLOCKS_PER_SEC) << "s" << std::endl;
+
+	theTRcuda->RawToPointCloud(tmp_char.data(), tmp_char.size(), 250, 2048);
+	scan_count++;
+
+	int PCidx, Mapidx;
+	float ratio = 1;
+	float zRatio = DManager->zRatio;
+	PointCloudArray tmpPC_T;
+
+	for (int x = 2; x < theTRcuda->VolumeSize_X - 2; x++)
+	{
+		for (int y = 0; y < theTRcuda->VolumeSize_Y; y++)
+		{
+			if (x > DManager->Mapping_X || y > DManager->Mapping_Y)
+				continue;
+
+			Mapidx = ((y * theTRcuda->sample_Y * theTRcuda->VolumeSize_X) + x) * theTRcuda->sample_X;
+			PCidx = ((x * theTRcuda->VolumeSize_Y) + y) * theTRcuda->VolumeSize_Z;
+			if (theTRcuda->PointType[PCidx + 3] == 1 && theTRcuda->PointType[PCidx + 1] != 0)
+			{
+				GlobalRegistration::Point3D tmp;
+				PointData tmp_Data;
+
+				tmp_Data.Position.x() = DManager->MappingMatrix[Mapidx * 2 + 1] * ratio + 0.2;
+				tmp_Data.Position.y() = DManager->MappingMatrix[Mapidx * 2] * ratio;
+				tmp_Data.Position.z() = theTRcuda->PointType[PCidx + 1] * zRatio / theTRcuda->VolumeSize_Z * ratio;
+
+				tmpPC_T.mPC.push_back(tmp_Data);
+				if (x == 124) {
+					point_z_124 = point_z_124 + tmp_Data.Position.z();
+				}
+				if (x == 125) {
+					point_z_125 = point_z_125 + tmp_Data.Position.z();
+				}
+			}
+		}
+	}
+
+	if (tmpPC_T.mPC.size() > 10000) {
+		(*PointCloudArr).push_back(tmpPC_T);
+		//(*pointCloudSet).push_back(tmpPC);
+		PointCloud_idx_show = (*PointCloudArr).size() - 1;
+
+		(*PointCloudArr)[PointCloud_idx_show].mPC_noGyro = tmpPC_T.mPC;
+		std::cout << "tmpPC_T.mPC.size(): " << tmpPC_T.mPC.size() << std::endl;
+		//std::cout << "(*PointCloudArr)[PointCloud_idx_show].mPC_noGyro.size(): " << (*PointCloudArr)[PointCloud_idx_show].mPC_noGyro.size() << std::endl;
+		///////////////////////////////
+		//if (pointCloudSet->size() == 1) {
+		//	CombinePC(0);
+		//}
+
+		std::cout << "point_z_124 Total: " << point_z_124 << std::endl;
+		std::cout << "point_z_125 Total: " << point_z_125 << std::endl;
+
+		Find_max_min();
+		draw_before_mapping();
+		//numericUpDown4->Maximum = (*PointCloudArr).size() - 1;
+		std::cout << "now point cloud size:" << (*PointCloudArr).size() << std::endl;
+		std::cout << "Scan count:" << scan_count << std::endl;
+	}
+
+	//std::cout << "PointCloud_idx_show: " << PointCloud_idx_show << std::endl;
+
+	is_camera_move = true;
+
+	if ((*PointCloudArr).size() == 1) {
+		//*quat1 = sysManager->GetGloveDataLPtr()->GetQuaternion();
+		//*quat1 = quat1->Inverse();
+		//std::cout << "quat1" << (*quat1) << "\n";
+
+
+		//*acc_vector1 = sysManager->GetGloveDataLPtr()->GetAcceleration();
+		first_t = clock();
+
+		//Radian *tmp_diff;
+		//Vector3 *tmp_rotation;
+		//std::vector<GlobalRegistration::Point3D> *tmp_PC;
+		//tmp_PC = new std::vector<GlobalRegistration::Point3D>;
+		int tmp_nearest = 0;
+		//tmp_diff = new Radian;
+		//tmp_rotation = new Vector3;
+		//(*pointCloud_radian).push_back(*tmp_diff);
+		//(*pointCloud_quat_vector).push_back(*tmp_rotation);
+		//(*nearest_idx).push_back(tmp_nearest);
+		//(*nearest_idx).push_back(tmp_nearest);
+		//(*pointCloud_aligned).push_back(*tmp_PC);
+
+		//(*cloud_vec_arr).push_back(*tmp_rotation);
+		//(*near_idx2).push_back(tmp_nearest);
+		//(*near_idx2).push_back(tmp_nearest);
+	}
+	else if ((*PointCloudArr).size() == 2) {
+		//Rotate2();
+		Rotate_cloud();
+		//rotate_quat2();
+		//RotatePC();
+		//Find_Plane();
+		//MovePC();
+		std::cout << "now idx:" << PointCloud_idx_show << "     now size is:" << (*PointCloudArr).size() << "   mPC size is:" << (*PointCloudArr)[PointCloud_idx_show].mPC.size() << "   degree is:" << (*PointCloudArr)[PointCloud_idx_show].cloud_degree_arr;
+		//std::cout << "now idx:" << PointCloud_idx_show << "   degree is:" << (*PointCloudArr)[PointCloud_idx_show].cloud_degree_arr << std::endl;
+	}
+	else if ((*PointCloudArr).size()>2) {
+		Rotate_cloud();
+		Find_min_quat3();
+		std::cout << "now idx:" << PointCloud_idx_show << "     now size is:" << (*PointCloudArr).size() << "   mPC size is:" << (*PointCloudArr)[PointCloud_idx_show].mPC.size() << "   degree is:" << (*PointCloudArr)[PointCloud_idx_show].cloud_degree_arr;
+		//std::cout << "now idx:" << PointCloud_idx_show << "   mPC size is:" << (*PointCloudArr)[PointCloud_idx_show].mPC.size() << std::endl;
+		//std::cout << "now idx:" << PointCloud_idx_show << "   degree is:" << (*PointCloudArr)[PointCloud_idx_show].cloud_degree_arr << std::endl;
+	}
+	//if ((*PointCloudArr).size() > 1) {
+	//	Point_cloud_idx_sec = (*pointCloudSet).size() - 2;
+	//}
+	clear_PC_buffer();
+	color_img();
+
+	delete[] interator;
+	//delete[] final_oct_arr;
+	delete[] final_oct_char;
+	delete[] ArrSize;
+	delete[] outarr;
+
+	clock_t scan_t2 = clock();
+	full_scan_time = (scan_t2 - scan_t1) / (double)(CLOCKS_PER_SEC);
+
+
+
+	all_time = all_time + full_scan_time;
+
+	std::cout << "full_scan_time:" << full_scan_time << "s" << std::endl;
+	std::cout << "all_time:" << all_time << "s" << std::endl;
 }
